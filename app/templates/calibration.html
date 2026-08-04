@@ -1,0 +1,160 @@
+{% extends "_layout.html" %}
+{% block title %}Calibration{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Calibration</h1>
+  <p class="lede">Ranking and pricing are different problems. This page asks whether a predicted
+    probability of default of 8% actually means eight defaults in a hundred &mdash; before and
+    after recalibration.</p>
+</div>
+
+<div class="note note-warn">
+  <strong>Synthetic data.</strong> Probabilities below describe the generated population in
+  <code>app/generate.py</code>, not any real book of loans.
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>Before and after recalibration</h2>
+    <span class="small faint">{{ cal.champion_label }} &middot; recalibrators fitted on {{ cal.fitted_on }}, scored on the test months</span></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th>Variant</th><th class="num">Cal. slope</th><th class="num">Cal. intercept</th>
+          <th class="num">Mean predicted PD</th><th class="num">Observed rate</th>
+          <th class="num">Brier</th><th class="num">Log loss</th><th class="num">AUC</th>
+        </tr></thead>
+        <tbody>
+        {% for name, v in cal.variants.items() %}
+          <tr>
+            <td>{{ {"raw": "Raw model output", "platt": "Platt scaling", "isotonic": "Isotonic regression"}[name] }}</td>
+            <td class="num">{{ v.slope | fnum(3) }}</td>
+            <td class="num">{{ v.intercept | fsigned }}</td>
+            <td class="num">{{ v.mean_predicted | fpct }}</td>
+            <td class="num">{{ v.observed_rate | fpct }}</td>
+            <td class="num">{{ v.brier | fnum(5) }}</td>
+            <td class="num">{{ v.log_loss | fnum(4) }}</td>
+            <td class="num">{{ cal.auc_unchanged[name] | fnum(4) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <strong>Perfect is slope 1.000 and intercept 0.000.</strong> A slope below 1 means the score
+    is too spread out &mdash; the model is over-confident at both ends. A positive intercept means
+    it systematically under-predicts the level of risk. Note that AUC barely moves across the
+    three rows: recalibration is a monotone transform of the score, so it cannot change the
+    ranking and cannot rescue discrimination. Isotonic is not monotone-preserving in the strict
+    sense only because ties are merged, which is why its AUC differs in the fourth decimal.
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Reliability curve</h2>
+    <span class="small faint">10 equal-count bins on the test months</span></div>
+  <div class="card">
+    {{ line_chart(
+        [{"name": "Perfect calibration", "points": [[0, 0], [diag_max, diag_max]],
+          "dash": True, "color": "var(--text-faint)"},
+         series(cal.variants.raw.curve, "mean_pred", "observed", "Raw model output", dots=True, color="var(--fail)"),
+         series(cal.variants.platt.curve, "mean_pred", "observed", "Platt scaling", dots=True, color="var(--accent)"),
+         series(cal.variants.isotonic.curve, "mean_pred", "observed", "Isotonic regression", dots=True, color="var(--pass)")],
+        "Mean predicted probability of default in bin (0-1)",
+        "Observed default rate in bin (0-1)",
+        y_places=2, x_places=2, y_min=0) }}
+    <p class="small faint" style="margin-top:10px">Every point above the dashed line is a bin
+      where more applicants defaulted than the model expected. All three variants sit above it
+      across most of the range, because the recalibrators were fitted on
+      {{ cal.fitted_on }} and the population kept moving afterwards.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Bin detail, raw model output</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th class="num">Bin</th><th class="num">Applications</th><th class="num">Mean predicted</th>
+          <th class="num">Observed</th><th class="num">95% Wilson interval</th><th>Direction</th>
+        </tr></thead>
+        <tbody>
+        {% for b in cal.variants.raw.curve %}
+          <tr>
+            <td class="num">{{ b.bin }}</td>
+            <td class="num">{{ b.n | fnum(0) }}</td>
+            <td class="num">{{ b.mean_pred | fpct(2) }}</td>
+            <td class="num">{{ b.observed | fpct(2) }}</td>
+            <td class="num">[{{ b.lo | fpct(2) }}, {{ b.hi | fpct(2) }}]</td>
+            <td>{% if b.mean_pred < b.lo %}<span class="pill pill-fail">under-predicts</span>
+                {% elif b.mean_pred > b.hi %}<span class="pill pill-warn">over-predicts</span>
+                {% else %}<span class="pill pill-pass">within interval</span>{% endif %}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6"><div class="empty">No reliability bins available.</div></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="small faint" style="margin-top:10px">The interval is a Wilson score interval on the
+    observed rate in each bin. "Within interval" means the model's prediction is not
+    distinguishable from the observed rate at that bin size &mdash; a weak statement for small bins.</p>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Brier decomposition</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th>Variant</th><th class="num">Brier</th><th class="num">Reliability (lower better)</th>
+          <th class="num">Resolution (higher better)</th><th class="num">Uncertainty</th>
+          <th class="num">Binning residual</th>
+        </tr></thead>
+        <tbody>
+        {% for name, v in cal.variants.items() %}
+          {% set d = v.decomposition %}
+          <tr>
+            <td>{{ name }}</td>
+            <td class="num">{{ d.brier | fnum(5) }}</td>
+            <td class="num">{{ d.reliability | fnum(5) }}</td>
+            <td class="num">{{ d.resolution | fnum(5) }}</td>
+            <td class="num">{{ d.uncertainty | fnum(5) }}</td>
+            <td class="num">{{ d.binning_residual | fnum(5) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    Murphy's decomposition: <span class="mono">Brier = reliability &minus; resolution + uncertainty</span>.
+    Reliability is the miscalibration penalty, resolution is the credit for separating high-risk
+    from low-risk applicants, and uncertainty is the irreducible variance of the outcome at this
+    base rate. The identity is exact only when forecasts are grouped by identical value; with
+    ten equal-count bins there is a small leftover, reported honestly as the binning residual
+    rather than hidden.
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Calibration slope month by month</h2></div>
+  <div class="card">
+    {{ line_chart(
+        [series(cal.monthly_slope, "month", "slope", "Calibration slope", dots=True)],
+        "Application month", "Calibration slope (1.0 = perfect)",
+        y_places=2, x_ticks=[1, 4, 8, 12, 16, 20, 24],
+        ref_line=1.0, ref_label="perfect = 1.0") }}
+    <p class="small faint" style="margin-top:10px">The alert band is
+      [{{ art.drift.thresholds.slope_band[0] }}, {{ art.drift.thresholds.slope_band[1] }}].
+      Training months sit above 1 because a regularised model shrinks its predictions toward the
+      base rate in-sample; the drop after month {{ meta.split_months.validation[0] }} is the
+      genuine out-of-sample picture.</p>
+  </div>
+</section>
+
+{% endblock %}

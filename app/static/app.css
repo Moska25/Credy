@@ -1,0 +1,87 @@
+:root { --accent: #8b5cf6; }
+
+/* Credy-specific: chart shell, PSI heatmap cells, alert list. */
+
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; max-width: 100%; height: auto; }
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart-legend i {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  flex: none;
+}
+
+/* PSI bands — reuses .matrix from base.css, only the colour scale is local. */
+.matrix td.psi-0 { background: color-mix(in srgb, var(--pass) 16%, var(--surface)); color: var(--pass); }
+.matrix td.psi-1 { background: color-mix(in srgb, var(--warn) 20%, var(--surface)); color: var(--warn); }
+.matrix td.psi-2 { background: color-mix(in srgb, var(--fail) 26%, var(--surface)); color: var(--fail); }
+.matrix th.rowhead { text-align: left; white-space: nowrap; font-family: var(--mono); font-size: 11.5px; }
+.matrix td { width: 30px; font-size: 11px; }
+
+.legend-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  vertical-align: -1px;
+  margin-right: 5px;
+}
+.sw-0 { background: color-mix(in srgb, var(--pass) 45%, var(--surface)); }
+.sw-1 { background: color-mix(in srgb, var(--warn) 55%, var(--surface)); }
+.sw-2 { background: color-mix(in srgb, var(--fail) 60%, var(--surface)); }
+
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 13px; }
+.kv dt { color: var(--text-faint); font-family: var(--mono); font-size: 12px; }
+.kv dd { margin: 0; color: var(--text); }
+
+.alert {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-left-width: 2px;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  background: var(--surface);
+}
+.alert + .alert { margin-top: 8px; }
+.alert-high { border-left-color: var(--fail); }
+.alert-med { border-left-color: var(--warn); }
+.alert-body { min-width: 0; }
+.alert-title { font-weight: 600; font-size: 13px; }
+.alert-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+.formula {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Below the chart's natural width, scroll inside .chart rather than shrinking
+   the SVG: a 760px chart squeezed into 347px renders its axis labels at under
+   5px, which is worse than a scrollbar. */
+@media (max-width: 800px) {
+  .chart svg { width: 760px; max-width: none; }
+}
+
+@media (max-width: 640px) {
+  .matrix td { width: 22px; height: 26px; font-size: 10px; }
+  .kv { grid-template-columns: minmax(0, 1fr); gap: 2px 0; }
+  .kv dd { margin-bottom: 8px; }
+}

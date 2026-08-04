@@ -1,0 +1,104 @@
+{% extends "_layout.html" %}
+{% block title %}Subgroups{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Subgroup diagnostics</h1>
+  <p class="lede">Aggregate AUC hides where a model ranks badly or misprices risk. Performance and
+    calibration by age band, employment type, region and channel on the test months, each with a
+    bootstrap interval and its cohort size.</p>
+</div>
+
+<div class="note note-warn">
+  <strong>This is a diagnostic, not a fairness audit.</strong> The data is synthetic and no
+  protected characteristic in the legal sense is modelled. Age band and employment type are
+  produced by <code>app/generate.py</code>, and any gap you see below is a property of a
+  generator, not evidence about any real lender. A genuine fairness assessment needs real
+  outcomes, a defined protected attribute, a legal definition of the harm, and a review process
+  that a website cannot stand in for.
+</div>
+
+{% if sg.widest_gap %}
+<section class="section">
+  <div class="section-head"><h2>Widest spread</h2></div>
+  <div class="grid grid-3">
+    <div class="metric">
+      <div class="metric-label">Dimension</div>
+      <div class="metric-value sm">{{ sg.widest_gap.dimension }}</div>
+      <div class="metric-sub">largest AUC spread of the four dimensions</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Best vs worst level</div>
+      <div class="metric-value sm">{{ sg.widest_gap.best_auc | fnum }} / {{ sg.widest_gap.worst_auc | fnum }}</div>
+      <div class="metric-sub">{{ sg.widest_gap.best_level }} vs {{ sg.widest_gap.worst_level }}</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Spread</div>
+      <div class="metric-value sm {{ 'is-warn' if not sg.widest_gap.overlapping_intervals }}">{{ sg.widest_gap.gap | fnum }}</div>
+      <div class="metric-sub">intervals {{ "overlap - not a distinguishable difference" if sg.widest_gap.overlapping_intervals else "are disjoint" }}</div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% for block in sg.analysis %}
+<section class="section">
+  <div class="section-head"><h2>By {{ block.dimension.replace("_", " ") }}</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th>Level</th><th class="num">Applications</th><th class="num">Share</th>
+          <th class="num">Default rate</th><th class="num">Mean predicted PD</th>
+          <th class="num">AUC (95% CI)</th><th class="num">CI width</th>
+          <th class="num">Cal. slope</th><th>Cohort</th>
+        </tr></thead>
+        <tbody>
+        {% for r in block.levels %}
+          <tr>
+            <td class="mono">{{ r.level }}</td>
+            <td class="num">{{ r.n | fnum(0) }}</td>
+            <td class="num">{{ r.share | fpct }}</td>
+            <td class="num">{{ r.bad_rate | fpct }}</td>
+            <td class="num">{{ r.mean_predicted | fpct }}</td>
+            <td class="num">{{ fci(r) }}</td>
+            <td class="num">{{ r.ci_width | fnum }}</td>
+            <td class="num">{{ r.slope | fnum(2) }}</td>
+            <td>{% if r.too_small %}<span class="pill pill-idle">too small to score</span>
+                {% elif r.n < 600 %}<span class="pill pill-warn">wide interval</span>
+                {% else %}<span class="pill pill-pass">usable</span>{% endif %}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="9"><div class="empty">No levels present in the test cohort.</div></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% if block.dimension == "age_band" %}
+  <p class="small faint" style="margin-top:10px">Levels with fewer than {{ sg.min_group }}
+    applications or fewer than 15 defaults are not scored at all. Reporting an AUC on 30
+    defaults would be worse than reporting nothing, because the number looks precise and is not.</p>
+  {% endif %}
+</section>
+{% endfor %}
+
+<section class="section">
+  <div class="section-head"><h2>How to read the intervals</h2></div>
+  <div class="note">
+    <strong>Cohort size drives everything here.</strong> Compare the CI width column against the
+    applications column: the largest levels have intervals a third the width of the smallest ones.
+    Two levels whose intervals overlap are not distinguishable, however different their point
+    estimates look. Before acting on any row below, ask whether the difference survives the
+    interval &mdash; and whether you would have looked at that dimension at all if the number had
+    come out the other way.
+  </div>
+  <div class="note note-warn">
+    <strong>Multiple comparisons.</strong> This page reports
+    {{ n_intervals }} bootstrap intervals. At 95% coverage you should
+    expect roughly one in twenty to exclude the truth by chance alone, and no correction for
+    that is applied here. Treat a single striking row as a hypothesis, not a result.
+  </div>
+</section>
+
+{% endblock %}

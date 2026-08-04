@@ -1,0 +1,221 @@
+{% extends "_layout.html" %}
+{% block title %}Model card{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Model card</h1>
+  <p class="lede">What this model is, what it was fitted on, how well it works with intervals
+    attached, and the specific circumstances under which it should not be used.</p>
+</div>
+
+<div class="note note-warn">
+  <strong>This card describes a model fitted to synthetic data.</strong> It is written in the
+  form a real model card would take so that the form is demonstrated, but every number below
+  comes from the generated population in <code>app/generate.py</code>. It is not a
+  regulatory artefact and it has not been reviewed by anyone.
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>Basics</h2></div>
+  <div class="card">
+    <dl class="kv">
+      <dt>model</dt><dd>{{ meta.champion_label }} (<code>HistGradientBoostingClassifier</code>), champion of three candidates</dd>
+      <dt>candidates</dt><dd>points scorecard (baseline), logistic regression, gradient boosting</dd>
+      <dt>task</dt><dd>Binary classification: probability that an application defaults</dd>
+      <dt>training data</dt><dd>{{ meta.splits.train.n | fnum(0) }} applications, months {{ meta.split_months.train[0] }}&ndash;{{ meta.split_months.train[1] }}</dd>
+      <dt>validation</dt><dd>{{ meta.splits.validation.n | fnum(0) }} applications, months {{ meta.split_months.validation[0] }}&ndash;{{ meta.split_months.validation[1] }} (recalibration fitted here)</dd>
+      <dt>test</dt><dd>{{ meta.splits.test.n | fnum(0) }} applications, months {{ meta.split_months.test[0] }}&ndash;{{ meta.split_months.test[1] }}, never used for any fitting or selection</dd>
+      <dt>split</dt><dd>Strictly temporal. No row from a later month appears in an earlier window.</dd>
+      <dt>features</dt><dd>11 applicant attributes plus 3 explicit missing indicators and 2 derived ratios</dd>
+      <dt>determinism</dt><dd>Every random seed fixed; rebuilding the repo reproduces these numbers exactly</dd>
+      <dt>build time</dt><dd>{{ meta.built_seconds }} s for generation, fitting, evaluation and monitoring</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Intended use</h2></div>
+  <div class="card">
+    <p><strong>What it is for.</strong> Demonstrating a credit risk evaluation and monitoring
+      workflow end to end: temporal validation, interval estimation, calibration, drift detection
+      and threshold economics. It is a teaching and engineering artefact.</p>
+    <p><strong>What it is not for.</strong> Any real credit decision about any real person. The
+      model has never seen a real applicant, its features are invented, and its economics are
+      illustrative. It must not be used to score, rank, price or decline anyone.</p>
+    <p><strong>Out-of-scope populations.</strong> Everything outside the generated distribution:
+      other products, other geographies, other time periods, commercial lending, and any
+      applicant population whose feature distribution differs from
+      <code>app/generate.py</code> &mdash; which, given the drift results on this very site, means
+      populations only a few months away.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Performance, with intervals</h2>
+    <span class="small faint">percentile bootstrap, {{ meta.n_boot }} resamples</span></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Model</th><th>Window</th><th class="num">AUC (95% CI)</th>
+          <th class="num">Gini (95% CI)</th><th class="num">KS</th><th class="num">Brier</th>
+          <th class="num">Cal. slope</th></tr></thead>
+        <tbody>
+        {% for key, m in per_model.items() %}
+          {% for win in ["validation", "test"] %}
+          {% set r = m[win] %}
+          <tr>
+            <td>{% if loop.first %}{{ m.label }}{% endif %}</td>
+            <td class="mono">{{ win }}</td>
+            <td class="num">{{ fci(r) }}</td>
+            <td class="num">{{ r.gini | fnum }} [{{ r.gini_lo | fnum }}, {{ r.gini_hi | fnum }}]</td>
+            <td class="num">{{ r.ks | fnum }}</td>
+            <td class="num">{{ r.brier | fnum(4) }}</td>
+            <td class="num">{{ r.calibration.slope | fnum(2) }}</td>
+          </tr>
+          {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="small faint" style="margin-top:10px">Calibration on the test window after Platt
+    scaling fitted on validation: slope {{ cal.variants.platt.slope | fnum(3) }},
+    intercept {{ cal.variants.platt.intercept | fsigned }}, Brier
+    {{ cal.variants.platt.brier | fnum(5) }}. Details on
+    <a href="/calibration">the calibration page</a>.</p>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Data and the generating process</h2></div>
+  <div class="card">
+    <p>Applications are drawn from an explicit logistic data-generating process. The full
+      specification, the data dictionary and the drift schedule are on
+      <a href="/data">the data page</a>. In summary:</p>
+    <div class="formula">logit P(default) = b0(month)
+                 + sum_j beta_j * feature_j
+                 + beta_missing * 1[field absent]</div>
+    <p style="margin-top:12px">Four drifts are injected on a documented schedule and each can be
+      switched off independently in <code>app/generate.py</code>: a covariate shift in income
+      level and channel mix from month {{ truth.schedule.covariate_shift.starts_month }}, a
+      prior-probability shift from month {{ truth.schedule.prior_shift.starts_month }}, a concept
+      drift in the broker channel coefficient from month
+      {{ truth.schedule.concept_drift.starts_month }} (from
+      {{ truth.schedule.concept_drift.coef_month_1 }} to
+      {{ truth.schedule.concept_drift.coef_month_24 }}), and a data-quality drift in
+      <code>employment_tenure</code> missingness from month
+      {{ truth.schedule.quality_drift.starts_month }}.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Estimated versus true coefficients</h2>
+    <span class="small faint">logistic regression fitted on months {{ meta.split_months.train[0] }}&ndash;{{ meta.split_months.train[1] }}</span></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Feature</th><th class="num">Estimated</th><th class="num">True (DGP)</th>
+          <th class="num">Difference</th><th>Sign</th></tr></thead>
+        <tbody>
+        {% for r in coefficients %}
+          <tr>
+            <td class="mono">{{ r.feature }}</td>
+            <td class="num">{{ r.estimated | fsigned }}</td>
+            <td class="num">{{ (r.true | fsigned) if r.true is not none else "not in DGP" }}</td>
+            <td class="num">{{ (r.estimated - r.true) | fsigned if r.true is not none else "&mdash;" | safe }}</td>
+            <td>{% if r.sign_match is none %}<span class="pill pill-idle">n/a</span>
+                {% elif r.sign_match %}<span class="pill pill-pass">match</span>
+                {% else %}<span class="pill pill-fail">wrong sign</span>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <strong>Why some estimates are attenuated.</strong> <code>z_log_income</code>,
+    <code>log_loan_amount</code> and <code>loan_to_income</code> are algebraically related
+    &mdash; loan-to-income <em>is</em> loan divided by income &mdash; so the true income effect is
+    split across three collinear columns and none of them recovers it alone. This is a real
+    property of the fit, not a bug, and it is the reason coefficient magnitudes from a
+    correlated design should never be read as feature importances. Signs and the broadly correct
+    ordering of the uncorrelated features are what the comparison can honestly support.
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Known failures on this very dataset</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th class="num">Month</th><th>Rule</th><th>Finding</th></tr></thead>
+        <tbody>
+        {% for a in alerts if a.severity == "high" %}
+          <tr><td class="num">{{ a.month }}</td><td class="mono">{{ a.rule }}</td><td>{{ a.message }}</td></tr>
+        {% else %}
+          <tr><td colspan="3"><div class="empty">No high-severity alert fired.</div></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Limitations</h2></div>
+  <div class="card">
+    <ul class="timeline">
+      <li class="bad"><span class="t-when">data</span><div class="t-what">
+        Synthetic. Every relationship in it was written by hand, so the model is being tested on
+        a world it can in principle fit perfectly. Real applicant data contains structure no
+        generator thought of.</div></li>
+      <li class="bad"><span class="t-when">labels</span><div class="t-what">
+        Default is observed for every application, including declined ones. Real portfolios only
+        observe outcomes for approved applicants, which biases every refit. No reject inference
+        is implemented.</div></li>
+      <li class="warn"><span class="t-when">horizon</span><div class="t-what">
+        Default is a single binary flag with no time-to-event. There is no notion of when a loan
+        went bad, so no survival or lifetime-PD view is possible.</div></li>
+      <li class="warn"><span class="t-when">economics</span><div class="t-what">
+        One period, no funding cost, no operational cost, no recovery curve, no prepayment. Loss
+        given default is a constant rather than a distribution.</div></li>
+      <li class="warn"><span class="t-when">selection</span><div class="t-what">
+        The champion was chosen by comparing three models on the validation window, and this card
+        then reports test numbers for all three. Reporting a selected model's test performance
+        without accounting for the selection is mildly optimistic.</div></li>
+      <li class="warn"><span class="t-when">intervals</span><div class="t-what">
+        Bootstrap intervals assume applications are independent draws. They quantify sampling
+        noise only &mdash; not model risk, not specification error, and explicitly not the risk
+        that next month's population differs from this month's.</div></li>
+      <li><span class="t-when">explanations</span><div class="t-what">
+        No SHAP or per-application reason codes. A production credit model needs adverse action
+        reasons; this one cannot produce them.</div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Ethical notes</h2></div>
+  <div class="card">
+    <p><strong>Automated credit decisions harm people when they are wrong.</strong> A false
+      decline is not a rounding error to the person declined; it is a refused loan. The false
+      decline cost in the <a href="/policy">policy simulator</a> is a crude stand-in for that,
+      and treating it purely as lost margin understates it.</p>
+    <p><strong>Subgroup results here are a diagnostic, not a fairness audit.</strong> See
+      <a href="/subgroups">the subgroups page</a> for what that distinction means. Widest observed
+      spread on this dataset:
+      {% if sg.widest_gap %}{{ sg.widest_gap.dimension }},
+      {{ sg.widest_gap.worst_auc | fnum }} to {{ sg.widest_gap.best_auc | fnum }} AUC, with
+      {{ "overlapping" if sg.widest_gap.overlapping_intervals else "disjoint" }} intervals.
+      {% else %}not computable at these cohort sizes.{% endif %}</p>
+    <p><strong>Features that proxy for protected characteristics are not screened.</strong> Age
+      is used directly as a feature here. In several jurisdictions that alone would make the
+      model unlawful for consumer credit. It is present because this is a laboratory for
+      stability measurement, and its presence should be read as a demonstration of what a model
+      card has to disclose &mdash; not as a defensible design choice.</p>
+    <p><strong>Drift is a safety issue, not just an accuracy issue.</strong> The alerts on this
+      site fire months after the drift begins. A model that is quietly under-predicting risk is
+      also quietly approving people who cannot afford the loan.</p>
+  </div>
+</section>
+
+{% endblock %}

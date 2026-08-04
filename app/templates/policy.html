@@ -1,0 +1,190 @@
+{% extends "_layout.html" %}
+{% block title %}Policy simulator{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Policy simulator</h1>
+  <p class="lede">A probability is not a decision. Pick an approval threshold and loss
+    assumptions, and see the approval rate, bad rate, expected loss and profit that follow &mdash;
+    on the cohort the model was deployed against and on the cohort six months later.</p>
+</div>
+
+<div class="note note-warn">
+  <strong>Synthetic data and illustrative economics.</strong> Loss given default, margin and the
+  cost of a false decline are inputs you choose below, not findings. The currency is arbitrary.
+  Nothing here is a claim about any real lender's unit economics.
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>Controls</h2>
+    <span class="small faint">every value below is read from a grid precomputed at seed time &mdash; no model is fitted per request</span></div>
+  <div class="card">
+    <form method="get" action="/policy">
+      <div class="toolbar">
+        <div class="field" style="flex: 2 1 260px">
+          <label for="threshold">Approve if PD below ({{ threshold | fnum(4) }})</label>
+          <input type="range" id="threshold" name="threshold" min="0.005" max="0.6" step="0.005"
+                 value="{{ threshold }}" onchange="this.form.requestSubmit()">
+        </div>
+        <div class="field">
+          <label for="lgd">Loss given default (0-1)</label>
+          <input type="number" id="lgd" name="lgd" min="0" max="1" step="0.01" value="{{ econ.lgd }}">
+        </div>
+        <div class="field">
+          <label for="margin">Margin on principal (0-1)</label>
+          <input type="number" id="margin" name="margin" min="0" max="1" step="0.005" value="{{ econ.margin }}">
+        </div>
+        <div class="field">
+          <label for="fr_cost">Cost of a false decline</label>
+          <input type="number" id="fr_cost" name="fr_cost" min="0" max="5000" step="5" value="{{ econ.fr_cost }}">
+        </div>
+        <button class="btn btn-primary" type="submit">Apply</button>
+      </div>
+    </form>
+    <div class="row" style="margin-top:14px">
+      <span class="small faint">Presets (target approval rate on the reference cohort):</span>
+      {% for name, rate in p.preset_rates.items() %}
+        <a class="btn btn-sm {{ 'btn-primary' if active_preset == name }}"
+           href="/policy?preset={{ name }}&lgd={{ econ.lgd }}&margin={{ econ.margin }}&fr_cost={{ econ.fr_cost }}">
+          {{ name }} ({{ rate | fpct(0) }})</a>
+      {% endfor %}
+      <a class="btn btn-sm" href="/policy?threshold={{ best_test.threshold }}&lgd={{ econ.lgd }}&margin={{ econ.margin }}&fr_cost={{ econ.fr_cost }}">
+        profit-maximising on test</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Outcome at PD &lt; {{ threshold | fnum(4) }}</h2>
+    <span class="small faint">{{ p.test_label }}, {{ p.test_n | fnum(0) }} applications</span></div>
+  <div class="grid grid-4">
+    <div class="metric">
+      <div class="metric-label">Approval rate</div>
+      <div class="metric-value">{{ chosen.approval_rate | fpct }}</div>
+      <div class="metric-sub">{{ chosen.n_approved | fnum(0) }} approved</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Bad rate among approved</div>
+      <div class="metric-value {{ 'is-fail' if chosen.approved_bad_rate > 0.10 else 'is-warn' }}">{{ chosen.approved_bad_rate | fpct }}</div>
+      <div class="metric-sub">{{ chosen.n_approved_bad | fnum(0) }} defaults booked</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Expected credit loss</div>
+      <div class="metric-value is-fail">{{ chosen.expected_loss | fmoney }}</div>
+      <div class="metric-sub">{{ econ.lgd }} x {{ chosen.principal_bad | fmoney }} defaulted principal</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Profit</div>
+      <div class="metric-value {{ 'is-pass' if chosen.profit > 0 else 'is-fail' }}">{{ chosen.profit | fmoney }}</div>
+      <div class="metric-sub">revenue {{ chosen.revenue | fmoney }} &minus; loss &minus; opportunity {{ chosen.opportunity_cost | fmoney }}</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3 style="margin-bottom:8px">Expected loss calculator, line by line</h3>
+    <div class="formula">principal approved      = {{ chosen.principal_approved | fnum(0) }}
+  of which good        = {{ chosen.principal_good | fnum(0) }}
+  of which defaulted   = {{ chosen.principal_bad | fnum(0) }}
+
+revenue      = margin {{ econ.margin }} x good principal      = {{ chosen.revenue | fnum(0) }}
+credit loss  = lgd {{ econ.lgd }} x defaulted principal     = {{ chosen.expected_loss | fnum(0) }}
+opportunity  = {{ econ.fr_cost | fnum(0) }} x {{ chosen.n_rejected_good | fnum(0) }} good applicants declined = {{ chosen.opportunity_cost | fnum(0) }}
+profit       = revenue - credit loss - opportunity       = {{ chosen.profit | fnum(0) }}</div>
+    <p class="small faint" style="margin-top:10px">Deliberately simple arithmetic so it can be
+      checked by hand. It assumes a single-period book, full recovery of principal on good loans,
+      no funding cost, no operational cost and no prepayment. Loss is realised in full at
+      default rather than over a recovery curve.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Profit against threshold</h2></div>
+  <div class="card">
+    {{ line_chart(
+        [series(test_curve, "threshold", "profit", p.test_label, color="var(--accent)"),
+         series(ref_curve, "threshold", "profit", p.reference_label, color="var(--info)", dash=True)],
+        "Approval threshold (approve if PD below x)", "Profit (currency units)",
+        y_places=0, x_places=2, v_line=threshold, v_label="your threshold") }}
+    <p class="small faint" style="margin-top:10px">The two curves peak in different places. That
+      gap is the whole point of this page: the cut-off that was optimal on the cohort available at
+      deployment is no longer optimal once the population has moved.</p>
+  </div>
+  <div class="card">
+    {{ line_chart(
+        [series(test_curve, "threshold", "approval_rate", "Approval rate", color="var(--pass)"),
+         series(test_curve, "threshold", "approved_bad_rate", "Bad rate among approved", color="var(--fail)")],
+        "Approval threshold (approve if PD below x)", "Share of applications (0-1)",
+        y_places=2, x_places=2, y_min=0, v_line=threshold, v_label="your threshold") }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>What a stale cut-off costs</h2></div>
+  <div class="grid grid-4">
+    <div class="metric">
+      <div class="metric-label">Optimal at deployment</div>
+      <div class="metric-value sm">{{ stale.stale_threshold | fnum(3) }}</div>
+      <div class="metric-sub">set on {{ p.reference_label }}</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Optimal six months later</div>
+      <div class="metric-value sm is-accent">{{ stale.fresh_threshold | fnum(3) }}</div>
+      <div class="metric-sub">moved by {{ stale.threshold_move | fsigned }}</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Profit gap on the test cohort</div>
+      <div class="metric-value sm is-fail">{{ stale.profit_gap | fmoney }}</div>
+      <div class="metric-sub">{{ stale.profit_gap_pct | fpct }} of the re-optimised profit</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Approval rate, stale vs fresh</div>
+      <div class="metric-value sm">{{ stale.approval_rate_stale | fpct(0) }} &rarr; {{ stale.approval_rate_fresh | fpct(0) }}</div>
+      <div class="metric-sub">bad rate {{ stale.bad_rate_stale | fpct }} &rarr; {{ stale.bad_rate_fresh | fpct }}</div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <strong>Read this as an order of magnitude, not a forecast.</strong> Both thresholds are
+    chosen by maximising profit on a cohort of a few thousand applications, so both are
+    themselves noisy estimates, and the "fresh" threshold is chosen with hindsight that nobody
+    has in production. The robust claim is the direction and roughly the size: as the population
+    deteriorates the profit-maximising cut-off tightens, and holding the old one costs real
+    money. The fragile claim would be the exact
+    {{ stale.profit_gap | fmoney }}.
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Presets on the test cohort</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th>Preset</th><th class="num">Target approval on reference</th><th class="num">PD cut-off</th>
+          <th class="num">Actual approval on test</th><th class="num">Bad rate approved</th>
+          <th class="num">Expected loss</th><th class="num">Profit</th>
+        </tr></thead>
+        <tbody>
+        {% for r in preset_rows %}
+          <tr>
+            <td>{{ r.name }}</td>
+            <td class="num">{{ r.target_rate | fpct(0) }}</td>
+            <td class="num">{{ r.threshold | fnum(4) }}</td>
+            <td class="num">{{ r.approval_rate | fpct }}</td>
+            <td class="num">{{ r.approved_bad_rate | fpct }}</td>
+            <td class="num">{{ r.expected_loss | fmoney }}</td>
+            <td class="num">{{ r.profit | fmoney }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7"><div class="empty">No presets configured.</div></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="small faint" style="margin-top:10px">A preset is written as a target approval rate on
+    the reference cohort, then converted to a PD cut-off &mdash; that is how a credit policy is
+    actually expressed, because a bare PD number means nothing without the score distribution it
+    sits on. Compare the target column against the actual column: the policy text did not change,
+    but what it does to the incoming population did.</p>
+</section>
+
+{% endblock %}

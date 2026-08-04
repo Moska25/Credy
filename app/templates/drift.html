@@ -1,0 +1,263 @@
+{% extends "_layout.html" %}
+{% block title %}Drift{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Drift monitoring</h1>
+  <p class="lede">Every cohort from month {{ monitored_from }} onwards, compared back to the
+    training months. Population stability index and Jensen&ndash;Shannon divergence per feature,
+    the model's own score distribution, missing-data rates, and the alert rules built on top.</p>
+</div>
+
+<div class="note note-warn">
+  <strong>Synthetic data with planted drift.</strong> Four drifts were injected on purpose at
+  known months by <code>app/generate.py</code>. That is what makes the verification table at the
+  bottom of this page possible.
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>The finding: score PSI missed the drift that mattered</h2></div>
+  <div class="grid grid-3">
+    <div class="metric">
+      <div class="metric-label">Max score PSI, whole window</div>
+      <div class="metric-value is-pass">{{ d.score | map(attribute="psi") | max | fnum }}</div>
+      <div class="metric-sub">alert threshold is {{ d.thresholds.score_psi_alert }} &mdash; never reached</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Score PSI alerts fired</div>
+      <div class="metric-value is-pass">{{ d.alerts | selectattr("rule", "equalto", "score_psi") | list | length }}</div>
+      <div class="metric-sub">the rule exists and stayed silent</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Alerts fired by other rules</div>
+      <div class="metric-value is-fail">{{ d.alerts | length }}</div>
+      <div class="metric-sub">{{ d.alerts | selectattr("severity", "equalto", "high") | list | length }} high severity</div>
+    </div>
+  </div>
+  <div class="note note-warn" style="margin-top:14px">
+    <strong>Why this matters more than any chart on this page.</strong> Score PSI is the monitor
+    most credit risk functions actually run, because it needs no outcomes &mdash; just the score
+    distribution. Here it stayed comfortably in the "stable" band all the way to month
+    {{ d.score[-1].month }}, while the observed default rate rose sharply. The reason is
+    mechanical: the model cannot see the drift, so it keeps producing the same-looking scores. A
+    monitor built only on model outputs is blind to concept drift by construction. Outcome-based
+    monitoring is the only thing that catches it, and outcomes arrive late.
+  </div>
+  <div class="card">
+    {{ line_chart(
+        [series(d.score, "month", "psi", "Score PSI vs training reference", dots=True),
+         series(d.score, "month", "js", "Score Jensen-Shannon divergence (bits)", dots=True, color="var(--info)")],
+        "Application month", "Divergence from training reference",
+        y_places=2, x_ticks=[1, 4, 8, 12, 16, 20, 24], y_min=0,
+        ref_line=d.thresholds.score_psi_alert, ref_label="PSI alert threshold") }}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Feature PSI by month</h2>
+    <span class="small faint">
+      <span class="legend-swatch sw-0"></span>&lt; {{ d.thresholds.psi_watch }} stable
+      <span class="legend-swatch sw-1" style="margin-left:12px"></span>{{ d.thresholds.psi_watch }}&ndash;{{ d.thresholds.psi_shift }} watch
+      <span class="legend-swatch sw-2" style="margin-left:12px"></span>&gt; {{ d.thresholds.psi_shift }} shifted
+    </span></div>
+  <div class="card">
+    <div class="table-wrap">
+      <table class="matrix">
+        <thead><tr><th class="rot">Feature</th>
+          {% for m in d.feature.months %}<th>{{ m }}</th>{% endfor %}
+        </tr></thead>
+        <tbody>
+        {% for f in features %}
+          <tr><th class="rowhead">{{ f }}</th>
+            {% for m in d.feature.months %}
+              {% set v = mget(d.feature.psi[f], m, 0) %}
+              <td class="psi-{{ psi_band(v) }}" title="{{ f }}, month {{ m }}: PSI {{ v | fnum }}">{{ "%.2f"|format(v) }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="small faint" style="margin-top:12px">Columns are application months, values are PSI
+      against the pooled training months
+      {{ meta.split_months.train[0] }}&ndash;{{ meta.split_months.train[1] }} (which is why the
+      first twelve columns are near zero &mdash; they are being compared with themselves). Numeric
+      features use ten reference quantile bins; categoricals use category shares. Missing values
+      are excluded from PSI and tracked separately below, because a rising missing rate and a
+      shifting distribution are different incidents with different fixes.</p>
+    <p class="small faint">The 0.10 / 0.25 cut-points are industry convention, not statistics.
+      They have no distributional justification and they do not adjust for sample size: with
+      {{ (meta.rows / meta.months) | round | int }} applications a month, a PSI of 0.05 is
+      indistinguishable from noise, and with a million rows it would not be.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>The two features that actually moved</h2></div>
+  <div class="card">
+    {{ line_chart(psi_lines, "Application month", "PSI vs training reference",
+        y_places=2, x_ticks=[1, 4, 8, 12, 16, 20, 24], y_min=0,
+        ref_line=d.thresholds.psi_shift, ref_label="shifted band") }}
+    <p class="small faint" style="margin-top:10px">Both are ramps, not step changes, which is why
+      PSI takes months to cross a fixed threshold. A slow drift is the hardest kind to alert on:
+      by the time a conventional threshold trips, the population has already moved a long way.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Missing-data rates</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Feature</th><th class="num">Training reference</th>
+          {% for m in d.missingness.months[12:] %}<th class="num">M{{ m }}</th>{% endfor %}
+        </tr></thead>
+        <tbody>
+        {% for f in d.missingness.features %}
+          <tr>
+            <td class="mono">{{ f }}</td>
+            <td class="num">{{ d.missingness.reference[f] | fpct }}</td>
+            {% for m in d.missingness.months[12:] %}
+              {% set r = mget(d.missingness.rates[f], m, 0) %}
+              <td class="num" style="{{ 'color:var(--fail);font-weight:600' if r - d.missingness.reference[f] > d.thresholds.missingness_jump }}">{{ r | fpct(0) }}</td>
+            {% endfor %}
+          </tr>
+        {% else %}
+          <tr><td colspan="14"><div class="empty">No feature has any missing values.</div></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="small faint" style="margin-top:10px">Alert threshold: more than
+    {{ d.thresholds.missingness_jump | fpct(0) }} above the training reference rate. Missingness
+    in <code>income</code> and <code>credit_history_years</code> is informative in this
+    population &mdash; the fact that a field is absent predicts risk on its own, and both models
+    get an explicit missing indicator for that reason.</p>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Alerts</h2>
+    <span class="small faint">{{ d.alerts | length }} fired from month {{ monitored_from }} onwards</span></div>
+  <div class="note">
+    <strong>Rules in force.</strong>
+    score PSI &gt; {{ d.thresholds.score_psi_alert }};
+    calibration slope outside [{{ d.thresholds.slope_band[0] }}, {{ d.thresholds.slope_band[1] }}];
+    predicted-versus-observed level gap &gt; {{ d.thresholds.pd_gap | fpct(0) }};
+    monthly AUC interval touching the {{ d.thresholds.auc_floor }} floor;
+    monthly AUC below the early-production baseline
+    {% if d.baseline %}({{ d.baseline.auc | fnum }} over months
+    {{ d.baseline.months[0] }}&ndash;{{ d.baseline.months[1] }}){% endif %};
+    feature PSI in the watch or shifted band;
+    missing rate more than {{ d.thresholds.missingness_jump | fpct(0) }} above reference.
+    Months {{ meta.split_months.train[0] }}&ndash;{{ meta.split_months.train[1] }} are not
+    monitored &mdash; alerting on the reference window would be circular.
+  </div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th class="num">Month</th><th>Severity</th><th>Rule</th><th>Subject</th>
+          <th class="num">Value</th><th class="num">Threshold</th><th>What it means / what to do</th>
+        </tr></thead>
+        <tbody>
+        {% for a in d.alerts %}
+          <tr>
+            <td class="num">{{ a.month }}</td>
+            <td><span class="pill {{ 'pill-fail' if a.severity == 'high' else 'pill-warn' }}">{{ a.severity }}</span></td>
+            <td class="mono">{{ a.rule }}</td>
+            <td class="mono">{{ a.subject }}</td>
+            <td class="num">{{ a.value | fnum }}</td>
+            <td class="num">{{ a.threshold | fnum }}</td>
+            <td>{{ a.message }}<br><span class="faint small">{{ a.action }}</span></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7"><div class="empty">No alert rule fired in the monitored window.</div></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>False-alarm control</h2>
+    <span class="small faint">identical rules, identical cohort sizes, all four drift switches off</span></div>
+  <div class="note">
+    <strong>A detector that always fires is not a detector.</strong> The same monitoring stack
+    was run a second time over a stationary population of
+    {{ d.control.rows | fnum(0) }} applications generated with every drift switch off &mdash; base
+    default rate {{ d.control.bad_rate_first_year | fpct }} in year one and
+    {{ d.control.bad_rate_second_year | fpct }} in year two. Anything it fires is a false alarm by
+    construction.
+  </div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Rule</th><th class="num">Alerts on the drifted cohort</th>
+          <th class="num">False alarms on the control</th><th>Reading</th></tr></thead>
+        <tbody>
+        {% for rule, v in d.by_rule.items() %}
+          <tr>
+            <td class="mono">{{ rule }}</td>
+            <td class="num">{{ v.drifted }}</td>
+            <td class="num">{{ v.control }}</td>
+            <td>
+              {% if v.drifted == 0 and v.control == 0 %}<span class="pill pill-idle">never fired</span>
+              {% elif v.control == 0 and v.drifted > 0 %}<span class="pill pill-pass">clean signal</span>
+              {% elif v.drifted > 2 * v.control %}<span class="pill pill-warn">signal with noise</span>
+              {% else %}<span class="pill pill-fail">not discriminating</span>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="small faint" style="margin-top:10px">Two rules deserve comment.
+    <code>score_psi</code> never fires on either cohort &mdash; it is not producing false alarms,
+    it is simply blind here. <code>auc_floor</code> fires on the stationary control too, because
+    it compares against a fixed 0.70 floor that happens to sit close to this model's genuine
+    out-of-sample level; that is a badly chosen threshold, not evidence of drift, and it is
+    exactly the kind of thing a control run exposes.</p>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Verification against the injected drift</h2></div>
+  <div class="card card-tight">
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr>
+          <th>Injected drift</th><th class="num">Injected from</th><th>Detector</th>
+          <th class="num">First alert</th><th class="num">Detection lag</th>
+          <th class="num">Alerts</th><th>Result</th>
+        </tr></thead>
+        <tbody>
+        {% for v in d.verification %}
+          <tr>
+            <td>{{ v.injected }}</td>
+            <td class="num">month {{ v.starts_month }}</td>
+            <td class="mono">{{ v.detector }}</td>
+            <td class="num">{{ ("month " ~ v.first_detected_month) if v.first_detected_month else "never" }}</td>
+            <td class="num">{{ (v.lag_months ~ " months") if v.lag_months is not none else "&mdash;" | safe }}</td>
+            <td class="num">{{ v.n_alerts }}</td>
+            <td>{% if v.detected %}<span class="pill pill-pass">detected</span>
+                {% else %}<span class="pill pill-fail">missed</span>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <strong>This table is the whole argument for synthetic data.</strong> Because the generator
+    wrote the drift schedule, each detector can be scored rather than admired. The lags are the
+    interesting part: three of the four drifts are linear ramps, and a ramp has to grow for
+    several months before a fixed threshold on a
+    {{ (meta.rows / meta.months) | round | int }}-application cohort can separate it from noise.
+    On a real portfolio you would never know whether a quiet month meant no drift or an
+    insensitive detector.
+  </div>
+</section>
+
+{% endblock %}
