@@ -1,6 +1,190 @@
-:root { --accent: #8b5cf6; }
+:root {
+  --accent: #8b5cf6;
 
-/* Credy-specific: chart shell, PSI heatmap cells, alert list. */
+  /* Accessibility override, not a style preference. base.css ships
+     --text-faint: #626a78, which carries real text here: table column headers,
+     metric labels, chart tick labels, the section parameter strip. At 10.5px
+     those need WCAG AA (4.5:1) and #626a78 reaches only 3.17:1 on --surface-2,
+     3.36:1 on --surface and 3.57:1 on --bg. This value is the same hue walked
+     up in lightness until it clears 4.5:1 on every background it lands on:
+     4.52 on --surface-2, 4.79 on --surface, 5.09 on --bg, 4.95 on --grid-bg.
+     The same defect exists in shared/base.css for the other three apps. */
+  --text-faint: #7b8391;
+
+  /* ------------------------------------------------------------------
+     THE RAMP. One sequential heat scale, defined once, used for every risk
+     and drift magnitude in this app and for nothing else. Stops run cold to
+     hot and rise monotonically in luminance, so the ordering survives being
+     printed in greyscale.
+
+     Two ways to use it:
+       colour  -> var(--heat-N)        for text, strokes and marks on a dark
+                                       surface (all >= 5.0:1 against --surface)
+       fill    -> var(--heat-fill-N)   for cell and block backgrounds; pair it
+                                       with var(--text), which clears 4.8:1 on
+                                       the hottest stop
+
+     Semantic state - detected/missed, approved/declined, pass/fail - keeps
+     using --pass/--fail/--warn. Those encode a verdict, not a magnitude, and
+     mixing the two is how a heatmap starts lying.
+     ------------------------------------------------------------------ */
+  --heat-0: #7c8899;   /* slate  - no heat */
+  --heat-1: #3fc9bd;   /* teal   */
+  --heat-2: #f2b134;   /* amber  */
+  --heat-3: #f5813f;   /* orange */
+  --heat-4: #ef5350;   /* red    - hottest */
+
+  --heat-fill-0: color-mix(in srgb, var(--heat-0) 10%, var(--surface));
+  --heat-fill-1: color-mix(in srgb, var(--heat-1) 26%, var(--surface));
+  --heat-fill-2: color-mix(in srgb, var(--heat-2) 40%, var(--surface));
+  --heat-fill-3: color-mix(in srgb, var(--heat-3) 55%, var(--surface));
+  --heat-fill-4: color-mix(in srgb, var(--heat-4) 70%, var(--surface));
+
+  /* Plotting well: charts sit in a faint grid so they read as instruments. */
+  --grid:    #1c222c;
+  --grid-bg: #0e1116;
+}
+
+/* Credy-specific: type scale, instrument surfaces, the heat ramp, the alert
+   rail, the headline interval comparison.
+
+   Density is deliberately high. This is a console, not a brochure: the rule is
+   hairlines and space rather than a box around every group of numbers, because
+   at this density a page of bordered cards reads as a filing cabinet. Cards are
+   kept only where they frame a plot, which is the one place an edge helps.
+
+   Motion is deliberately near-zero. Nothing on these pages animates on entry;
+   a reader came here to read numbers, and moving them is hostile. Transitions
+   exist on controls the user actually operates, and base.css already collapses
+   those under prefers-reduced-motion. */
+
+/* ---------- type scale ---------- */
+
+/* Slashed zero as well as tabular figures. Every number on this site is meant
+   to be compared column to column and read without ambiguity. */
+code, kbd, pre, .mono, .num, .metric-value, table.data td.num, table.data th.num {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+h2 { font-size: 18px; letter-spacing: -0.022em; }
+
+.page-head {
+  margin-bottom: 26px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.page-head h1 { margin-bottom: 9px; }
+.page-head .lede { max-width: 72ch; font-size: 14.5px; line-height: 1.6; }
+
+/* Section heads sit on a rule that runs the full width, so the parameters on
+   the right are anchored to something instead of floating in the corner. */
+.section { margin-top: 42px; }
+.section-head {
+  align-items: baseline;
+  gap: 8px 20px;
+  padding-bottom: 9px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-head h2 { flex: 0 1 auto; min-width: 0; }
+.section-head > .small,
+.section-head > .faint { flex: 0 1 auto; text-align: right; min-width: 0; }
+
+/* Measure. At the 1240px container a paragraph of 14px sans runs to about 155
+   characters, which is roughly twice a readable line. Prose gets capped; tables
+   and charts keep the full width, because those are scanned, not read. */
+.note, .lede, p.small, .ramp-caption, .card p, .card-body p, .empty { max-width: 92ch; }
+.card > p.small, .card > .small.faint { max-width: 88ch; }
+/* A paragraph inside a table cell is column-width by definition; the cap there
+   would fight the table's own layout. */
+table.data p { max-width: none; }
+
+/* ---------- skip link ---------- */
+
+/* First focusable element on every page. Hidden until focused, then it sits on
+   top of the sticky topbar rather than under it. */
+.skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 60;
+  transform: translateY(-160%);
+  padding: 9px 14px;
+  border-radius: var(--r-sm);
+  background: var(--accent);
+  color: #06080b;
+  font-size: 13px;
+  font-weight: 600;
+}
+.skip:focus { transform: none; text-decoration: none; outline: 2px solid var(--text); outline-offset: 2px; }
+#content:focus { outline: none; }
+
+/* Available to a screen reader, absent from the layout. Used where a compact
+   visual label (a bare month number in a 30px heatmap cell) would be useless
+   read aloud.
+
+   Deliberately NOT `position: absolute`, which is the usual recipe. An
+   absolutely positioned element is only clipped by an ancestor that is in its
+   containing-block chain, so inside `.table-wrap` (which is not positioned)
+   these spans escaped the scroll container, landed at their static position
+   around x=900 in a 900px-wide matrix, and gave `/drift` 564px of real
+   horizontal page scroll at a 375px viewport. In flow with a 1px box and
+   `overflow: hidden`, they are clipped like anything else. */
+.sr-only {
+  display: inline-block;
+  width: 1px; height: 1px;
+  padding: 0; margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  vertical-align: middle;
+}
+
+/* The synthetic-data disclosure appears on all eight pages. It has to be
+   unmissable but it should not eat a fifth of the first screen every time, so
+   it is a ruled strip rather than a filled block. */
+.note-warn {
+  border-left-width: 3px;
+  border-left-color: var(--heat-2);
+  background: none;
+  padding: 2px 0 2px 14px;
+  border-radius: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+/* ---------- instrument surfaces ---------- */
+
+/* A metric row is one framed strip divided by hairlines, not four identical
+   boxes with four identical shadows. Negative margins collapse the shared
+   edges so wrapped rows keep a single-pixel grid at every breakpoint. */
+.metrics {
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  overflow: hidden;
+}
+.metrics .metric {
+  border: 0;
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  margin: -1px 0 0 -1px;
+  border-radius: 0;
+  background: none;
+  padding: 15px 18px 17px;
+}
+.metrics .metric-label { margin-bottom: 9px; letter-spacing: 0.09em; }
+.metrics .metric-value { font-size: 28px; }
+.metrics .metric-value.sm { font-size: 20px; }
+.metrics .metric-sub { margin-top: 7px; line-height: 1.5; }
 
 .chart { width: 100%; overflow-x: auto; }
 .chart svg { display: block; width: 100%; max-width: 100%; height: auto; }
@@ -21,45 +205,390 @@
   flex: none;
 }
 
-/* PSI bands — reuses .matrix from base.css, only the colour scale is local. */
-.matrix td.psi-0 { background: color-mix(in srgb, var(--pass) 16%, var(--surface)); color: var(--pass); }
-.matrix td.psi-1 { background: color-mix(in srgb, var(--warn) 20%, var(--surface)); color: var(--warn); }
-.matrix td.psi-2 { background: color-mix(in srgb, var(--fail) 26%, var(--surface)); color: var(--fail); }
+/* ---------- the ramp, applied ---------- */
+
+.heat-0 { background: var(--heat-fill-0); color: var(--text); }
+.heat-1 { background: var(--heat-fill-1); color: var(--text); }
+.heat-2 { background: var(--heat-fill-2); color: var(--text); }
+.heat-3 { background: var(--heat-fill-3); color: var(--text); }
+.heat-4 { background: var(--heat-fill-4); color: var(--text); }
+
+.heat-t-0 { color: var(--heat-0); }
+.heat-t-1 { color: var(--heat-1); }
+.heat-t-2 { color: var(--heat-2); }
+.heat-t-3 { color: var(--heat-3); }
+.heat-t-4 { color: var(--heat-4); }
+
+/* The in-flow .sr-only prefix adds a pixel to each header cell, which is
+   enough to wrap a two-digit month onto a second line in a 30px column. */
+.matrix thead th { white-space: nowrap; }
 .matrix th.rowhead { text-align: left; white-space: nowrap; font-family: var(--mono); font-size: 11.5px; }
 .matrix td { width: 30px; font-size: 11px; }
+/* base.css paints `.matrix td` with --surface-2, and a bare class does not
+   outrank a class-plus-element selector, so the ramp has to be restated here
+   for cells. Restated, not redefined: the fills are the same variables. */
+.matrix td.heat-0 { background: var(--heat-fill-0); color: var(--text-muted); }
+.matrix td.heat-1 { background: var(--heat-fill-1); color: var(--text); }
+.matrix td.heat-2 { background: var(--heat-fill-2); color: var(--text); }
+.matrix td.heat-3 { background: var(--heat-fill-3); color: var(--text); }
+.matrix td.heat-4 { background: var(--heat-fill-4); color: var(--text); }
+/* Convention lines drawn on the cells themselves: a cell in the watch band
+   carries a top rule and one past the shifted cut-point a heavier one, so the
+   two industry thresholds survive greyscale and colour-blind viewing. */
+.matrix td.heat-3 { box-shadow: inset 0 2px 0 var(--heat-3); }
+.matrix td.heat-4 { box-shadow: inset 0 3px 0 var(--heat-4); font-weight: 650; }
 
-.legend-swatch {
-  display: inline-block;
-  width: 11px;
-  height: 11px;
-  border-radius: 3px;
-  vertical-align: -1px;
-  margin-right: 5px;
+/* The reference column of the missingness matrix is a baseline, not a
+   measurement, so it stays off the ramp and is separated by a rule. */
+.matrix th.refhead { font-family: var(--mono); font-size: 10.5px; color: var(--text-faint); }
+.matrix td.refcell {
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border-right: 1px solid var(--border-strong);
 }
-.sw-0 { background: color-mix(in srgb, var(--pass) 45%, var(--surface)); }
-.sw-1 { background: color-mix(in srgb, var(--warn) 55%, var(--surface)); }
-.sw-2 { background: color-mix(in srgb, var(--fail) 60%, var(--surface)); }
+
+.ramp-legend { margin-top: 4px; }
+.ramp-steps { display: flex; gap: 3px; flex-wrap: wrap; }
+.ramp-step { flex: 1 1 92px; min-width: 0; }
+.ramp-step b {
+  display: block;
+  height: 10px;
+  border-radius: 3px 3px 0 0;
+}
+.ramp-step em {
+  display: block;
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--text-faint);
+  padding-top: 4px;
+  white-space: nowrap;
+}
+/* The two conventional cut-points are marked, not enforced: the ramp is
+   continuous and the convention is one annotation on it. */
+.ramp-step.is-convention b { border-bottom: 3px solid var(--text); border-radius: 3px; }
+.ramp-step.is-convention em { color: var(--text); }
+.ramp-caption { font-size: 12px; color: var(--text-faint); margin: 10px 0 0; }
+
+/* ---------- the alert stack rail ---------- */
+
+/* Thirty-nine alerts is a log, not a deck of cards. Each entry is a ruled row
+   hanging off one spine: a ramp-coloured severity rule on the left edge, a
+   marker on the spine, and a hairline between entries. No per-entry box, which
+   at this count would read as filing rather than monitoring. */
+.alert-rail {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 18px;
+  border-left: 1px solid var(--border);
+}
+.alert {
+  position: relative;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 3px 14px;
+  padding: 11px 14px 13px;
+  border-left: 3px solid var(--heat-2);
+  border-bottom: 1px solid var(--border);
+  transition: background .12s ease;
+}
+.alert:last-child { border-bottom: 0; }
+.alert:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+/* The marker ties each entry to the spine. */
+.alert::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 16px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--heat-2);
+  outline: 3px solid var(--bg);
+}
+.alert-sev-high { border-left-color: var(--heat-4); }
+.alert-sev-high::before { background: var(--heat-4); }
+.alert-sev-medium { border-left-color: var(--heat-2); }
+
+.alert-when {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  padding-top: 1px;
+}
+.alert-body { min-width: 0; }
+.alert-title { font-weight: 600; font-size: 13px; color: var(--text); }
+.alert-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.alert-action { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+.alert-action b {
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  margin-right: 9px;
+  white-space: nowrap;
+}
+/* Severity chip. The word carries the meaning; the ramp colour and the rule
+   count only reinforce it, so severity is never colour alone. */
+.sev {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+}
+.sev::before { content: "\2016"; font-weight: 400; letter-spacing: -0.05em; }
+.sev-medium::before { content: "\2223"; }
+.alert-trigger {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.alert-trigger b { color: var(--text); font-weight: 600; }
+.rail-more { font-size: 12px; color: var(--text-faint); margin: 10px 0 0 18px; }
+
+/* ---------- the headline comparison ---------- */
+
+/* The one place on the site that gets extra weight, because it carries the one
+   finding the whole project exists to make. */
+.headline .card {
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
+  padding: 24px 26px 22px;
+}
+.headline-verdict {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline;
+  gap: 4px 16px;
+  margin: 0 0 18px;
+  color: var(--text);
+}
+.headline-verdict .num {
+  grid-row: span 2;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--heat-4);
+}
+.headline-verdict b { font-size: 15.5px; font-weight: 600; align-self: end; }
+.headline-verdict span { color: var(--text-muted); font-size: 13px; }
+
+/* ---------- tables ---------- */
+
+/* The sticky header needs an opaque backing and a hard edge, otherwise rows
+   scroll through it and the column labels become unreadable mid-table. */
+table.data thead th {
+  background: var(--surface-2);
+  box-shadow: inset 0 -1px 0 var(--border-strong);
+  z-index: 1;
+}
+.card-tight table.data th:first-child,
+.card-tight table.data td:first-child { padding-left: 20px; }
+.card-tight table.data th:last-child,
+.card-tight table.data td:last-child { padding-right: 20px; }
+table.data tbody tr:hover { background: color-mix(in srgb, var(--accent) 5%, var(--surface)); }
+
+/* The model card ranks its own limitations by how much they undermine the
+   result, which is a magnitude, so the markers go on the ramp like every other
+   magnitude here. The severity is never carried by the marker alone: each item
+   is a written sentence saying exactly what the limitation costs. */
+.timeline li.bad::before  { border-color: var(--heat-4); }
+.timeline li.warn::before { border-color: var(--heat-2); }
+.timeline li.ok::before   { border-color: var(--heat-1); }
+.timeline .t-what { max-width: 92ch; }
+.timeline .t-when { letter-spacing: 0.02em; }
 
 .kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 13px; }
 .kv dt { color: var(--text-faint); font-family: var(--mono); font-size: 12px; }
 .kv dd { margin: 0; color: var(--text); }
 
-.alert {
+/* ---------- chart value readout ---------- */
+
+/* The panel is part of the chart frame, not a floating tooltip: a tooltip that
+   follows the cursor makes the reader chase it, and on a chart whose whole job
+   is comparison the numbers should sit in one predictable place. */
+.chart[data-readout] { position: relative; }
+.chart[data-readout].has-readout .ro-hit { cursor: crosshair; }
+.chart[data-readout]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ro-panel {
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px 14px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  margin-top: 10px;
+  padding: 8px 11px;
   border: 1px solid var(--border);
-  border-left-width: 2px;
+  border-left: 2px solid var(--accent);
   border-radius: 0 var(--r-sm) var(--r-sm) 0;
-  background: var(--surface);
+  background: var(--surface-2);
+  font-size: 12px;
+  color: var(--text-muted);
+  min-height: 35px;
 }
-.alert + .alert { margin-top: 8px; }
-.alert-high { border-left-color: var(--fail); }
-.alert-med { border-left-color: var(--warn); }
-.alert-body { min-width: 0; }
-.alert-title { font-weight: 600; font-size: 13px; }
-.alert-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.ro-panel[hidden] { display: none; }
+.ro-panel span { display: inline-flex; align-items: baseline; gap: 6px; }
+.ro-panel i {
+  width: 9px; height: 9px;
+  border-radius: 2px;
+  align-self: center;
+  flex: none;
+}
+.ro-panel b {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.ro-at {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-text);
+  padding-right: 10px;
+  border-right: 1px solid var(--border);
+}
+/* Hint that the chart is operable, without a decorative label. */
+.chart[data-readout].has-readout::after {
+  content: "hover or focus and use the arrow keys to read values";
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+/* ---------- the orientation panel ---------- */
+
+/* A summary of the whole site, one row per page, carrying the figure a reader
+   would go there for. Ruled rows rather than six cards: at this density the
+   cards would be the loudest thing on the page and they carry no information. */
+.tour { list-style: none; margin: 0; padding: 0; }
+.tour li {
+  display: grid;
+  grid-template-columns: 130px 108px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 4px 20px;
+  padding: 13px 2px;
+  border-top: 1px solid var(--border);
+}
+.tour li:last-child { border-bottom: 1px solid var(--border); }
+.tour-go { font-size: 14px; font-weight: 600; color: var(--text); }
+.tour-go::after { content: " \2192"; color: var(--accent-text); }
+.tour-go:hover { color: var(--accent-text); text-decoration: none; }
+.tour-figure {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--accent-text);
+}
+.tour-what { font-size: 13px; color: var(--text-muted); max-width: 78ch; }
+
+/* ---------- small multiples ---------- */
+
+/* Four dimensions on one axis read as a set. Four identical tables stacked read
+   as four sections that happen to look the same, which is how the eye stops
+   comparing them. */
+.sm-title {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.grid-2 > .card .chart svg { width: 100%; }
+
+/* ---------- footer run-metadata strip ---------- */
+
+.footer-inner { align-items: baseline; gap: 10px 22px; }
+.foot-brand { font-weight: 600; color: var(--text-muted); }
+.runmeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  min-width: 0;
+}
+.runmeta > div { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
+.runmeta dt {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.runmeta dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---------- in-page contents strip ---------- */
+
+/* The three long pages run to several thousand pixels. The strip is one line
+   and scrolls sideways rather than wrapping.
+
+   Two elements on purpose: the outer box sticks, the inner box scrolls. One
+   box doing both works in current Chrome but the interaction is subtle enough
+   that it is not worth relying on, and separating them costs one div. */
+.toc-sticky {
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+  margin: -6px 0 8px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.toc {
+  display: flex;
+  gap: 2px;
+  padding: 7px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.toc::-webkit-scrollbar { display: none; }
+.toc a {
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.toc a:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
+.toc-label {
+  align-self: center;
+  padding-right: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+/* Anchored headings must not land under the sticky topbar and strip. */
+.section[id] { scroll-margin-top: 108px; }
 
 .formula {
   font-family: var(--mono);
@@ -80,8 +609,33 @@
   .chart svg { width: 760px; max-width: none; }
 }
 
+@media (min-width: 1000px) {
+  /* Two columns rather than one narrow list against half an empty card. */
+  .kv-2 { grid-template-columns: max-content minmax(0, 1fr) max-content minmax(0, 1fr); }
+}
+
 @media (max-width: 640px) {
+  h1 { font-size: 24px; }
+  h2 { font-size: 16px; }
+  .section { margin-top: 32px; }
+  .toc-sticky { top: 0; margin-left: -14px; margin-right: -14px; }
+  .toc { padding-left: 14px; padding-right: 14px; }
+  .section[id] { scroll-margin-top: 64px; }
+  .runmeta { gap: 3px 14px; }
+  .tour li { grid-template-columns: minmax(0, 1fr) max-content; gap: 2px 12px; }
+  .tour-what { grid-column: 1 / -1; }
+  .tour-figure { font-size: 17px; text-align: right; }
+  .page-head { margin-bottom: 20px; padding-bottom: 16px; }
   .matrix td { width: 22px; height: 26px; font-size: 10px; }
   .kv { grid-template-columns: minmax(0, 1fr); gap: 2px 0; }
   .kv dd { margin-bottom: 8px; }
+  .metrics .metric { padding: 13px 15px 15px; }
+  .metrics .metric-value { font-size: 24px; }
+  .alert { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 11px 13px; }
+  .alert-rail { padding-left: 14px; }
+  .alert::before { left: -19px; }
+  .rail-more { margin-left: 14px; }
+  .headline .card { padding: 18px; }
+  .headline-verdict { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .headline-verdict .num { grid-row: auto; font-size: 32px; }
 }

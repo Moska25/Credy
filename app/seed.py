@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 from . import charts  # noqa: F401  (import kept so a broken chart module fails at seed time)
-from . import db, drift, evaluate as ev, generate as gen, models, policy, subgroups
+from . import db, drift, evaluate as ev, generate as gen, models, policy, sources, subgroups
 
 SEED_VERSION = "credy-1"
 N_ROWS = 40_000
@@ -39,7 +39,9 @@ def _control_alerts(n_rows: int, n_boot: int) -> dict:
     alert this produces is a false alarm by construction, which is the only
     honest way to read the alert counts on the real cohort.
     """
-    df = gen.generate(n=n_rows, seed=DATA_SEED + 101, drift=gen.DRIFT_ALL_OFF)
+    df = sources.load(
+        "synthetic", n=n_rows, seed=DATA_SEED + 101, drift=gen.DRIFT_ALL_OFF
+    )
     y = df["default"].to_numpy(dtype=float)
     X = models.design_matrix(df)
     split = models.temporal_split(df)
@@ -74,7 +76,11 @@ def build(n_rows: int = N_ROWS, n_boot: int = N_BOOT, verbose: bool = True) -> d
     say = (lambda m: _log(m, t0)) if verbose else (lambda m: None)
 
     # ---- 1. data ----------------------------------------------------------
-    df = gen.generate(n=n_rows, seed=DATA_SEED)
+    # Through the adapter rather than calling the generator directly, so the
+    # schema check that guards the real-data sources also guards this one. A
+    # generator change that broke the contract would otherwise only be caught
+    # by the tests, and the pipeline would seed a subtly wrong database first.
+    df = sources.load("synthetic", n=n_rows, seed=DATA_SEED)
     truth = gen.dgp_truth()
     say(f"generated {len(df):,} applicants over {gen.N_MONTHS} months")
 

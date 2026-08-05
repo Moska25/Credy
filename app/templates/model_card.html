@@ -1,5 +1,6 @@
 {% extends "_layout.html" %}
 {% block title %}Model card{% endblock %}
+{% from "_toc.html" import toc %}
 {% block content %}
 
 <div class="page-head">
@@ -8,6 +9,8 @@
     attached, and the specific circumstances under which it should not be used.</p>
 </div>
 
+{{ toc([("basics", "Basics"), ("intended-use", "Intended use"), ("performance", "Performance"), ("data", "Data"), ("coefficients", "Coefficients"), ("known-failures", "Known failures"), ("limitations", "Limitations"), ("ethics", "Ethical notes")]) }}
+
 <div class="note note-warn">
   <strong>This card describes a model fitted to synthetic data.</strong> It is written in the
   form a real model card would take so that the form is demonstrated, but every number below
@@ -15,16 +18,16 @@
   regulatory artefact and it has not been reviewed by anyone.
 </div>
 
-<section class="section">
+<section class="section" id="basics">
   <div class="section-head"><h2>Basics</h2></div>
   <div class="card">
     <dl class="kv">
       <dt>model</dt><dd>{{ meta.champion_label }} (<code>HistGradientBoostingClassifier</code>), champion of three candidates</dd>
       <dt>candidates</dt><dd>points scorecard (baseline), logistic regression, gradient boosting</dd>
       <dt>task</dt><dd>Binary classification: probability that an application defaults</dd>
-      <dt>training data</dt><dd>{{ meta.splits.train.n | fnum(0) }} applications, months {{ meta.split_months.train[0] }}&ndash;{{ meta.split_months.train[1] }}</dd>
-      <dt>validation</dt><dd>{{ meta.splits.validation.n | fnum(0) }} applications, months {{ meta.split_months.validation[0] }}&ndash;{{ meta.split_months.validation[1] }} (recalibration fitted here)</dd>
-      <dt>test</dt><dd>{{ meta.splits.test.n | fnum(0) }} applications, months {{ meta.split_months.test[0] }}&ndash;{{ meta.split_months.test[1] }}, never used for any fitting or selection</dd>
+      <dt>training data</dt><dd>{{ meta.splits.train.n | fnum(0) }} applications, months {{ meta.split_months.train[0] }}-{{ meta.split_months.train[1] }}</dd>
+      <dt>validation</dt><dd>{{ meta.splits.validation.n | fnum(0) }} applications, months {{ meta.split_months.validation[0] }}-{{ meta.split_months.validation[1] }} (recalibration fitted here)</dd>
+      <dt>test</dt><dd>{{ meta.splits.test.n | fnum(0) }} applications, months {{ meta.split_months.test[0] }}-{{ meta.split_months.test[1] }}, never used for any fitting or selection</dd>
       <dt>split</dt><dd>Strictly temporal. No row from a later month appears in an earlier window.</dd>
       <dt>features</dt><dd>11 applicant attributes plus 3 explicit missing indicators and 2 derived ratios</dd>
       <dt>determinism</dt><dd>Every random seed fixed; rebuilding the repo reproduces these numbers exactly</dd>
@@ -33,7 +36,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="intended-use">
   <div class="section-head"><h2>Intended use</h2></div>
   <div class="card">
     <p><strong>What it is for.</strong> Demonstrating a credit risk evaluation and monitoring
@@ -45,12 +48,12 @@
     <p><strong>Out-of-scope populations.</strong> Everything outside the generated distribution:
       other products, other geographies, other time periods, commercial lending, and any
       applicant population whose feature distribution differs from
-      <code>app/generate.py</code> &mdash; which, given the drift results on this very site, means
+      <code>app/generate.py</code>, which, given the drift results on this very site, means
       populations only a few months away.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="performance">
   <div class="section-head"><h2>Performance, with intervals</h2>
     <span class="small faint">percentile bootstrap, {{ meta.n_boot }} resamples</span></div>
   <div class="card card-tight">
@@ -85,7 +88,7 @@
     <a href="/calibration">the calibration page</a>.</p>
 </section>
 
-<section class="section">
+<section class="section" id="data">
   <div class="section-head"><h2>Data and the generating process</h2></div>
   <div class="card">
     <p>Applications are drawn from an explicit logistic data-generating process. The full
@@ -107,9 +110,9 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="coefficients">
   <div class="section-head"><h2>Estimated versus true coefficients</h2>
-    <span class="small faint">logistic regression fitted on months {{ meta.split_months.train[0] }}&ndash;{{ meta.split_months.train[1] }}</span></div>
+    <span class="small faint">logistic regression fitted on months {{ meta.split_months.train[0] }}-{{ meta.split_months.train[1] }}</span></div>
   <div class="card card-tight">
     <div class="table-wrap">
       <table class="data">
@@ -121,7 +124,7 @@
             <td class="mono">{{ r.feature }}</td>
             <td class="num">{{ r.estimated | fsigned }}</td>
             <td class="num">{{ (r.true | fsigned) if r.true is not none else "not in DGP" }}</td>
-            <td class="num">{{ (r.estimated - r.true) | fsigned if r.true is not none else "&mdash;" | safe }}</td>
+            <td class="num">{{ (r.estimated - r.true) | fsigned if r.true is not none else "n/a" }}</td>
             <td>{% if r.sign_match is none %}<span class="pill pill-idle">n/a</span>
                 {% elif r.sign_match %}<span class="pill pill-pass">match</span>
                 {% else %}<span class="pill pill-fail">wrong sign</span>{% endif %}</td>
@@ -134,7 +137,7 @@
   <div class="note" style="margin-top:14px">
     <strong>Why some estimates are attenuated.</strong> <code>z_log_income</code>,
     <code>log_loan_amount</code> and <code>loan_to_income</code> are algebraically related
-    &mdash; loan-to-income <em>is</em> loan divided by income &mdash; so the true income effect is
+    (loan-to-income <em>is</em> loan divided by income), so the true income effect is
     split across three collinear columns and none of them recovers it alone. This is a real
     property of the fit, not a bug, and it is the reason coefficient magnitudes from a
     correlated design should never be read as feature importances. Signs and the broadly correct
@@ -142,7 +145,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="known-failures">
   <div class="section-head"><h2>Known failures on this very dataset</h2></div>
   <div class="card card-tight">
     <div class="table-wrap">
@@ -160,7 +163,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="limitations">
   <div class="section-head"><h2>Limitations</h2></div>
   <div class="card">
     <ul class="timeline">
@@ -184,7 +187,7 @@
         without accounting for the selection is mildly optimistic.</div></li>
       <li class="warn"><span class="t-when">intervals</span><div class="t-what">
         Bootstrap intervals assume applications are independent draws. They quantify sampling
-        noise only &mdash; not model risk, not specification error, and explicitly not the risk
+        noise only. Not model risk, not specification error, and explicitly not the risk
         that next month's population differs from this month's.</div></li>
       <li><span class="t-when">explanations</span><div class="t-what">
         No SHAP or per-application reason codes. A production credit model needs adverse action
@@ -193,7 +196,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="ethics">
   <div class="section-head"><h2>Ethical notes</h2></div>
   <div class="card">
     <p><strong>Automated credit decisions harm people when they are wrong.</strong> A false
@@ -211,7 +214,7 @@
       is used directly as a feature here. In several jurisdictions that alone would make the
       model unlawful for consumer credit. It is present because this is a laboratory for
       stability measurement, and its presence should be read as a demonstration of what a model
-      card has to disclose &mdash; not as a defensible design choice.</p>
+      card has to disclose, not as a defensible design choice.</p>
     <p><strong>Drift is a safety issue, not just an accuracy issue.</strong> The alerts on this
       site fire months after the drift begins. A model that is quietly under-predicting risk is
       also quietly approving people who cannot afford the loan.</p>

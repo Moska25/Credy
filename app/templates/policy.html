@@ -5,7 +5,7 @@
 <div class="page-head">
   <h1>Policy simulator</h1>
   <p class="lede">A probability is not a decision. Pick an approval threshold and loss
-    assumptions, and see the approval rate, bad rate, expected loss and profit that follow &mdash;
+    assumptions, and see the approval rate, bad rate, expected loss and profit that follow,
     on the cohort the model was deployed against and on the cohort six months later.</p>
 </div>
 
@@ -17,7 +17,7 @@
 
 <section class="section">
   <div class="section-head"><h2>Controls</h2>
-    <span class="small faint">every value below is read from a grid precomputed at seed time &mdash; no model is fitted per request</span></div>
+    <span class="small faint">every value below is read from a grid precomputed at seed time, no model is fitted per request</span></div>
   <div class="card">
     <form method="get" action="/policy">
       <div class="toolbar">
@@ -57,7 +57,7 @@
 <section class="section">
   <div class="section-head"><h2>Outcome at PD &lt; {{ threshold | fnum(4) }}</h2>
     <span class="small faint">{{ p.test_label }}, {{ p.test_n | fnum(0) }} applications</span></div>
-  <div class="grid grid-4">
+  <div class="grid grid-4 metrics">
     <div class="metric">
       <div class="metric-label">Approval rate</div>
       <div class="metric-value">{{ chosen.approval_rate | fpct }}</div>
@@ -65,17 +65,17 @@
     </div>
     <div class="metric">
       <div class="metric-label">Bad rate among approved</div>
-      <div class="metric-value {{ 'is-fail' if chosen.approved_bad_rate > 0.10 else 'is-warn' }}">{{ chosen.approved_bad_rate | fpct }}</div>
+      <div class="metric-value heat-t-{{ heat(chosen.approved_bad_rate, (0.03, 0.06, 0.10, 0.16)) }}">{{ chosen.approved_bad_rate | fpct }}</div>
       <div class="metric-sub">{{ chosen.n_approved_bad | fnum(0) }} defaults booked</div>
     </div>
     <div class="metric">
       <div class="metric-label">Expected credit loss</div>
-      <div class="metric-value is-fail">{{ chosen.expected_loss | fmoney }}</div>
+      <div class="metric-value heat-t-4">{{ chosen.expected_loss | fmoney }}</div>
       <div class="metric-sub">{{ econ.lgd }} x {{ chosen.principal_bad | fmoney }} defaulted principal</div>
     </div>
     <div class="metric">
       <div class="metric-label">Profit</div>
-      <div class="metric-value {{ 'is-pass' if chosen.profit > 0 else 'is-fail' }}">{{ chosen.profit | fmoney }}</div>
+      <div class="metric-value {{ 'is-accent' if chosen.profit > 0 else 'heat-t-4' }}">{{ chosen.profit | fmoney }}</div>
       <div class="metric-sub">revenue {{ chosen.revenue | fmoney }} &minus; loss &minus; opportunity {{ chosen.opportunity_cost | fmoney }}</div>
     </div>
   </div>
@@ -110,8 +110,8 @@ profit       = revenue - credit loss - opportunity       = {{ chosen.profit | fn
   </div>
   <div class="card">
     {{ line_chart(
-        [series(test_curve, "threshold", "approval_rate", "Approval rate", color="var(--pass)"),
-         series(test_curve, "threshold", "approved_bad_rate", "Bad rate among approved", color="var(--fail)")],
+        [series(test_curve, "threshold", "approval_rate", "Approval rate", color="var(--heat-1)"),
+         series(test_curve, "threshold", "approved_bad_rate", "Bad rate among approved", color="var(--heat-4)")],
         "Approval threshold (approve if PD below x)", "Share of applications (0-1)",
         y_places=2, x_places=2, y_min=0, v_line=threshold, v_label="your threshold") }}
   </div>
@@ -119,7 +119,7 @@ profit       = revenue - credit loss - opportunity       = {{ chosen.profit | fn
 
 <section class="section">
   <div class="section-head"><h2>What a stale cut-off costs</h2></div>
-  <div class="grid grid-4">
+  <div class="grid grid-4 metrics">
     <div class="metric">
       <div class="metric-label">Optimal at deployment</div>
       <div class="metric-value sm">{{ stale.stale_threshold | fnum(3) }}</div>
@@ -132,7 +132,7 @@ profit       = revenue - credit loss - opportunity       = {{ chosen.profit | fn
     </div>
     <div class="metric">
       <div class="metric-label">Profit gap on the test cohort</div>
-      <div class="metric-value sm is-fail">{{ stale.profit_gap | fmoney }}</div>
+      <div class="metric-value sm heat-t-3">{{ stale.profit_gap | fmoney }}</div>
       <div class="metric-sub">{{ stale.profit_gap_pct | fpct }} of the re-optimised profit</div>
     </div>
     <div class="metric">
@@ -181,7 +181,7 @@ profit       = revenue - credit loss - opportunity       = {{ chosen.profit | fn
     </div>
   </div>
   <p class="small faint" style="margin-top:10px">A preset is written as a target approval rate on
-    the reference cohort, then converted to a PD cut-off &mdash; that is how a credit policy is
+    the reference cohort, then converted to a PD cut-off. That is how a credit policy is
     actually expressed, because a bare PD number means nothing without the score distribution it
     sits on. Compare the target column against the actual column: the policy text did not change,
     but what it does to the incoming population did.</p>

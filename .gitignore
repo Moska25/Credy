@@ -5,3 +5,9 @@ __pycache__/
 .pytest_cache/
 data/cache/
 .DS_Store
+
+# Local design surface. The UI kit, the component gallery and the agent prompts
+# live here so they can be worked on next to the app and handed to a designer,
+# but they are not part of the product: nothing under app/ imports them and no
+# route serves them. Deleting the folder changes zero pages.
+design/

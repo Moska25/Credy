@@ -48,7 +48,7 @@
     {{ meta.rows | fnum(0) }} applicants with identical train/validation/test row counts
     ({{ meta.splits.train.n | fnum(0) }} / {{ meta.splits.validation.n | fnum(0) }} /
     {{ meta.splits.test.n | fnum(0) }}). The only difference is that the random split lets rows
-    from months {{ meta.split_months.test[0] }}&ndash;{{ meta.split_months.test[1] }} into
+    from months {{ meta.split_months.test[0] }}-{{ meta.split_months.test[1] }} into
     training. Where the two intervals are disjoint, the gap is not sampling noise. The scorecard
     is affected least, which is what you would expect: a fixed points table cannot memorise a
     period it was never fitted on.
@@ -105,7 +105,7 @@
   </div>
   <div class="card">
     {{ line_chart(
-        [series(bad_rate, "month", "bad_rate", "Observed default rate", dots=True, color="var(--fail)"),
+        [series(bad_rate, "month", "bad_rate", "Observed default rate", dots=True, color="var(--heat-4)"),
          series(monthly, "month", "mean_predicted", "Mean predicted PD", dots=True, color="var(--accent)")],
         "Application month", "Rate (share of applications, 0-1)",
         y_places=2, x_ticks=[1, 4, 8, 12, 16, 20, 24], y_min=0) }}
@@ -116,27 +116,27 @@
     completely: by month {{ bad_rate[-1].month }} the observed default rate is
     {{ bad_rate[-1].bad_rate | fpct }} while the model still predicts an average of
     {{ monthly[-1].mean_predicted | fpct }}. A model can keep ranking applicants correctly while
-    being badly wrong about how much risk it is looking at &mdash; which is exactly why
+    being badly wrong about how much risk it is looking at, which is exactly why
     <a href="/calibration">calibration</a> is tracked separately.
   </div>
 </section>
 
 <section class="section">
   <div class="section-head"><h2>Did discrimination actually decline?</h2></div>
-  <div class="grid grid-3">
+  <div class="grid grid-3 metrics">
     <div class="metric">
       <div class="metric-label">AUC, validation window</div>
       <div class="metric-value sm">{{ fci(per_model[meta.champion].validation) }}</div>
-      <div class="metric-sub">months {{ meta.split_months.validation[0] }}&ndash;{{ meta.split_months.validation[1] }}</div>
+      <div class="metric-sub">months {{ meta.split_months.validation[0] }}-{{ meta.split_months.validation[1] }}</div>
     </div>
     <div class="metric">
       <div class="metric-label">AUC, test window</div>
       <div class="metric-value sm">{{ fci(per_model[meta.champion].test) }}</div>
-      <div class="metric-sub">months {{ meta.split_months.test[0] }}&ndash;{{ meta.split_months.test[1] }}</div>
+      <div class="metric-sub">months {{ meta.split_months.test[0] }}-{{ meta.split_months.test[1] }}</div>
     </div>
     <div class="metric">
       <div class="metric-label">Difference (val &minus; test)</div>
-      <div class="metric-value sm {{ 'is-fail' if decay.excludes_zero else 'is-warn' }}">{{ decay.delta | fsigned }}</div>
+      <div class="metric-value sm heat-t-{{ 4 if decay.excludes_zero else 2 }}">{{ decay.delta | fsigned }}</div>
       <div class="metric-sub">95% CI [{{ decay.lo | fnum }}, {{ decay.hi | fnum }}]</div>
     </div>
   </div>
@@ -156,7 +156,7 @@
 
 <section class="section">
   <div class="section-head"><h2>Operating points on the test window</h2>
-    <span class="small faint">{{ meta.champion_label }}, months {{ meta.split_months.test[0] }}&ndash;{{ meta.split_months.test[1] }}</span></div>
+    <span class="small faint">{{ meta.champion_label }}, months {{ meta.split_months.test[0] }}-{{ meta.split_months.test[1] }}</span></div>
   <div class="card card-tight">
     <div class="table-wrap">
       <table class="data">
@@ -184,7 +184,7 @@
   </div>
   <p class="small faint" style="margin-top:10px">Precision here is the share of declined
     applications that really would have defaulted. Turning these into money needs a loss given
-    default and a margin &mdash; that is the <a href="/policy">policy simulator</a>.</p>
+    default and a margin. That is the <a href="/policy">policy simulator</a>.</p>
 </section>
 
 {% endblock %}

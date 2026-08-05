@@ -4,24 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ project_name }}{% endblock %} · {{ project_name }}</title>
+<meta name="description" content="{{ meta_description }}">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0d10">
+<link rel="icon" href="/static/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/static/base.css">
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header class="topbar"><div class="topbar-inner">
   <a class="brand" href="/"><span class="brand-mark"></span>{{ project_name }}
     <span class="brand-sub">{{ project_tagline }}</span></a>
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary">
     {% for href, label in nav %}
-    <a href="{{ href }}" class="{{ 'active' if active == href else '' }}">{{ label }}</a>
+    <a href="{{ href }}" class="{{ 'active' if active == href else '' }}"
+       {% if active == href %}aria-current="page"{% endif %}>{{ label }}</a>
     {% endfor %}
   </nav>
 </div></header>
-<main class="container">{% block content %}{% endblock %}</main>
+<main class="container" id="content" tabindex="-1">{% block content %}{% endblock %}</main>
 <footer class="footer"><div class="footer-inner">
-  <span>{{ project_name }}</span><span class="spacer"></span>
-  <span>{{ footer_note }}</span>
+  <span class="foot-brand">{{ project_name }}</span>
+  <dl class="runmeta">
+    {% for label, value in run_meta %}
+    <div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>
+    {% endfor %}
+  </dl>
 </div></footer>
+<script src="/static/readout.js" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

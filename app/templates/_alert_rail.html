@@ -1,0 +1,36 @@
+{# The alert stack rail. One component, used on / and /drift, so the two pages
+   cannot disagree about what an alert says. Every item names the month, the
+   trigger that fired, the value against its threshold, and the recommended
+   action. Severity is written out as a word and given a distinct glyph, so it
+   survives greyscale and colour-blind viewing. #}
+{% macro alert_rail(alerts, limit=0, more_href="") %}
+  {% set shown = alerts[:limit] if limit else alerts %}
+  {% if shown %}
+  <ol class="alert-rail">
+    {% for a in shown %}
+    <li class="alert alert-sev-{{ 'high' if a.severity == 'high' else 'medium' }}">
+      <div class="alert-when">
+        month {{ a.month }}
+      </div>
+      <div class="alert-body">
+        <div class="alert-title">
+          <span class="sev sev-{{ 'high' if a.severity == 'high' else 'medium' }} heat-t-{{ 4 if a.severity == 'high' else 2 }}">{{ 'high' if a.severity == 'high' else 'med' }}</span>
+          {{ a.message }}
+        </div>
+        <div class="alert-trigger">
+          trigger <b>{{ a.rule }}</b>{% if a.subject %} on <b>{{ a.subject }}</b>{% endif %}
+          &middot; value <b>{{ a.value | fnum }}</b> against threshold {{ a.threshold | fnum }}
+        </div>
+        <div class="alert-action"><b>Action</b>{{ a.action }}</div>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+  {% if limit and alerts | length > limit %}
+  <p class="rail-more">{{ alerts | length - limit }} further alerts{% if more_href %},
+    listed in full <a href="{{ more_href }}">on the drift page</a>{% endif %}.</p>
+  {% endif %}
+  {% else %}
+  <div class="empty">No alert rule fired in the monitored window.</div>
+  {% endif %}
+{% endmacro %}

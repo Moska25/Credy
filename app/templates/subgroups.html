@@ -21,7 +21,7 @@
 {% if sg.widest_gap %}
 <section class="section">
   <div class="section-head"><h2>Widest spread</h2></div>
-  <div class="grid grid-3">
+  <div class="grid grid-3 metrics">
     <div class="metric">
       <div class="metric-label">Dimension</div>
       <div class="metric-value sm">{{ sg.widest_gap.dimension }}</div>
@@ -34,16 +34,47 @@
     </div>
     <div class="metric">
       <div class="metric-label">Spread</div>
-      <div class="metric-value sm {{ 'is-warn' if not sg.widest_gap.overlapping_intervals }}">{{ sg.widest_gap.gap | fnum }}</div>
+      <div class="metric-value sm {{ '' if sg.widest_gap.overlapping_intervals else 'heat-t-3' }}">{{ sg.widest_gap.gap | fnum }}</div>
       <div class="metric-sub">intervals {{ "overlap - not a distinguishable difference" if sg.widest_gap.overlapping_intervals else "are disjoint" }}</div>
     </div>
   </div>
 </section>
 {% endif %}
 
-{% for block in sg.analysis %}
 <section class="section">
-  <div class="section-head"><h2>By {{ block.dimension.replace("_", " ") }}</h2></div>
+  <div class="section-head"><h2>AUC by level, all four dimensions</h2>
+    <span class="small faint">dot is the point estimate, bar is the 95% bootstrap interval</span></div>
+  <div class="grid grid-2">
+    {% for block in sg.analysis %}
+    <div class="card">
+      <h3 class="sm-title">{{ block.dimension.replace("_", " ") }}</h3>
+      {% set rows = subgroup_rows(block) %}
+      {% if rows %}
+        {{ interval_chart(rows, "AUC on the test months (0.5 = coin flip)", x_places=3,
+            width=548, x_min=x_min, x_max=x_max) }}
+      {% else %}
+        <div class="empty">Every level of this dimension is below the reporting floor.</div>
+      {% endif %}
+      {% set skipped = block.levels | selectattr("too_small") | list %}
+      {% if skipped %}
+      <p class="small faint" style="margin-top:8px">Not scored:
+        {{ skipped | map(attribute="level") | join(", ") }}. Below the
+        {{ sg.min_group }}-application floor or fewer than 15 defaults.</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <p class="small faint" style="margin-top:12px">Read these as four small multiples on one axis
+    rather than four rankings. Where two bars overlap on the horizontal axis, the model is not
+    measurably better on one level than the other at this cohort size, however far apart the dots
+    look. Levels with fewer than {{ sg.min_group }} applications or fewer than 15 defaults are not
+    scored at all: reporting an AUC on 30 defaults would be worse than reporting nothing, because
+    the number looks precise and is not.</p>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>Full detail, {{ detail.dimension.replace("_", " ") }}</h2>
+    <span class="small faint">the dimension with the widest spread; the other three are in the charts above</span></div>
   <div class="card card-tight">
     <div class="table-wrap">
       <table class="data">
@@ -54,7 +85,7 @@
           <th class="num">Cal. slope</th><th>Cohort</th>
         </tr></thead>
         <tbody>
-        {% for r in block.levels %}
+        {% for r in detail.levels %}
           <tr>
             <td class="mono">{{ r.level }}</td>
             <td class="num">{{ r.n | fnum(0) }}</td>
@@ -75,13 +106,7 @@
       </table>
     </div>
   </div>
-  {% if block.dimension == "age_band" %}
-  <p class="small faint" style="margin-top:10px">Levels with fewer than {{ sg.min_group }}
-    applications or fewer than 15 defaults are not scored at all. Reporting an AUC on 30
-    defaults would be worse than reporting nothing, because the number looks precise and is not.</p>
-  {% endif %}
 </section>
-{% endfor %}
 
 <section class="section">
   <div class="section-head"><h2>How to read the intervals</h2></div>
@@ -90,7 +115,7 @@
     applications column: the largest levels have intervals a third the width of the smallest ones.
     Two levels whose intervals overlap are not distinguishable, however different their point
     estimates look. Before acting on any row below, ask whether the difference survives the
-    interval &mdash; and whether you would have looked at that dimension at all if the number had
+    interval, and whether you would have looked at that dimension at all if the number had
     come out the other way.
   </div>
   <div class="note note-warn">

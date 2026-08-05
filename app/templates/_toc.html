@@ -1,0 +1,19 @@
+{# In-page contents for the long pages. One line, sticky, scrolls sideways at
+   375px rather than wrapping into a block that eats the viewport.
+
+   Two boxes, not one: sticky positioning and horizontal scrolling on the same
+   element do not compose, and the links escape the scroll container and push
+   the page to 939px at a 375px viewport. The outer box sticks, the inner box
+   scrolls.
+
+   The ids are written by hand in the page rather than generated, so they stay
+   stable when a heading is reworded and any link shared into a README keeps
+   working. #}
+{% macro toc(items) %}
+<div class="toc-sticky">
+  <nav class="toc" aria-label="On this page">
+    <span class="toc-label">On this page</span>
+    {% for anchor, label in items %}<a href="#{{ anchor }}">{{ label }}</a>{% endfor %}
+  </nav>
+</div>
+{% endmacro %}

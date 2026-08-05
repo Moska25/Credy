@@ -108,10 +108,38 @@ def test_chart_renders_axis_labels_and_units():
             "AUC (0.5 = coin flip)",
         )
     )
-    assert svg.startswith('<div class="chart">')
+    assert svg.startswith('<div class="chart"')
     assert "Application month" in svg
     assert "AUC (0.5 = coin flip)" in svg
     assert "<polyline" in svg and "viewBox" in svg
+
+
+def test_chart_ships_the_readout_geometry_and_stays_static_without_it():
+    """The value readout is progressive enhancement, so the geometry has to be
+    in the markup rather than recomputed in the browser."""
+    import json
+
+    svg = str(
+        charts.line_chart(
+            [{"name": "AUC", "points": [(1, 0.5), (2, 0.7), (3, 0.62)]}],
+            "Application month",
+            "AUC",
+        )
+    )
+    assert 'tabindex="0"' in svg and "data-readout=" in svg
+    payload = json.loads(
+        svg.split('data-readout="')[1].split('"')[0]
+        .replace("&quot;", '"').replace("&amp;", "&")
+    )
+    assert payload["xv"] == [1, 2, 3]
+    assert payload["series"][0]["v"] == [0.5, 0.7, 0.62]
+    assert len(payload["series"][0]["y"]) == 3
+    # The chart itself is complete without the script: line, axes, labels.
+    assert "<polyline" in svg and "Application month" in svg
+
+    # An unnamed series carries no readout, and must not claim one.
+    plain = str(charts.line_chart([{"points": [(1, 0.5), (2, 0.7)]}], "x", "y"))
+    assert "data-readout=" not in plain and "ro-panel" not in plain
 
 
 def test_chart_handles_an_empty_series_without_crashing():

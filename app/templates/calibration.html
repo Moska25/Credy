@@ -5,7 +5,7 @@
 <div class="page-head">
   <h1>Calibration</h1>
   <p class="lede">Ranking and pricing are different problems. This page asks whether a predicted
-    probability of default of 8% actually means eight defaults in a hundred &mdash; before and
+    probability of default of 8% actually means eight defaults in a hundred, before and
     after recalibration.</p>
 </div>
 
@@ -44,7 +44,7 @@
   </div>
   <div class="note" style="margin-top:14px">
     <strong>Perfect is slope 1.000 and intercept 0.000.</strong> A slope below 1 means the score
-    is too spread out &mdash; the model is over-confident at both ends. A positive intercept means
+    is too spread out: the model is over-confident at both ends. A positive intercept means
     it systematically under-predicts the level of risk. Note that AUC barely moves across the
     three rows: recalibration is a monotone transform of the score, so it cannot change the
     ranking and cannot rescue discrimination. Isotonic is not monotone-preserving in the strict
@@ -57,18 +57,21 @@
     <span class="small faint">10 equal-count bins on the test months</span></div>
   <div class="card">
     {{ line_chart(
-        [{"name": "Perfect calibration", "points": [[0, 0], [diag_max, diag_max]],
-          "dash": True, "color": "var(--text-faint)"},
-         series(cal.variants.raw.curve, "mean_pred", "observed", "Raw model output", dots=True, color="var(--fail)"),
-         series(cal.variants.platt.curve, "mean_pred", "observed", "Platt scaling", dots=True, color="var(--accent)"),
-         series(cal.variants.isotonic.curve, "mean_pred", "observed", "Isotonic regression", dots=True, color="var(--pass)")],
+        [series(cal.variants.raw.curve, "mean_pred", "observed", "Raw model output", dots=True, color="var(--heat-4)"),
+         series(cal.variants.platt.curve, "mean_pred", "observed", "Platt scaling", dots=True, color="var(--heat-2)"),
+         series(cal.variants.isotonic.curve, "mean_pred", "observed", "Isotonic regression", dots=True, color="var(--heat-1)")],
         "Mean predicted probability of default in bin (0-1)",
         "Observed default rate in bin (0-1)",
-        y_places=2, x_places=2, y_min=0) }}
-    <p class="small faint" style="margin-top:10px">Every point above the dashed line is a bin
-      where more applicants defaulted than the model expected. All three variants sit above it
-      across most of the range, because the recalibrators were fitted on
-      {{ cal.fitted_on }} and the population kept moving afterwards.</p>
+        y_places=2, x_places=2, y_min=0,
+        diag_ref=True, diag_label="perfect calibration: predicted = observed (45°)") }}
+    <p class="small faint" style="margin-top:10px">Read it as a distance, not a shape: the closer
+      a curve sits to the dashed 45&deg; line, the better calibrated that variant is. The whole
+      shaded half above the line is under-prediction, meaning bins where more applicants defaulted
+      than the model expected. All three variants spend most of the range inside it,
+      because the recalibrators were fitted on {{ cal.fitted_on }} and the population kept moving
+      afterwards. The colours are the same heat ramp used everywhere else on the site: the raw
+      output is the hottest line because it is the furthest from the reference, isotonic the
+      coolest because it is the closest.</p>
   </div>
 </section>
 
@@ -102,7 +105,7 @@
   </div>
   <p class="small faint" style="margin-top:10px">The interval is a Wilson score interval on the
     observed rate in each bin. "Within interval" means the model's prediction is not
-    distinguishable from the observed rate at that bin size &mdash; a weak statement for small bins.</p>
+    distinguishable from the observed rate at that bin size, which is a weak statement for small bins.</p>
 </section>
 
 <section class="section">

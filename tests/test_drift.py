@@ -149,13 +149,24 @@ def test_verification_scores_every_injected_drift(fitted):
         feature_psi=drift.feature_drift(fitted["df"]),
         baseline=baseline,
     )
-    rows = drift.verify_against_truth(fired, gen.dgp_truth())
+    verification = drift.verify_against_truth(fired, gen.dgp_truth())
+    assert verification["verifiable"] is True
+    rows = verification["rows"]
     assert len(rows) == 4
     assert all(r["enabled"] for r in rows)
     detected = [r for r in rows if r["detected"]]
     assert len(detected) >= 3, f"expected at least 3 of 4 drifts caught, got {len(detected)}"
     for r in detected:
         assert r["first_detected_month"] >= gen.VAL_MONTHS[0]
+
+
+def test_verification_refuses_to_score_a_source_with_no_known_schedule():
+    """A blank table would read as 'no drift was injected'. It must refuse instead."""
+    for truth in (None, {}, {"schedule": {}}):
+        out = drift.verify_against_truth([], truth)
+        assert out["verifiable"] is False
+        assert out["rows"] == []
+        assert "known" in out["reason"].lower() and len(out["reason"]) > 60
 
 
 def test_early_production_baseline_pools_the_first_out_of_sample_months(fitted):

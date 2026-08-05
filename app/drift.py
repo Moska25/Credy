@@ -381,13 +381,31 @@ def alerts(
     return out
 
 
-def verify_against_truth(fired: list[dict], truth: dict) -> list[dict]:
+def verify_against_truth(fired: list[dict], truth: dict | None) -> dict:
     """Did the detectors catch the drift we planted, and in which month?
 
     This is the whole argument for a synthetic dataset: the expected month is
     known, so the alert table can be scored rather than admired.
+
+    On a real source there is no known schedule, and the honest answer is not an
+    empty table. It is a refusal: `{"verifiable": False, "reason": ...}`. A blank
+    verification table reads as "nothing was injected", which on real data is an
+    unfalsifiable claim rather than a result. Every caller must render the
+    reason instead.
     """
-    schedule = truth["schedule"]
+    schedule = (truth or {}).get("schedule")
+    if not schedule:
+        return {
+            "verifiable": False,
+            "reason": (
+                "No known drift schedule for this source. Detection lag and hit rate can only "
+                "be scored against a population whose drift was planted at a known month. On "
+                "real lending data nobody knows the true schedule, so a quiet month cannot be "
+                "distinguished from an insensitive detector, and this table is withheld rather "
+                "than shown empty."
+            ),
+            "rows": [],
+        }
     expectations = [
         {
             "injected": "Covariate shift - income distribution slides down",
@@ -434,4 +452,4 @@ def verify_against_truth(fired: list[dict], truth: dict) -> list[dict]:
                 "lag_months": (first - exp["starts_month"]) if first is not None else None,
             }
         )
-    return rows
+    return {"verifiable": True, "reason": "", "rows": rows}
