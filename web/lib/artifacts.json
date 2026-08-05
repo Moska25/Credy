@@ -1,0 +1,4678 @@
+{
+ "meta": {
+  "build": "credy-1",
+  "rows": 40000,
+  "months": 24,
+  "dataSeed": 7,
+  "champion": "Gradient boosting",
+  "nBoot": 500,
+  "nBootMonthly": 300,
+  "builtSeconds": 9.9,
+  "splits": {
+   "train": [
+    1,
+    12
+   ],
+   "validation": [
+    13,
+    18
+   ],
+   "test": [
+    19,
+    24
+   ]
+  },
+  "splitSizes": {
+   "train": 20004,
+   "validation": 10000,
+   "test": 9996
+  },
+  "perMonth": 1667
+ },
+ "months": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24
+ ],
+ "auc": [
+  0.8103877185118781,
+  0.8250807735252892,
+  0.8006400838259246,
+  0.8097298438159561,
+  0.8287805280018129,
+  0.8151242768107665,
+  0.7882400675870962,
+  0.8129878785824832,
+  0.7912684824902724,
+  0.7844800537875393,
+  0.8010317145067213,
+  0.7906465319246669,
+  0.754700080809261,
+  0.8052130651092364,
+  0.7284188735682497,
+  0.753726653482751,
+  0.7589846501996115,
+  0.7368907056955672,
+  0.7377371028150296,
+  0.7001465031999383,
+  0.7233861271785744,
+  0.7226800798939805,
+  0.7140565489256179,
+  0.7010260814116125
+ ],
+ "aucLo": [
+  0.7728449363694349,
+  0.7883300774411643,
+  0.7551636037486524,
+  0.7691397937062954,
+  0.7984347063614515,
+  0.7706140677019621,
+  0.7524077901152568,
+  0.7685412196701598,
+  0.7509576165495438,
+  0.7418725246635867,
+  0.757684574115694,
+  0.7490050879793083,
+  0.7089199553575746,
+  0.7669838477886886,
+  0.6800413137763305,
+  0.708500444599159,
+  0.7149045895143148,
+  0.7003547903487768,
+  0.6973939011067504,
+  0.6682422880118855,
+  0.688952614476372,
+  0.6904308309584933,
+  0.6819683002793905,
+  0.6681606441421812
+ ],
+ "aucHi": [
+  0.8523754309416074,
+  0.8585781450548707,
+  0.8369904178887728,
+  0.8543223924747495,
+  0.8636685992033187,
+  0.8597652383278439,
+  0.8297211052640275,
+  0.8547156095663687,
+  0.8277516019757785,
+  0.8299409853911643,
+  0.8406884572660104,
+  0.8261527246970953,
+  0.7955417140944209,
+  0.8411362583523894,
+  0.771460548166757,
+  0.7921385778516127,
+  0.792272140223988,
+  0.7715149025047203,
+  0.773128990789595,
+  0.7376175864193897,
+  0.7576238677224835,
+  0.7499600798154265,
+  0.7421232596795525,
+  0.7320497994374056
+ ],
+ "badRate": [
+  0.06898620275944811,
+  0.0647870425914817,
+  0.06778644271145771,
+  0.0617876424715057,
+  0.07558488302339532,
+  0.0617876424715057,
+  0.06958608278344332,
+  0.0683863227354529,
+  0.07498500299940011,
+  0.06898620275944811,
+  0.07438512297540492,
+  0.06718656268746251,
+  0.08038392321535692,
+  0.07558488302339532,
+  0.08638272345530894,
+  0.08998200359928014,
+  0.09303721488595439,
+  0.11104441776710684,
+  0.10684273709483794,
+  0.13505402160864347,
+  0.13145258103241297,
+  0.15786314525810324,
+  0.18667466986794717,
+  0.1914765906362545
+ ],
+ "meanPredicted": [
+  0.07072952530680553,
+  0.06653060265292651,
+  0.06982018983999103,
+  0.06730295531158705,
+  0.06724610609159794,
+  0.06718728784891412,
+  0.07014865207106882,
+  0.07161821378744125,
+  0.06567897849396587,
+  0.06677434081053209,
+  0.069594505671662,
+  0.07018815869182954,
+  0.07094108050730322,
+  0.0704824099427532,
+  0.07239971465701613,
+  0.07109102142719559,
+  0.07227328010678384,
+  0.07250299076684895,
+  0.07519096580621644,
+  0.07712412863696476,
+  0.07540450580436481,
+  0.07798609428011041,
+  0.08253549278989078,
+  0.07864807055055698
+ ],
+ "scorePsi": [
+  0.002540082727733093,
+  0.005904124350428878,
+  0.0036282967690940892,
+  0.008482538606322775,
+  0.003667330577012025,
+  0.004659782829516226,
+  0.0038943743483063555,
+  0.0032947802355654185,
+  0.0037764819234408506,
+  0.006565505494893548,
+  0.0038833434029154905,
+  0.004429851991107206,
+  0.003481137781909259,
+  0.006287952358862697,
+  0.0069796858174777454,
+  0.006368200547254903,
+  0.007813391592362096,
+  0.011856194304352143,
+  0.019961337277467402,
+  0.02500446762596106,
+  0.016862926120106585,
+  0.02909486229053613,
+  0.0472220569991637,
+  0.03638025472914451
+ ],
+ "scoreJs": [
+  0.00045789886514272307,
+  0.0010642440760320433,
+  0.0006539887118930821,
+  0.001528600159993171,
+  0.0006609479880436207,
+  0.0008398706981685424,
+  0.0007019063756752235,
+  0.0005939994869644072,
+  0.0006808565168546291,
+  0.0011832552791643525,
+  0.000700015887644441,
+  0.0007985575054329829,
+  0.0006276491391763585,
+  0.0011331722713151427,
+  0.0012578525504801513,
+  0.0011477863907576676,
+  0.0014080635303095074,
+  0.002134353048222338,
+  0.0035927839169485306,
+  0.004499969982411721,
+  0.003033677987481668,
+  0.005229712303009872,
+  0.008473149645199459,
+  0.006525897869865778
+ ],
+ "scorePsiMax": 0.0472220569991637,
+ "scorePsiFinal": 0.03638025472914451,
+ "thresholds": {
+  "scorePsiAlert": 0.25,
+  "psiWatch": 0.1,
+  "psiShift": 0.25,
+  "aucFloor": 0.7,
+  "aucBaseline": 0.7613163018498935,
+  "slopeBand": [
+   0.8,
+   1.2
+  ],
+  "pdGap": 0.25,
+  "missingnessJump": 0.1
+ },
+ "featurePsi": {
+  "age": [
+   0.005483142540018963,
+   0.004890638745478147,
+   0.004979604848222976,
+   0.0037088205374669683,
+   0.007154226356113614,
+   0.0059644460374338164,
+   0.0038707234253546724,
+   0.002935483160219091,
+   0.0018217160562932413,
+   0.0020325695000419004,
+   0.0039565494499253055,
+   0.0035976331692225906,
+   0.005884960242648777,
+   0.002184725429596613,
+   0.007218652492128863,
+   0.005869786246578913,
+   0.006540295487772629,
+   0.010062495788420276,
+   0.011732194522446102,
+   0.00732746547673797,
+   0.005965714993182704,
+   0.010070821908978513,
+   0.006784970168670293,
+   0.011430648269707475
+  ],
+  "income": [
+   0.005164333685216516,
+   0.005905478486769782,
+   0.004929166477629355,
+   0.003725322592180032,
+   0.0033834747529392947,
+   0.004565853126802842,
+   0.002753126798564055,
+   0.001701944544261149,
+   0.004381316743662992,
+   0.002935996438601971,
+   0.004137309968992382,
+   0.006586282673540431,
+   0.012316524991866161,
+   0.007217548792162297,
+   0.017606160472361052,
+   0.034720266485317994,
+   0.06305725437203173,
+   0.09958650947026959,
+   0.14298865590749657,
+   0.17026755773977625,
+   0.2116510260425518,
+   0.25293781737886134,
+   0.28261794033745574,
+   0.3441834180092733
+  ],
+  "employment_tenure": [
+   0.003787116613160448,
+   0.0012388941600506263,
+   0.005466049910571455,
+   0.00247546268196038,
+   0.001396490209428258,
+   0.0029126864668730748,
+   0.00040669014849382165,
+   0.0021288802106753887,
+   0.005569726540774081,
+   0.0020951300840291696,
+   0.004121119936037719,
+   0.0024657945222525427,
+   0.009290043962066653,
+   0.001383981145554868,
+   0.0027364525805951053,
+   0.004476665048606804,
+   0.003628792760678315,
+   0.004919482349294712,
+   0.004769962018962067,
+   0.00241664614671188,
+   0.0043749421719871855,
+   0.007363496534601478,
+   0.01786193420025281,
+   0.007286797037941417
+  ],
+  "debt_ratio": [
+   0.0034167949857186438,
+   0.006772607697772421,
+   0.007950372931874151,
+   0.004814643359197665,
+   0.007795616176918446,
+   0.006639344087854784,
+   0.004214462727498119,
+   0.0030929449739089763,
+   0.005158968747999542,
+   0.0030885295852633135,
+   0.0048651672459711776,
+   0.0038937626079779417,
+   0.0038247456835353295,
+   0.005565523273444441,
+   0.006297364863635927,
+   0.0038678044382547162,
+   0.002964291630807503,
+   0.011174929564551506,
+   0.00809099624928947,
+   0.006243992404884125,
+   0.0033892547897366406,
+   0.003913081854396758,
+   0.0019665803729496784,
+   0.006810502537874097
+  ],
+  "credit_history_years": [
+   0.004519356650735161,
+   0.0034718990150440945,
+   0.005694034169587326,
+   0.0011851260240644216,
+   0.00337841818692672,
+   0.0069730202147339415,
+   0.0028927558575462748,
+   0.004950491681378117,
+   0.00266336430218286,
+   0.006673226598303962,
+   0.003109647999881632,
+   0.002022456951463509,
+   0.0058305451918841626,
+   0.0058028531629004424,
+   0.0025413963024849364,
+   0.0029868365612815725,
+   0.0022678795099765597,
+   0.003983542151802131,
+   0.005577477946157309,
+   0.005604913556774416,
+   0.003981452608743427,
+   0.009014668785962557,
+   0.002854460381845509,
+   0.006751224491229343
+  ],
+  "prior_delinquencies": [
+   0.0002908416264230366,
+   0.0006676621832919194,
+   0.0001676606308736711,
+   6.483865078025271e-07,
+   0.00021513395090471733,
+   1.1102338441409075e-05,
+   0.00040981884950151904,
+   5.5646089055814856e-05,
+   0.0005308055628824432,
+   1.2736376286575463e-05,
+   0.000257918873092177,
+   0.0037995317115563114,
+   7.802872256937176e-05,
+   0.0007816589505755235,
+   0.0007420672317068559,
+   0.00013404448047478915,
+   0.0005152541639062227,
+   3.588155456877649e-05,
+   0.0004057527075704621,
+   4.1428057666524696e-05,
+   0.0008012332341151387,
+   0.0006502632405667904,
+   2.5603995439778666e-05,
+   0.0017984497857190754
+  ],
+  "loan_amount": [
+   0.0046068114347648115,
+   0.0036445573391484494,
+   0.00695261151510936,
+   0.0018573967548881443,
+   0.004255457325156883,
+   0.002999158746615973,
+   0.005523774298878446,
+   0.004760780265856724,
+   0.0022320807700175844,
+   0.002461533770242856,
+   0.004021226846595808,
+   0.007256755086825988,
+   0.00472951091051566,
+   0.00970795015296002,
+   0.015243469380917717,
+   0.019655420375565183,
+   0.03729126565241897,
+   0.059631928306278066,
+   0.07360358714934519,
+   0.09049771106975672,
+   0.11210262328353526,
+   0.13372013220035778,
+   0.15572357374421925,
+   0.18400468207671272
+  ],
+  "term_months": [
+   0.0009591516254084272,
+   0.0010835467752276112,
+   0.0008216926593182872,
+   0.002527362895964202,
+   0.00171566638935542,
+   0.0008281547867861063,
+   0.0013420716191519175,
+   0.0012790743723094362,
+   0.000499298096282444,
+   0.0007870397616843014,
+   0.003801779953994416,
+   0.0006785047155626685,
+   0.0012627456644169993,
+   0.002299310750884234,
+   0.0009915858120728622,
+   0.0008719235935181786,
+   0.0003316708385196886,
+   0.000532876362357591,
+   0.000542271500761876,
+   0.0027987236839929325,
+   0.000535112873674119,
+   0.000836602257411126,
+   0.0003558763786271876,
+   0.0007520345936799365
+  ],
+  "employment_type": [
+   0.0027250390601546767,
+   0.00026222229389728606,
+   0.002874793714574475,
+   0.0029778689184062116,
+   0.0006417294526344596,
+   0.0026217282898199,
+   0.0019406468658131255,
+   0.0027115662227936606,
+   0.005062421418151155,
+   0.0012574815425630615,
+   0.0034636001690617185,
+   0.0019883451205895517,
+   0.004077407588198894,
+   0.005229267148521743,
+   0.0031589312596927055,
+   0.0050551681652547895,
+   0.0018244710419351952,
+   0.0015985653425116225,
+   0.005357237142234043,
+   0.0012124171955726789,
+   0.0028047628230937318,
+   0.0025944183716342384,
+   0.001428509208779932,
+   0.004804797355595734
+  ],
+  "region": [
+   0.0035104370327169766,
+   0.003650654746729519,
+   0.0018790299765521705,
+   0.0006769892404380938,
+   0.0018560405713160916,
+   0.004634776112243704,
+   0.008098672709481834,
+   0.0006072622336863019,
+   0.0009105238021279358,
+   0.0011704858594021158,
+   0.00038508480758601743,
+   0.0019884126018297104,
+   0.002445701712400086,
+   0.004590172968898415,
+   0.0006555054121482121,
+   0.0018692581670112082,
+   0.0021649039422796494,
+   0.0019171272259467106,
+   0.004352775932181299,
+   0.004653192074115891,
+   0.005289832572476447,
+   0.0043208341160593244,
+   0.002949226523029337,
+   0.0017001020473085523
+  ],
+  "channel": [
+   0.0010292143858399165,
+   0.0018734502830151053,
+   0.00206022009885285,
+   0.000367648597983642,
+   0.0028248485465127565,
+   0.0014020567741782205,
+   0.0024852574788560896,
+   0.0010509938990658667,
+   0.00013011283024097774,
+   0.0001247419824968027,
+   0.00095319342635268,
+   0.0013193736863006005,
+   0.0034497057785938976,
+   0.005026895092736936,
+   0.01676360928679155,
+   0.0442412910783519,
+   0.057106433051744794,
+   0.06698768322626433,
+   0.07212174472465531,
+   0.13082742329500058,
+   0.16458811546904117,
+   0.18842258296463893,
+   0.21924679505002564,
+   0.24628525590045208
+  ]
+ },
+ "worstFeature": {
+  "name": "income",
+  "psi": 0.3441834180092733
+ },
+ "missingness": {
+  "income": {
+   "ref": 0.04039192161567687,
+   "rates": [
+    0.04079184163167367,
+    0.041391721655668866,
+    0.04439112177564487,
+    0.04559088182363527,
+    0.035992801439712056,
+    0.03539292141571686,
+    0.03959208158368326,
+    0.03719256148770246,
+    0.03779244151169766,
+    0.03539292141571686,
+    0.052189562087582485,
+    0.038992201559688064,
+    0.04319136172765447,
+    0.04499100179964007,
+    0.04439112177564487,
+    0.04859028194361128,
+    0.04141656662665066,
+    0.036614645858343335,
+    0.043817527010804325,
+    0.04201680672268908,
+    0.03601440576230492,
+    0.04141656662665066,
+    0.037815126050420166,
+    0.03601440576230492
+   ]
+  },
+  "employment_tenure": {
+   "ref": 0.029394121175764846,
+   "rates": [
+    0.03839232153569286,
+    0.026394721055788842,
+    0.022795440911817635,
+    0.028194361127774445,
+    0.029394121175764846,
+    0.03719256148770246,
+    0.029394121175764846,
+    0.020995800839832032,
+    0.03059388122375525,
+    0.03239352129574085,
+    0.029394121175764846,
+    0.027594481103779243,
+    0.028194361127774445,
+    0.03479304139172166,
+    0.028194361127774445,
+    0.03419316136772645,
+    0.03361344537815126,
+    0.030612244897959183,
+    0.02460984393757503,
+    0.029411764705882353,
+    0.03181272509003601,
+    0.3067226890756303,
+    0.3067226890756303,
+    0.28691476590636256
+   ]
+  },
+  "credit_history_years": {
+   "ref": 0.07358528294341132,
+   "rates": [
+    0.0623875224955009,
+    0.07258548290341932,
+    0.06898620275944811,
+    0.06958608278344332,
+    0.0635872825434913,
+    0.07318536292741452,
+    0.08158368326334733,
+    0.07978404319136173,
+    0.07198560287942411,
+    0.07258548290341932,
+    0.08038392321535692,
+    0.08638272345530894,
+    0.0647870425914817,
+    0.06418716256748651,
+    0.07198560287942411,
+    0.07258548290341932,
+    0.07743097238895558,
+    0.06422569027611044,
+    0.07262905162064826,
+    0.0894357743097239,
+    0.06482593037214886,
+    0.06722689075630252,
+    0.07503001200480192,
+    0.06782713085234093
+   ]
+  }
+ },
+ "alerts": [
+  {
+   "month": 14,
+   "severity": "high",
+   "rule": "calibration_slope",
+   "title": "Calibration slope 1.20 outside [0.8, 1.2]",
+   "trigger": "trigger calibration_slope on calibration \u00b7 value 1.201 against threshold 1.200",
+   "action": "Refit the Platt/isotonic layer on recent months before using PDs for pricing or provisioning."
+  },
+  {
+   "month": 15,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.728 CI [0.680, 0.771] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.728 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 16,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 9.0% vs mean predicted PD 7.1% - the model under-predicts risk by 27%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 0.266 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 17,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 9.3% vs mean predicted PD 7.2% - the model under-predicts risk by 29%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 0.287 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 18,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 11.1% vs mean predicted PD 7.3% - the model under-predicts risk by 53%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 0.532 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 19,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 10.7% vs mean predicted PD 7.5% - the model under-predicts risk by 42%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 0.421 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 19,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.738 CI [0.697, 0.773] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.738 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 19,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "income PSI 0.143 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on income \u00b7 value 0.143 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 20,
+   "severity": "high",
+   "rule": "calibration_slope",
+   "title": "Calibration slope 0.71 outside [0.8, 1.2]",
+   "trigger": "trigger calibration_slope on calibration \u00b7 value 0.708 against threshold 0.800",
+   "action": "Refit the Platt/isotonic layer on recent months before using PDs for pricing or provisioning."
+  },
+  {
+   "month": 20,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 13.5% vs mean predicted PD 7.7% - the model under-predicts risk by 75%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 0.751 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 20,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.700 CI [0.668, 0.738] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.700 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 20,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "income PSI 0.170 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on income \u00b7 value 0.170 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 20,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "channel PSI 0.131 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on channel \u00b7 value 0.131 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 21,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 13.1% vs mean predicted PD 7.5% - the model under-predicts risk by 74%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 0.743 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 21,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.723 CI [0.689, 0.758] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.723 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 21,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "income PSI 0.212 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on income \u00b7 value 0.212 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 21,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "loan_amount PSI 0.112 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on loan_amount \u00b7 value 0.112 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 21,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "channel PSI 0.165 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on channel \u00b7 value 0.165 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 22,
+   "severity": "high",
+   "rule": "feature_psi",
+   "title": "income PSI 0.253 is in the shifted band (> 0.25) against the training reference",
+   "trigger": "trigger feature_psi on income \u00b7 value 0.253 against threshold 0.250",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 22,
+   "severity": "high",
+   "rule": "missingness_spike",
+   "title": "employment_tenure missing in 30.7% of applications vs 2.9% in training",
+   "trigger": "trigger missingness_spike on employment_tenure \u00b7 value 0.307 against threshold 0.129",
+   "action": "Treat as an upstream data incident first; check the feed before blaming the model."
+  },
+  {
+   "month": 22,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 15.8% vs mean predicted PD 7.8% - the model under-predicts risk by 102%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 1.024 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 22,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.723 CI [0.690, 0.750] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.723 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 22,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "loan_amount PSI 0.134 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on loan_amount \u00b7 value 0.134 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 22,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "channel PSI 0.188 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on channel \u00b7 value 0.188 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 23,
+   "severity": "high",
+   "rule": "calibration_slope",
+   "title": "Calibration slope 0.80 outside [0.8, 1.2]",
+   "trigger": "trigger calibration_slope on calibration \u00b7 value 0.795 against threshold 0.800",
+   "action": "Refit the Platt/isotonic layer on recent months before using PDs for pricing or provisioning."
+  },
+  {
+   "month": 23,
+   "severity": "high",
+   "rule": "feature_psi",
+   "title": "income PSI 0.283 is in the shifted band (> 0.25) against the training reference",
+   "trigger": "trigger feature_psi on income \u00b7 value 0.283 against threshold 0.250",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 23,
+   "severity": "high",
+   "rule": "missingness_spike",
+   "title": "employment_tenure missing in 30.7% of applications vs 2.9% in training",
+   "trigger": "trigger missingness_spike on employment_tenure \u00b7 value 0.307 against threshold 0.129",
+   "action": "Treat as an upstream data incident first; check the feed before blaming the model."
+  },
+  {
+   "month": 23,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 18.7% vs mean predicted PD 8.3% - the model under-predicts risk by 126%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 1.262 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 23,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.714 CI [0.682, 0.742] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.714 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 23,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "loan_amount PSI 0.156 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on loan_amount \u00b7 value 0.156 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 23,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "channel PSI 0.219 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on channel \u00b7 value 0.219 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 24,
+   "severity": "high",
+   "rule": "auc_decline",
+   "title": "AUC 0.701 (CI upper 0.732) is below the early-production baseline of 0.761 from months 13-15",
+   "trigger": "trigger auc_decline on discrimination \u00b7 value 0.701 against threshold 0.737",
+   "action": "Ranking has genuinely degraded, not just the level. Investigate concept drift before recalibrating - a new intercept will not fix it."
+  },
+  {
+   "month": 24,
+   "severity": "high",
+   "rule": "calibration_slope",
+   "title": "Calibration slope 0.75 outside [0.8, 1.2]",
+   "trigger": "trigger calibration_slope on calibration \u00b7 value 0.752 against threshold 0.800",
+   "action": "Refit the Platt/isotonic layer on recent months before using PDs for pricing or provisioning."
+  },
+  {
+   "month": 24,
+   "severity": "high",
+   "rule": "feature_psi",
+   "title": "income PSI 0.344 is in the shifted band (> 0.25) against the training reference",
+   "trigger": "trigger feature_psi on income \u00b7 value 0.344 against threshold 0.250",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 24,
+   "severity": "high",
+   "rule": "missingness_spike",
+   "title": "employment_tenure missing in 28.7% of applications vs 2.9% in training",
+   "trigger": "trigger missingness_spike on employment_tenure \u00b7 value 0.287 against threshold 0.129",
+   "action": "Treat as an upstream data incident first; check the feed before blaming the model."
+  },
+  {
+   "month": 24,
+   "severity": "high",
+   "rule": "pd_gap",
+   "title": "Observed bad rate 19.1% vs mean predicted PD 7.9% - the model under-predicts risk by 143%",
+   "trigger": "trigger pd_gap on predicted level \u00b7 value 1.435 against threshold 0.250",
+   "action": "Prior-probability shift: re-baseline the intercept before these PDs touch provisioning."
+  },
+  {
+   "month": 24,
+   "severity": "medium",
+   "rule": "auc_floor",
+   "title": "AUC 0.701 CI [0.668, 0.732] cannot rule out being below the 0.70 floor",
+   "trigger": "trigger auc_floor on discrimination \u00b7 value 0.701 against threshold 0.700",
+   "action": "Watch; a single cohort of this size cannot settle it. Re-check next month."
+  },
+  {
+   "month": 24,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "loan_amount PSI 0.184 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on loan_amount \u00b7 value 0.184 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  },
+  {
+   "month": 24,
+   "severity": "medium",
+   "rule": "feature_psi",
+   "title": "channel PSI 0.246 is in the watch band (> 0.10) against the training reference",
+   "trigger": "trigger feature_psi on channel \u00b7 value 0.246 against threshold 0.100",
+   "action": "Confirm whether the input population genuinely changed or an upstream mapping broke."
+  }
+ ],
+ "alertTotals": {
+  "total": 39,
+  "high": 20,
+  "firstMonth": 14
+ },
+ "byRule": [
+  {
+   "rule": "feature_psi",
+   "drifted": 15,
+   "control": 0,
+   "verdict": "clean signal",
+   "kind": "ok"
+  },
+  {
+   "rule": "pd_gap",
+   "drifted": 9,
+   "control": 0,
+   "verdict": "clean signal",
+   "kind": "ok"
+  },
+  {
+   "rule": "auc_floor",
+   "drifted": 7,
+   "control": 2,
+   "verdict": "not discriminating",
+   "kind": "bad"
+  },
+  {
+   "rule": "calibration_slope",
+   "drifted": 4,
+   "control": 0,
+   "verdict": "clean signal",
+   "kind": "ok"
+  },
+  {
+   "rule": "missingness_spike",
+   "drifted": 3,
+   "control": 0,
+   "verdict": "clean signal",
+   "kind": "ok"
+  },
+  {
+   "rule": "auc_decline",
+   "drifted": 1,
+   "control": 0,
+   "verdict": "clean signal",
+   "kind": "ok"
+  },
+  {
+   "rule": "score_psi",
+   "drifted": 0,
+   "control": 0,
+   "verdict": "never fired",
+   "kind": "idle"
+  }
+ ],
+ "control": {
+  "rows": 40000,
+  "alerts": 2,
+  "badRateYear1": 0.07203559288142372,
+  "badRateYear2": 0.06956391278255651
+ },
+ "verification": [
+  {
+   "injected": "Covariate shift - income distribution slides down",
+   "starts": 13,
+   "detector": "feature PSI (income)",
+   "first": 19,
+   "lag": 6,
+   "alerts": 6,
+   "detected": true
+  },
+  {
+   "injected": "Prior shift - base default rate rises",
+   "starts": 13,
+   "detector": "predicted-vs-observed level gap / calibration slope",
+   "first": 14,
+   "lag": 1,
+   "alerts": 13,
+   "detected": true
+  },
+  {
+   "injected": "Concept drift - broker channel effect flips sign",
+   "starts": 17,
+   "detector": "AUC decline vs early-production baseline",
+   "first": 24,
+   "lag": 7,
+   "alerts": 1,
+   "detected": true
+  },
+  {
+   "injected": "Data-quality drift - employment_tenure feed degrades",
+   "starts": 22,
+   "detector": "missingness spike (employment_tenure)",
+   "first": 22,
+   "lag": 0,
+   "alerts": 3,
+   "detected": true
+  }
+ ],
+ "comparison": [
+  {
+   "label": "Points scorecard",
+   "temporal": [
+    0.6938266978448817,
+    0.6804098702704918,
+    0.7070517381009748
+   ],
+   "random": [
+    0.709544679458327,
+    0.6936601355109282,
+    0.7269043661286967
+   ],
+   "overstatement": 0.015717981613445287,
+   "disjoint": false,
+   "champion": false
+  },
+  {
+   "label": "Logistic regression",
+   "temporal": [
+    0.7234133530084526,
+    0.7093121307500654,
+    0.7363343557233507
+   ],
+   "random": [
+    0.7661608175456168,
+    0.7486662900605292,
+    0.7820105819532939
+   ],
+   "overstatement": 0.04274746453716427,
+   "disjoint": true,
+   "champion": false
+  },
+  {
+   "label": "Gradient boosting",
+   "temporal": [
+    0.7155610891828482,
+    0.7022012815788297,
+    0.7284418403076719
+   ],
+   "random": [
+    0.763783125756619,
+    0.7501864455331023,
+    0.7790257228039633
+   ],
+   "overstatement": 0.04822203657377078,
+   "disjoint": true,
+   "champion": true
+  }
+ ],
+ "hero": {
+  "overstatement": 0.04822203657377078,
+  "domain": [
+   0.6929823486318136,
+   0.7882446557509794
+  ],
+  "clearAir": [
+   0.7284418403076719,
+   0.7501864455331023
+  ],
+  "temporal": {
+   "auc": 0.7155610891828482,
+   "lo": 0.7022012815788297,
+   "hi": 0.7284418403076719
+  },
+  "random": {
+   "auc": 0.763783125756619,
+   "lo": 0.7501864455331023,
+   "hi": 0.7790257228039633
+  }
+ },
+ "decay": {
+  "delta": 0.03920916333890523,
+  "lo": 0.016362578037263306,
+  "hi": 0.05963249350344819,
+  "excludesZero": true,
+  "validation": {
+   "auc": 0.7547702525217534,
+   "lo": 0.7385314921674383,
+   "hi": 0.7700273853053772
+  },
+  "test": {
+   "auc": 0.7155610891828482,
+   "lo": 0.7022012815788297,
+   "hi": 0.7284418403076719
+  }
+ },
+ "perModel": [
+  {
+   "label": "Points scorecard",
+   "windows": [
+    {
+     "window": "train",
+     "n": 20004,
+     "badRate": 0.06868626274745052,
+     "auc": 0.7198885482322185,
+     "lo": 0.7066980270522226,
+     "hi": 0.7335676292917135,
+     "gini": 0.43977709646443697,
+     "ks": 0.33418114652846637,
+     "logLoss": 0.22842413589847155,
+     "brier": 0.06031800406013689,
+     "slope": 1.0248766597583023
+    },
+    {
+     "window": "validation",
+     "n": 10000,
+     "badRate": 0.0894,
+     "auc": 0.7156201187013898,
+     "lo": 0.6975619771685744,
+     "hi": 0.7328948983424809,
+     "gini": 0.4312402374027795,
+     "ks": 0.3174665178845622,
+     "logLoss": 0.27930681890949427,
+     "brier": 0.077172161141483,
+     "slope": 0.987864145028551
+    },
+    {
+     "window": "test",
+     "n": 9996,
+     "badRate": 0.15156062424969988,
+     "auc": 0.6938266978448817,
+     "lo": 0.6804098702704918,
+     "hi": 0.7070517381009748,
+     "gini": 0.3876533956897634,
+     "ks": 0.29126585810332006,
+     "logLoss": 0.439814013920626,
+     "brier": 0.12855969908812617,
+     "slope": 0.9178948737087956
+    }
+   ]
+  },
+  {
+   "label": "Logistic regression",
+   "windows": [
+    {
+     "window": "train",
+     "n": 20004,
+     "badRate": 0.06868626274745052,
+     "auc": 0.7748638740632918,
+     "lo": 0.7626705660618105,
+     "hi": 0.7871007960816839,
+     "gini": 0.5497277481265836,
+     "ks": 0.40992412575856657,
+     "logLoss": 0.21441092179747293,
+     "brier": 0.057510773578041324,
+     "slope": 1.002908345551875
+    },
+    {
+     "window": "validation",
+     "n": 10000,
+     "badRate": 0.0894,
+     "auc": 0.7657351324765096,
+     "lo": 0.7502747754442102,
+     "hi": 0.781357002464185,
+     "gini": 0.5314702649530192,
+     "ks": 0.400087264536842,
+     "logLoss": 0.2628494619233457,
+     "brier": 0.07330376535471093,
+     "slope": 0.9546201211158443
+    },
+    {
+     "window": "test",
+     "n": 9996,
+     "badRate": 0.15156062424969988,
+     "auc": 0.7234133530084526,
+     "lo": 0.7093121307500654,
+     "hi": 0.7363343557233507,
+     "gini": 0.4468267060169051,
+     "ks": 0.32242625040714185,
+     "logLoss": 0.419309533995132,
+     "brier": 0.1232946219754675,
+     "slope": 0.7917641843121015
+    }
+   ]
+  },
+  {
+   "label": "Gradient boosting",
+   "windows": [
+    {
+     "window": "train",
+     "n": 20004,
+     "badRate": 0.06868626274745052,
+     "auc": 0.8045580604759349,
+     "lo": 0.7917286015647275,
+     "hi": 0.8171804818288624,
+     "gini": 0.6091161209518698,
+     "ks": 0.46321751787861526,
+     "logLoss": 0.20653813609348823,
+     "brier": 0.05594114394425947,
+     "slope": 1.1920660733460804
+    },
+    {
+     "window": "validation",
+     "n": 10000,
+     "badRate": 0.0894,
+     "auc": 0.7547702525217534,
+     "lo": 0.7385314921674383,
+     "hi": 0.7700273853053772,
+     "gini": 0.5095405050435069,
+     "ks": 0.3884293906567,
+     "logLoss": 0.2666571980863848,
+     "brier": 0.07416541420522019,
+     "slope": 0.9552825763221364
+    },
+    {
+     "window": "test",
+     "n": 9996,
+     "badRate": 0.15156062424969988,
+     "auc": 0.7155610891828482,
+     "lo": 0.7022012815788297,
+     "hi": 0.7284418403076719,
+     "gini": 0.43112217836569644,
+     "ks": 0.30963423190568085,
+     "logLoss": 0.42193946283091877,
+     "brier": 0.12390618641579919,
+     "slope": 0.8026441651001305
+    }
+   ]
+  }
+ ],
+ "operatingPoints": [
+  {
+   "rejectRate": 0.05,
+   "threshold": 0.25853832308111513,
+   "nRejected": 500,
+   "precision": 0.46,
+   "recall": 0.15181518151815182,
+   "approvedBadRate": 0.1353201347935973
+  },
+  {
+   "rejectRate": 0.1,
+   "threshold": 0.18027356764191332,
+   "nRejected": 1000,
+   "precision": 0.389,
+   "recall": 0.25676567656765675,
+   "approvedBadRate": 0.12516674077367718
+  },
+  {
+   "rejectRate": 0.2,
+   "threshold": 0.11481663894373462,
+   "nRejected": 2000,
+   "precision": 0.3105,
+   "recall": 0.4099009900990099,
+   "approvedBadRate": 0.11180590295147574
+  },
+  {
+   "rejectRate": 0.3,
+   "threshold": 0.08150559459938847,
+   "nRejected": 2999,
+   "precision": 0.27342447482494164,
+   "recall": 0.5412541254125413,
+   "approvedBadRate": 0.09932828355009289
+  }
+ ],
+ "calibration": {
+  "variants": [
+   {
+    "key": "raw",
+    "label": "Raw model output",
+    "slope": 0.8026441651001305,
+    "intercept": 0.38181149202368647,
+    "brier": 0.12390618641579919,
+    "logLoss": 0.42193946283091877,
+    "ece": 0.07374574793834918,
+    "heat": 4
+   },
+   {
+    "key": "platt",
+    "label": "Platt scaling",
+    "slope": 0.8402524904315144,
+    "intercept": 0.24143205863798137,
+    "brier": 0.1210026177601381,
+    "logLoss": 0.4038596021987983,
+    "ece": 0.05483001550013454,
+    "heat": 1
+   },
+   {
+    "key": "isotonic",
+    "label": "Isotonic regression",
+    "slope": 0.7977879036026361,
+    "intercept": 0.15958854990774768,
+    "brier": 0.12101361517389383,
+    "logLoss": 0.4058153139770747,
+    "ece": 0.05522377894291284,
+    "heat": 2
+   }
+  ],
+  "fittedOn": "validation months 13-18",
+  "aucUnchanged": {
+   "raw": 0.7155610891828482,
+   "platt": 0.7155610891828482,
+   "isotonic": 0.71439350160697
+  },
+  "reliability": {
+   "raw": [
+    [
+     0.01337877989456598,
+     0.028
+    ],
+    [
+     0.02012324357562605,
+     0.04004004004004004
+    ],
+    [
+     0.02625547360446899,
+     0.077
+    ],
+    [
+     0.033377291546741614,
+     0.1061061061061061
+    ],
+    [
+     0.04209123886865341,
+     0.117
+    ],
+    [
+     0.05472806941137581,
+     0.162
+    ],
+    [
+     0.07115311273239745,
+     0.16516516516516516
+    ],
+    [
+     0.0967075818096072,
+     0.1991991991991992
+    ],
+    [
+     0.14365023037055563,
+     0.232
+    ],
+    [
+     0.2765938430239338,
+     0.389
+    ]
+   ],
+   "platt": [
+    [
+     0.019035429405853645,
+     0.028
+    ],
+    [
+     0.028060992038713675,
+     0.04004004004004004
+    ],
+    [
+     0.03609735191985213,
+     0.077
+    ],
+    [
+     0.04528318160052893,
+     0.1061061061061061
+    ],
+    [
+     0.05634572074636444,
+     0.117
+    ],
+    [
+     0.0721025137780008,
+     0.162
+    ],
+    [
+     0.09217215426768618,
+     0.16516516516516516
+    ],
+    [
+     0.12262029960414589,
+     0.1991991991991992
+    ],
+    [
+     0.17661842098390243,
+     0.232
+    ],
+    [
+     0.31887123734311806,
+     0.389
+    ]
+   ],
+   "isotonic": [
+    [
+     1e-06,
+     0.021739130434782608
+    ],
+    [
+     0.020389249304911945,
+     0.0346093340325118
+    ],
+    [
+     0.03005217407772138,
+     0.05211726384364821
+    ],
+    [
+     0.036664163207952474,
+     0.09051348999129678
+    ],
+    [
+     0.05308859762899196,
+     0.11484593837535013
+    ],
+    [
+     0.0725768456743263,
+     0.15346534653465346
+    ],
+    [
+     0.09019588896356107,
+     0.16685082872928178
+    ],
+    [
+     0.1320240092175624,
+     0.1970954356846473
+    ],
+    [
+     0.1571999248993564,
+     0.22
+    ],
+    [
+     0.2953345415599925,
+     0.36824324324324326
+    ]
+   ]
+  },
+  "reliabilityDomain": [
+   0,
+   0.3380035115837052,
+   0,
+   0.42012000000000005
+  ]
+ },
+ "subgroups": {
+  "blocks": [
+   {
+    "dimension": "age band",
+    "note": "Not scored: 66+. Below the 150-application floor or fewer than 15 defaults.",
+    "levels": [
+     {
+      "level": "18-25",
+      "n": 1156,
+      "badRate": 0.2889273356401384,
+      "auc": 0.6517676326179758,
+      "lo": 0.6159738002584824,
+      "hi": 0.6846491308429421
+     },
+     {
+      "level": "26-35",
+      "n": 2370,
+      "badRate": 0.21518987341772153,
+      "auc": 0.641629770187645,
+      "lo": 0.6153900744610248,
+      "hi": 0.666345403358073
+     },
+     {
+      "level": "36-50",
+      "n": 4523,
+      "badRate": 0.12314835286314393,
+      "auc": 0.6718503147489749,
+      "lo": 0.6493133900429279,
+      "hi": 0.6941485160784071
+     },
+     {
+      "level": "51-65",
+      "n": 1760,
+      "badRate": 0.06136363636363636,
+      "auc": 0.6837111021433055,
+      "lo": 0.6368596478690617,
+      "hi": 0.73052185265901
+     }
+    ]
+   },
+   {
+    "dimension": "employment type",
+    "note": "Widest spread of any dimension: 0.060 AUC, with overlapping intervals.",
+    "levels": [
+     {
+      "level": "contract",
+      "n": 1817,
+      "badRate": 0.15630159603742433,
+      "auc": 0.7234479938994699,
+      "lo": 0.6959824770901625,
+      "hi": 0.7561701454845472
+     },
+     {
+      "level": "retired",
+      "n": 912,
+      "badRate": 0.15460526315789475,
+      "auc": 0.7323085980259587,
+      "lo": 0.6914522969161074,
+      "hi": 0.7742344696969697
+     },
+     {
+      "level": "salaried",
+      "n": 5161,
+      "badRate": 0.12458825808951754,
+      "auc": 0.6984481290321692,
+      "lo": 0.6759424585663387,
+      "hi": 0.7197615103940309
+     },
+     {
+      "level": "self_employed",
+      "n": 1602,
+      "badRate": 0.16853932584269662,
+      "auc": 0.6727394060727394,
+      "lo": 0.63900062518336,
+      "hi": 0.7046827669716069
+     },
+     {
+      "level": "unemployed",
+      "n": 504,
+      "badRate": 0.35119047619047616,
+      "auc": 0.6849807356726965,
+      "lo": 0.6401028614182412,
+      "hi": 0.7377849038931783
+     }
+    ]
+   },
+   {
+    "dimension": "region",
+    "note": "No level in this dimension falls below the reporting floor.",
+    "levels": [
+     {
+      "level": "central",
+      "n": 1522,
+      "badRate": 0.14848883048620237,
+      "auc": 0.7286477111329619,
+      "lo": 0.6938410488894483,
+      "hi": 0.7589984996234479
+     },
+     {
+      "level": "east",
+      "n": 1959,
+      "badRate": 0.16998468606431852,
+      "auc": 0.7194546945469454,
+      "lo": 0.6905935425140894,
+      "hi": 0.7472848031859466
+     },
+     {
+      "level": "north",
+      "n": 2386,
+      "badRate": 0.13537300922045264,
+      "auc": 0.6991711550553839,
+      "lo": 0.6690243038394138,
+      "hi": 0.7299694822286507
+     },
+     {
+      "level": "south",
+      "n": 2171,
+      "badRate": 0.16167664670658682,
+      "auc": 0.7254688331611409,
+      "lo": 0.6993447604184571,
+      "hi": 0.7516739838468849
+     },
+     {
+      "level": "west",
+      "n": 1958,
+      "badRate": 0.14402451481103168,
+      "auc": 0.7115620609692107,
+      "lo": 0.6812137975990227,
+      "hi": 0.742669458444735
+     }
+    ]
+   },
+   {
+    "dimension": "channel",
+    "note": "No level in this dimension falls below the reporting floor.",
+    "levels": [
+     {
+      "level": "branch",
+      "n": 3426,
+      "badRate": 0.11091652072387624,
+      "auc": 0.7352217748902788,
+      "lo": 0.7099752886079927,
+      "hi": 0.7615788599491246
+     },
+     {
+      "level": "broker",
+      "n": 3446,
+      "badRate": 0.22518862449216484,
+      "auc": 0.755253581219352,
+      "lo": 0.7371453669716129,
+      "hi": 0.7740814707892784
+     },
+     {
+      "level": "online",
+      "n": 1662,
+      "badRate": 0.11371841155234658,
+      "auc": 0.7307262650100396,
+      "lo": 0.693808044183785,
+      "hi": 0.7636987033220046
+     },
+     {
+      "level": "partner",
+      "n": 1462,
+      "badRate": 0.11627906976744186,
+      "auc": 0.7656938626843927,
+      "lo": 0.7237961531825109,
+      "hi": 0.8009280051106501
+     }
+    ]
+   }
+  ],
+  "domain": [
+   0.6042577986220473,
+   0.8120602809496276
+  ],
+  "minGroup": 150,
+  "levels": 19,
+  "scored": 18,
+  "widestGap": {
+   "dimension": "employment_type",
+   "gap": 0.0595691919532193,
+   "best": 0.7323085980259587,
+   "worst": 0.6727394060727394,
+   "bestLevel": "retired",
+   "worstLevel": "self_employed",
+   "overlapping": true
+  }
+ },
+ "coefficients": [
+  [
+   "z_age",
+   -0.23145515297508168,
+   -0.18
+  ],
+  [
+   "z_log_income",
+   -0.1940619818222968,
+   -0.55
+  ],
+  [
+   "z_tenure",
+   -0.11404854280354901,
+   -0.12
+  ],
+  [
+   "debt_ratio",
+   1.375560912586419,
+   1.25
+  ],
+  [
+   "z_credit_history",
+   -0.3054016043835839,
+   -0.3
+  ],
+  [
+   "prior_delinquencies",
+   0.4067010417601414,
+   0.42
+  ],
+  [
+   "log_loan_amount",
+   -0.6863597837413454,
+   null
+  ],
+  [
+   "z_term",
+   0.5472294646438913,
+   0.15
+  ],
+  [
+   "loan_to_income",
+   1.2480356173866982,
+   0.65
+  ],
+  [
+   "missing_income",
+   0.4420789097632707,
+   0.45
+  ],
+  [
+   "missing_employment_tenure",
+   0.01844721699026026,
+   0.0
+  ],
+  [
+   "missing_credit_history",
+   0.8617271341809535,
+   0.55
+  ],
+  [
+   "employment_type=self_employed",
+   0.3565419912884053,
+   0.35
+  ],
+  [
+   "employment_type=contract",
+   -0.005213858685755259,
+   0.22
+  ],
+  [
+   "employment_type=retired",
+   -0.16637270523994388,
+   -0.1
+  ],
+  [
+   "employment_type=unemployed",
+   0.7649244869047491,
+   0.75
+  ],
+  [
+   "region=north",
+   -0.113783606810257,
+   -0.08
+  ],
+  [
+   "region=east",
+   -0.041460870822727515,
+   0.12
+  ],
+  [
+   "region=west",
+   0.021506745243122197,
+   0.05
+  ],
+  [
+   "region=central",
+   0.023602178012833836,
+   -0.03
+  ],
+  [
+   "channel=online",
+   0.2432075693860714,
+   0.1
+  ],
+  [
+   "channel=broker",
+   -0.3804308987322342,
+   -0.3
+  ],
+  [
+   "channel=partner",
+   0.23835534273837966,
+   0.18
+  ]
+ ],
+ "dataDictionary": [
+  [
+   "applicant_id",
+   "integer",
+   "Surrogate key, 1..N in generation order.",
+   "-"
+  ],
+  [
+   "month",
+   "integer 1-24",
+   "Application cohort month. 1-12 train, 13-18 validation, 19-24 test.",
+   "-"
+  ],
+  [
+   "age",
+   "years, 18-78",
+   "Clipped normal, mean 40, sd 12.",
+   "never"
+  ],
+  [
+   "income",
+   "currency / year",
+   "Lognormal; mean shifts down from month 13 (covariate drift).",
+   "2.5% / 11% (self-employed, unemployed)"
+  ],
+  [
+   "employment_type",
+   "5 categories",
+   "salaried, self_employed, contract, retired, unemployed.",
+   "never"
+  ],
+  [
+   "employment_tenure",
+   "years, 0-40",
+   "Years in current employment; 0 for unemployed.",
+   "3% -> 30% from month 22 (quality drift)"
+  ],
+  [
+   "debt_ratio",
+   "ratio 0.01-1.10",
+   "Existing debt service over income. Negatively correlated with income.",
+   "never"
+  ],
+  [
+   "credit_history_years",
+   "years",
+   "Length of usable credit file, capped at age-18.",
+   "1-35%, higher for thin files"
+  ],
+  [
+   "prior_delinquencies",
+   "count 0-6",
+   "Poisson, rate rises with debt ratio and falls with history length.",
+   "never"
+  ],
+  [
+   "loan_amount",
+   "currency",
+   "income x loan-to-income ratio, rounded to 100.",
+   "never"
+  ],
+  [
+   "term_months",
+   "12/24/36/48/60",
+   "Assigned by loan-to-income band.",
+   "never"
+  ],
+  [
+   "region",
+   "5 categories",
+   "north, south, east, west, central.",
+   "never"
+  ],
+  [
+   "channel",
+   "4 categories",
+   "branch, online, broker, partner. Broker effect flips sign from month 17.",
+   "never"
+  ],
+  [
+   "true_pd",
+   "probability",
+   "The DGP's true default probability. Never used as a model feature.",
+   "never"
+  ],
+  [
+   "default",
+   "0/1",
+   "Bernoulli draw from true_pd. The label.",
+   "never"
+  ]
+ ],
+ "driftSchedule": [
+  [
+   "covariate_shift",
+   "13 \u2192 24",
+   "Mean log-income slides by -0.30; broker share grows 0.20 \u2192 0.38, taken from online.",
+   "P(x) only"
+  ],
+  [
+   "prior_shift",
+   "13 \u2192 24",
+   "+0.40 logit units added to the intercept, so the base default rate rises.",
+   "P(y)"
+  ],
+  [
+   "concept_drift",
+   "17 \u2192 24",
+   "Broker channel coefficient moves from -0.30 to +1.40: the same feature value now means something different.",
+   "P(y|x)"
+  ],
+  [
+   "quality_drift",
+   "22",
+   "employment_tenure missingness steps from 3% to 30% in one month.",
+   "observability"
+  ]
+ ],
+ "sampleRows": [
+  [
+   3571,
+   3,
+   29.0,
+   23800.0,
+   "contract",
+   2.0,
+   0.3946,
+   null,
+   0.0,
+   4700.0,
+   24.0,
+   "east",
+   "online",
+   0.26003867600656394,
+   0
+  ],
+  [
+   7142,
+   5,
+   58.0,
+   29300.0,
+   "contract",
+   5.0,
+   0.3063,
+   14.0,
+   0.0,
+   19100.0,
+   48.0,
+   "east",
+   "broker",
+   0.03944631598205628,
+   0
+  ],
+  [
+   10713,
+   7,
+   34.0,
+   51100.0,
+   "salaried",
+   2.0,
+   0.0809,
+   5.0,
+   0.0,
+   37500.0,
+   48.0,
+   "east",
+   "online",
+   0.04993745594055517,
+   0
+  ],
+  [
+   14284,
+   9,
+   39.0,
+   19300.0,
+   "salaried",
+   3.0,
+   0.3422,
+   7.0,
+   0.0,
+   5200.0,
+   24.0,
+   "north",
+   "online",
+   0.08543942538068826,
+   0
+  ],
+  [
+   17855,
+   11,
+   41.0,
+   44900.0,
+   "salaried",
+   2.0,
+   0.5392,
+   7.0,
+   0.0,
+   13300.0,
+   24.0,
+   "south",
+   "broker",
+   0.030166042641761315,
+   0
+  ],
+  [
+   21426,
+   13,
+   51.0,
+   57100.0,
+   "salaried",
+   4.0,
+   0.0973,
+   15.0,
+   0.0,
+   47200.0,
+   48.0,
+   "east",
+   "branch",
+   0.018502861485009733,
+   0
+  ],
+  [
+   24997,
+   15,
+   56.0,
+   32500.0,
+   "salaried",
+   8.0,
+   0.2604,
+   16.0,
+   0.0,
+   9200.0,
+   24.0,
+   "north",
+   "broker",
+   0.013106596653546706,
+   0
+  ],
+  [
+   28568,
+   18,
+   49.0,
+   45600.0,
+   "salaried",
+   2.0,
+   0.1916,
+   11.0,
+   0.0,
+   24400.0,
+   36.0,
+   "south",
+   "broker",
+   0.03258498519577442,
+   0
+  ],
+  [
+   32139,
+   20,
+   35.0,
+   50000.0,
+   "salaried",
+   2.0,
+   0.3828,
+   8.0,
+   0.0,
+   24700.0,
+   36.0,
+   "east",
+   "branch",
+   0.055236155744759596,
+   0
+  ],
+  [
+   35710,
+   22,
+   39.0,
+   null,
+   "self_employed",
+   null,
+   0.2466,
+   4.0,
+   0.0,
+   10700.0,
+   24.0,
+   "east",
+   "branch",
+   0.10444834373849646,
+   0
+  ],
+  [
+   39281,
+   24,
+   31.0,
+   54900.0,
+   "salaried",
+   1.0,
+   0.198,
+   2.0,
+   3.0,
+   18900.0,
+   36.0,
+   "south",
+   "branch",
+   0.17324117641756748,
+   0
+  ]
+ ],
+ "cohorts": [
+  {
+   "month": 1,
+   "n": 1667,
+   "badRate": 0.06898620275944811,
+   "incomePresent": 0.9592081583683263
+  },
+  {
+   "month": 2,
+   "n": 1667,
+   "badRate": 0.0647870425914817,
+   "incomePresent": 0.9586082783443312
+  },
+  {
+   "month": 3,
+   "n": 1667,
+   "badRate": 0.06778644271145771,
+   "incomePresent": 0.9556088782243551
+  },
+  {
+   "month": 4,
+   "n": 1667,
+   "badRate": 0.0617876424715057,
+   "incomePresent": 0.9544091181763648
+  },
+  {
+   "month": 5,
+   "n": 1667,
+   "badRate": 0.07558488302339532,
+   "incomePresent": 0.9640071985602879
+  },
+  {
+   "month": 6,
+   "n": 1667,
+   "badRate": 0.0617876424715057,
+   "incomePresent": 0.9646070785842832
+  },
+  {
+   "month": 7,
+   "n": 1667,
+   "badRate": 0.06958608278344332,
+   "incomePresent": 0.9604079184163168
+  },
+  {
+   "month": 8,
+   "n": 1667,
+   "badRate": 0.0683863227354529,
+   "incomePresent": 0.9628074385122976
+  },
+  {
+   "month": 9,
+   "n": 1667,
+   "badRate": 0.07498500299940011,
+   "incomePresent": 0.9622075584883023
+  },
+  {
+   "month": 10,
+   "n": 1667,
+   "badRate": 0.06898620275944811,
+   "incomePresent": 0.9646070785842832
+  },
+  {
+   "month": 11,
+   "n": 1667,
+   "badRate": 0.07438512297540492,
+   "incomePresent": 0.9478104379124175
+  },
+  {
+   "month": 12,
+   "n": 1667,
+   "badRate": 0.06718656268746251,
+   "incomePresent": 0.9610077984403119
+  },
+  {
+   "month": 13,
+   "n": 1667,
+   "badRate": 0.08038392321535692,
+   "incomePresent": 0.9568086382723455
+  },
+  {
+   "month": 14,
+   "n": 1667,
+   "badRate": 0.07558488302339532,
+   "incomePresent": 0.9550089982003599
+  },
+  {
+   "month": 15,
+   "n": 1667,
+   "badRate": 0.08638272345530894,
+   "incomePresent": 0.9556088782243551
+  },
+  {
+   "month": 16,
+   "n": 1667,
+   "badRate": 0.08998200359928014,
+   "incomePresent": 0.9514097180563887
+  },
+  {
+   "month": 17,
+   "n": 1666,
+   "badRate": 0.09303721488595439,
+   "incomePresent": 0.9585834333733494
+  },
+  {
+   "month": 18,
+   "n": 1666,
+   "badRate": 0.11104441776710684,
+   "incomePresent": 0.9633853541416567
+  },
+  {
+   "month": 19,
+   "n": 1666,
+   "badRate": 0.10684273709483794,
+   "incomePresent": 0.9561824729891957
+  },
+  {
+   "month": 20,
+   "n": 1666,
+   "badRate": 0.13505402160864347,
+   "incomePresent": 0.957983193277311
+  },
+  {
+   "month": 21,
+   "n": 1666,
+   "badRate": 0.13145258103241297,
+   "incomePresent": 0.963985594237695
+  },
+  {
+   "month": 22,
+   "n": 1666,
+   "badRate": 0.15786314525810324,
+   "incomePresent": 0.9585834333733494
+  },
+  {
+   "month": 23,
+   "n": 1666,
+   "badRate": 0.18667466986794717,
+   "incomePresent": 0.9621848739495799
+  },
+  {
+   "month": 24,
+   "n": 1666,
+   "badRate": 0.1914765906362545,
+   "incomePresent": 0.963985594237695
+  }
+ ],
+ "policy": {
+  "referenceGrid": [
+   {
+    "threshold": 0.005,
+    "n_approved": 0,
+    "approval_rate": 0.0,
+    "n_approved_bad": 0.0,
+    "approved_bad_rate": 0.0,
+    "principal_good": 0.0,
+    "principal_bad": 0.0,
+    "n_rejected_good": 9106.0
+   },
+   {
+    "threshold": 0.01,
+    "n_approved": 0,
+    "approval_rate": 0.0,
+    "n_approved_bad": 0.0,
+    "approved_bad_rate": 0.0,
+    "principal_good": 0.0,
+    "principal_bad": 0.0,
+    "n_rejected_good": 9106.0
+   },
+   {
+    "threshold": 0.015,
+    "n_approved": 226,
+    "approval_rate": 0.0226,
+    "n_approved_bad": 3.0,
+    "approved_bad_rate": 0.01327433628318584,
+    "principal_good": 7029800.0,
+    "principal_bad": 67300.0,
+    "n_rejected_good": 8883.0
+   },
+   {
+    "threshold": 0.02,
+    "n_approved": 690,
+    "approval_rate": 0.069,
+    "n_approved_bad": 18.0,
+    "approved_bad_rate": 0.02608695652173913,
+    "principal_good": 18273900.0,
+    "principal_bad": 514300.0,
+    "n_rejected_good": 8434.0
+   },
+   {
+    "threshold": 0.025,
+    "n_approved": 1302,
+    "approval_rate": 0.1302,
+    "n_approved_bad": 30.0,
+    "approved_bad_rate": 0.02304147465437788,
+    "principal_good": 31399600.0,
+    "principal_bad": 766300.0,
+    "n_rejected_good": 7834.0
+   },
+   {
+    "threshold": 0.03,
+    "n_approved": 2016,
+    "approval_rate": 0.2016,
+    "n_approved_bad": 42.0,
+    "approved_bad_rate": 0.020833333333333332,
+    "principal_good": 44667600.0,
+    "principal_bad": 954400.0,
+    "n_rejected_good": 7132.0
+   },
+   {
+    "threshold": 0.035,
+    "n_approved": 2658,
+    "approval_rate": 0.2658,
+    "n_approved_bad": 56.0,
+    "approved_bad_rate": 0.021068472535741158,
+    "principal_good": 56163900.0,
+    "principal_bad": 1231300.0,
+    "n_rejected_good": 6504.0
+   },
+   {
+    "threshold": 0.04,
+    "n_approved": 3245,
+    "approval_rate": 0.3245,
+    "n_approved_bad": 77.0,
+    "approved_bad_rate": 0.023728813559322035,
+    "principal_good": 66009700.0,
+    "principal_bad": 1590900.0,
+    "n_rejected_good": 5938.0
+   },
+   {
+    "threshold": 0.045,
+    "n_approved": 3846,
+    "approval_rate": 0.3846,
+    "n_approved_bad": 102.0,
+    "approved_bad_rate": 0.0265210608424337,
+    "principal_good": 74782700.0,
+    "principal_bad": 2012800.0,
+    "n_rejected_good": 5362.0
+   },
+   {
+    "threshold": 0.05,
+    "n_approved": 4364,
+    "approval_rate": 0.4364,
+    "n_approved_bad": 133.0,
+    "approved_bad_rate": 0.030476626947754354,
+    "principal_good": 81965900.0,
+    "principal_bad": 2422300.0,
+    "n_rejected_good": 4875.0
+   },
+   {
+    "threshold": 0.055,
+    "n_approved": 4790,
+    "approval_rate": 0.479,
+    "n_approved_bad": 151.0,
+    "approved_bad_rate": 0.03152400835073069,
+    "principal_good": 88599200.0,
+    "principal_bad": 2654500.0,
+    "n_rejected_good": 4467.0
+   },
+   {
+    "threshold": 0.06,
+    "n_approved": 5207,
+    "approval_rate": 0.5207,
+    "n_approved_bad": 173.0,
+    "approved_bad_rate": 0.03322450547340119,
+    "principal_good": 94690600.0,
+    "principal_bad": 2955200.0,
+    "n_rejected_good": 4072.0
+   },
+   {
+    "threshold": 0.065,
+    "n_approved": 5546,
+    "approval_rate": 0.5546,
+    "n_approved_bad": 196.0,
+    "approved_bad_rate": 0.03534078615218175,
+    "principal_good": 99378400.0,
+    "principal_bad": 3307100.0,
+    "n_rejected_good": 3756.0
+   },
+   {
+    "threshold": 0.07,
+    "n_approved": 5811,
+    "approval_rate": 0.5811,
+    "n_approved_bad": 214.0,
+    "approved_bad_rate": 0.036826707967647566,
+    "principal_good": 103273900.0,
+    "principal_bad": 3595900.0,
+    "n_rejected_good": 3509.0
+   },
+   {
+    "threshold": 0.075,
+    "n_approved": 6110,
+    "approval_rate": 0.611,
+    "n_approved_bad": 238.0,
+    "approved_bad_rate": 0.03895253682487725,
+    "principal_good": 107300000.0,
+    "principal_bad": 3895200.0,
+    "n_rejected_good": 3234.0
+   },
+   {
+    "threshold": 0.08,
+    "n_approved": 6366,
+    "approval_rate": 0.6366,
+    "n_approved_bad": 257.0,
+    "approved_bad_rate": 0.04037071944706252,
+    "principal_good": 111089100.0,
+    "principal_bad": 4195700.0,
+    "n_rejected_good": 2997.0
+   },
+   {
+    "threshold": 0.085,
+    "n_approved": 6597,
+    "approval_rate": 0.6597,
+    "n_approved_bad": 276.0,
+    "approved_bad_rate": 0.041837198726693954,
+    "principal_good": 114296200.0,
+    "principal_bad": 4425000.0,
+    "n_rejected_good": 2785.0
+   },
+   {
+    "threshold": 0.09,
+    "n_approved": 6827,
+    "approval_rate": 0.6827,
+    "n_approved_bad": 295.0,
+    "approved_bad_rate": 0.04321078072359748,
+    "principal_good": 117536200.0,
+    "principal_bad": 4675700.0,
+    "n_rejected_good": 2574.0
+   },
+   {
+    "threshold": 0.095,
+    "n_approved": 7022,
+    "approval_rate": 0.7022,
+    "n_approved_bad": 313.0,
+    "approved_bad_rate": 0.04457419538592994,
+    "principal_good": 120267000.0,
+    "principal_bad": 4911800.0,
+    "n_rejected_good": 2397.0
+   },
+   {
+    "threshold": 0.1,
+    "n_approved": 7203,
+    "approval_rate": 0.7203,
+    "n_approved_bad": 333.0,
+    "approved_bad_rate": 0.04623073719283632,
+    "principal_good": 122633400.0,
+    "principal_bad": 5216300.0,
+    "n_rejected_good": 2236.0
+   },
+   {
+    "threshold": 0.105,
+    "n_approved": 7373,
+    "approval_rate": 0.7373,
+    "n_approved_bad": 360.0,
+    "approved_bad_rate": 0.048826800488268006,
+    "principal_good": 124878600.0,
+    "principal_bad": 5533600.0,
+    "n_rejected_good": 2093.0
+   },
+   {
+    "threshold": 0.11,
+    "n_approved": 7532,
+    "approval_rate": 0.7532,
+    "n_approved_bad": 384.0,
+    "approved_bad_rate": 0.050982474774296335,
+    "principal_good": 126716100.0,
+    "principal_bad": 5871700.0,
+    "n_rejected_good": 1958.0
+   },
+   {
+    "threshold": 0.115,
+    "n_approved": 7663,
+    "approval_rate": 0.7663,
+    "n_approved_bad": 397.0,
+    "approved_bad_rate": 0.05180738614119797,
+    "principal_good": 128347000.0,
+    "principal_bad": 6002900.0,
+    "n_rejected_good": 1840.0
+   },
+   {
+    "threshold": 0.12,
+    "n_approved": 7802,
+    "approval_rate": 0.7802,
+    "n_approved_bad": 424.0,
+    "approved_bad_rate": 0.05434503973340169,
+    "principal_good": 129766900.0,
+    "principal_bad": 6380700.0,
+    "n_rejected_good": 1728.0
+   },
+   {
+    "threshold": 0.125,
+    "n_approved": 7917,
+    "approval_rate": 0.7917,
+    "n_approved_bad": 429.0,
+    "approved_bad_rate": 0.054187192118226604,
+    "principal_good": 131286500.0,
+    "principal_bad": 6478600.0,
+    "n_rejected_good": 1618.0
+   },
+   {
+    "threshold": 0.13,
+    "n_approved": 8008,
+    "approval_rate": 0.8008,
+    "n_approved_bad": 441.0,
+    "approved_bad_rate": 0.05506993006993007,
+    "principal_good": 132272000.0,
+    "principal_bad": 6610100.0,
+    "n_rejected_good": 1539.0
+   },
+   {
+    "threshold": 0.135,
+    "n_approved": 8108,
+    "approval_rate": 0.8108,
+    "n_approved_bad": 454.0,
+    "approved_bad_rate": 0.055994079921065615,
+    "principal_good": 133388700.0,
+    "principal_bad": 6763900.0,
+    "n_rejected_good": 1452.0
+   },
+   {
+    "threshold": 0.14,
+    "n_approved": 8208,
+    "approval_rate": 0.8208,
+    "n_approved_bad": 468.0,
+    "approved_bad_rate": 0.05701754385964912,
+    "principal_good": 134638400.0,
+    "principal_bad": 6936400.0,
+    "n_rejected_good": 1366.0
+   },
+   {
+    "threshold": 0.145,
+    "n_approved": 8294,
+    "approval_rate": 0.8294,
+    "n_approved_bad": 486.0,
+    "approved_bad_rate": 0.05859657583795515,
+    "principal_good": 135678400.0,
+    "principal_bad": 7150300.0,
+    "n_rejected_good": 1298.0
+   },
+   {
+    "threshold": 0.15,
+    "n_approved": 8382,
+    "approval_rate": 0.8382,
+    "n_approved_bad": 494.0,
+    "approved_bad_rate": 0.05893581484132665,
+    "principal_good": 136841900.0,
+    "principal_bad": 7244600.0,
+    "n_rejected_good": 1218.0
+   },
+   {
+    "threshold": 0.155,
+    "n_approved": 8463,
+    "approval_rate": 0.8463,
+    "n_approved_bad": 507.0,
+    "approved_bad_rate": 0.059907834101382486,
+    "principal_good": 137683600.0,
+    "principal_bad": 7394600.0,
+    "n_rejected_good": 1150.0
+   },
+   {
+    "threshold": 0.16,
+    "n_approved": 8532,
+    "approval_rate": 0.8532,
+    "n_approved_bad": 514.0,
+    "approved_bad_rate": 0.06024378809188936,
+    "principal_good": 138456000.0,
+    "principal_bad": 7457100.0,
+    "n_rejected_good": 1088.0
+   },
+   {
+    "threshold": 0.165,
+    "n_approved": 8608,
+    "approval_rate": 0.8608,
+    "n_approved_bad": 530.0,
+    "approved_bad_rate": 0.06157063197026022,
+    "principal_good": 139139400.0,
+    "principal_bad": 7635800.0,
+    "n_rejected_good": 1028.0
+   },
+   {
+    "threshold": 0.17,
+    "n_approved": 8662,
+    "approval_rate": 0.8662,
+    "n_approved_bad": 541.0,
+    "approved_bad_rate": 0.06245670745786192,
+    "principal_good": 139637000.0,
+    "principal_bad": 7721000.0,
+    "n_rejected_good": 985.0
+   },
+   {
+    "threshold": 0.175,
+    "n_approved": 8725,
+    "approval_rate": 0.8725,
+    "n_approved_bad": 548.0,
+    "approved_bad_rate": 0.0628080229226361,
+    "principal_good": 140408400.0,
+    "principal_bad": 7796900.0,
+    "n_rejected_good": 929.0
+   },
+   {
+    "threshold": 0.18,
+    "n_approved": 8791,
+    "approval_rate": 0.8791,
+    "n_approved_bad": 555.0,
+    "approved_bad_rate": 0.06313274940279831,
+    "principal_good": 141195300.0,
+    "principal_bad": 7875800.0,
+    "n_rejected_good": 870.0
+   },
+   {
+    "threshold": 0.185,
+    "n_approved": 8849,
+    "approval_rate": 0.8849,
+    "n_approved_bad": 567.0,
+    "approved_bad_rate": 0.06407503672731382,
+    "principal_good": 141830300.0,
+    "principal_bad": 8034800.0,
+    "n_rejected_good": 824.0
+   },
+   {
+    "threshold": 0.19,
+    "n_approved": 8903,
+    "approval_rate": 0.8903,
+    "n_approved_bad": 576.0,
+    "approved_bad_rate": 0.06469729304728743,
+    "principal_good": 142314900.0,
+    "principal_bad": 8146700.0,
+    "n_rejected_good": 779.0
+   },
+   {
+    "threshold": 0.195,
+    "n_approved": 8940,
+    "approval_rate": 0.894,
+    "n_approved_bad": 585.0,
+    "approved_bad_rate": 0.06543624161073826,
+    "principal_good": 142597400.0,
+    "principal_bad": 8255700.0,
+    "n_rejected_good": 751.0
+   },
+   {
+    "threshold": 0.2,
+    "n_approved": 8981,
+    "approval_rate": 0.8981,
+    "n_approved_bad": 590.0,
+    "approved_bad_rate": 0.06569424340273912,
+    "principal_good": 142975900.0,
+    "principal_bad": 8355300.0,
+    "n_rejected_good": 715.0
+   },
+   {
+    "threshold": 0.205,
+    "n_approved": 9032,
+    "approval_rate": 0.9032,
+    "n_approved_bad": 604.0,
+    "approved_bad_rate": 0.06687333923826395,
+    "principal_good": 143445300.0,
+    "principal_bad": 8506200.0,
+    "n_rejected_good": 678.0
+   },
+   {
+    "threshold": 0.21,
+    "n_approved": 9076,
+    "approval_rate": 0.9076,
+    "n_approved_bad": 615.0,
+    "approved_bad_rate": 0.06776112825033054,
+    "principal_good": 143871800.0,
+    "principal_bad": 8649700.0,
+    "n_rejected_good": 645.0
+   },
+   {
+    "threshold": 0.215,
+    "n_approved": 9108,
+    "approval_rate": 0.9108,
+    "n_approved_bad": 620.0,
+    "approved_bad_rate": 0.06807202459376373,
+    "principal_good": 144100500.0,
+    "principal_bad": 8686700.0,
+    "n_rejected_good": 618.0
+   },
+   {
+    "threshold": 0.22,
+    "n_approved": 9146,
+    "approval_rate": 0.9146,
+    "n_approved_bad": 625.0,
+    "approved_bad_rate": 0.06833588453968949,
+    "principal_good": 144470200.0,
+    "principal_bad": 8726100.0,
+    "n_rejected_good": 585.0
+   },
+   {
+    "threshold": 0.225,
+    "n_approved": 9187,
+    "approval_rate": 0.9187,
+    "n_approved_bad": 636.0,
+    "approved_bad_rate": 0.06922825732012626,
+    "principal_good": 144820300.0,
+    "principal_bad": 8831200.0,
+    "n_rejected_good": 555.0
+   },
+   {
+    "threshold": 0.23,
+    "n_approved": 9226,
+    "approval_rate": 0.9226,
+    "n_approved_bad": 643.0,
+    "approved_bad_rate": 0.06969434207673965,
+    "principal_good": 145267000.0,
+    "principal_bad": 8864400.0,
+    "n_rejected_good": 523.0
+   },
+   {
+    "threshold": 0.235,
+    "n_approved": 9256,
+    "approval_rate": 0.9256,
+    "n_approved_bad": 648.0,
+    "approved_bad_rate": 0.07000864304235091,
+    "principal_good": 145580700.0,
+    "principal_bad": 8920200.0,
+    "n_rejected_good": 498.0
+   },
+   {
+    "threshold": 0.24,
+    "n_approved": 9292,
+    "approval_rate": 0.9292,
+    "n_approved_bad": 659.0,
+    "approved_bad_rate": 0.07092122255703831,
+    "principal_good": 145886400.0,
+    "principal_bad": 8988500.0,
+    "n_rejected_good": 473.0
+   },
+   {
+    "threshold": 0.245,
+    "n_approved": 9328,
+    "approval_rate": 0.9328,
+    "n_approved_bad": 669.0,
+    "approved_bad_rate": 0.07171955403087478,
+    "principal_good": 146214500.0,
+    "principal_bad": 9063400.0,
+    "n_rejected_good": 447.0
+   },
+   {
+    "threshold": 0.25,
+    "n_approved": 9362,
+    "approval_rate": 0.9362,
+    "n_approved_bad": 681.0,
+    "approved_bad_rate": 0.07274086733603931,
+    "principal_good": 146419400.0,
+    "principal_bad": 9189000.0,
+    "n_rejected_good": 425.0
+   },
+   {
+    "threshold": 0.255,
+    "n_approved": 9392,
+    "approval_rate": 0.9392,
+    "n_approved_bad": 689.0,
+    "approved_bad_rate": 0.0733603066439523,
+    "principal_good": 146603500.0,
+    "principal_bad": 9336400.0,
+    "n_rejected_good": 403.0
+   },
+   {
+    "threshold": 0.26,
+    "n_approved": 9416,
+    "approval_rate": 0.9416,
+    "n_approved_bad": 696.0,
+    "approved_bad_rate": 0.07391673746813934,
+    "principal_good": 146782800.0,
+    "principal_bad": 9413500.0,
+    "n_rejected_good": 386.0
+   },
+   {
+    "threshold": 0.265,
+    "n_approved": 9438,
+    "approval_rate": 0.9438,
+    "n_approved_bad": 705.0,
+    "approved_bad_rate": 0.07469802924348379,
+    "principal_good": 146876300.0,
+    "principal_bad": 9501800.0,
+    "n_rejected_good": 373.0
+   },
+   {
+    "threshold": 0.27,
+    "n_approved": 9460,
+    "approval_rate": 0.946,
+    "n_approved_bad": 708.0,
+    "approved_bad_rate": 0.07484143763213531,
+    "principal_good": 147076800.0,
+    "principal_bad": 9529300.0,
+    "n_rejected_good": 354.0
+   },
+   {
+    "threshold": 0.275,
+    "n_approved": 9500,
+    "approval_rate": 0.95,
+    "n_approved_bad": 719.0,
+    "approved_bad_rate": 0.07568421052631578,
+    "principal_good": 147408900.0,
+    "principal_bad": 9635600.0,
+    "n_rejected_good": 325.0
+   },
+   {
+    "threshold": 0.28,
+    "n_approved": 9521,
+    "approval_rate": 0.9521,
+    "n_approved_bad": 722.0,
+    "approved_bad_rate": 0.07583237054931205,
+    "principal_good": 147582900.0,
+    "principal_bad": 9652500.0,
+    "n_rejected_good": 307.0
+   },
+   {
+    "threshold": 0.285,
+    "n_approved": 9549,
+    "approval_rate": 0.9549,
+    "n_approved_bad": 729.0,
+    "approved_bad_rate": 0.0763430725730443,
+    "principal_good": 147783400.0,
+    "principal_bad": 9729200.0,
+    "n_rejected_good": 286.0
+   },
+   {
+    "threshold": 0.29,
+    "n_approved": 9563,
+    "approval_rate": 0.9563,
+    "n_approved_bad": 730.0,
+    "approved_bad_rate": 0.07633587786259542,
+    "principal_good": 147945100.0,
+    "principal_bad": 9738000.0,
+    "n_rejected_good": 273.0
+   },
+   {
+    "threshold": 0.295,
+    "n_approved": 9580,
+    "approval_rate": 0.958,
+    "n_approved_bad": 736.0,
+    "approved_bad_rate": 0.07682672233820459,
+    "principal_good": 148048400.0,
+    "principal_bad": 9802300.0,
+    "n_rejected_good": 262.0
+   },
+   {
+    "threshold": 0.3,
+    "n_approved": 9599,
+    "approval_rate": 0.9599,
+    "n_approved_bad": 740.0,
+    "approved_bad_rate": 0.07709136368371705,
+    "principal_good": 148231200.0,
+    "principal_bad": 9852100.0,
+    "n_rejected_good": 247.0
+   },
+   {
+    "threshold": 0.305,
+    "n_approved": 9619,
+    "approval_rate": 0.9619,
+    "n_approved_bad": 742.0,
+    "approved_bad_rate": 0.07713899573760266,
+    "principal_good": 148358300.0,
+    "principal_bad": 9861900.0,
+    "n_rejected_good": 229.0
+   },
+   {
+    "threshold": 0.31,
+    "n_approved": 9633,
+    "approval_rate": 0.9633,
+    "n_approved_bad": 745.0,
+    "approved_bad_rate": 0.07733831620471296,
+    "principal_good": 148499600.0,
+    "principal_bad": 9888600.0,
+    "n_rejected_good": 218.0
+   },
+   {
+    "threshold": 0.315,
+    "n_approved": 9644,
+    "approval_rate": 0.9644,
+    "n_approved_bad": 749.0,
+    "approved_bad_rate": 0.07766486934881792,
+    "principal_good": 148567900.0,
+    "principal_bad": 9911900.0,
+    "n_rejected_good": 211.0
+   },
+   {
+    "threshold": 0.32,
+    "n_approved": 9657,
+    "approval_rate": 0.9657,
+    "n_approved_bad": 753.0,
+    "approved_bad_rate": 0.07797452625038832,
+    "principal_good": 148646100.0,
+    "principal_bad": 9950800.0,
+    "n_rejected_good": 202.0
+   },
+   {
+    "threshold": 0.325,
+    "n_approved": 9669,
+    "approval_rate": 0.9669,
+    "n_approved_bad": 758.0,
+    "approved_bad_rate": 0.07839487020374393,
+    "principal_good": 148707000.0,
+    "principal_bad": 10005500.0,
+    "n_rejected_good": 195.0
+   },
+   {
+    "threshold": 0.33,
+    "n_approved": 9683,
+    "approval_rate": 0.9683,
+    "n_approved_bad": 765.0,
+    "approved_bad_rate": 0.07900444077248786,
+    "principal_good": 148789800.0,
+    "principal_bad": 10063600.0,
+    "n_rejected_good": 188.0
+   },
+   {
+    "threshold": 0.335,
+    "n_approved": 9698,
+    "approval_rate": 0.9698,
+    "n_approved_bad": 773.0,
+    "approved_bad_rate": 0.07970715611466282,
+    "principal_good": 148874100.0,
+    "principal_bad": 10143500.0,
+    "n_rejected_good": 181.0
+   },
+   {
+    "threshold": 0.34,
+    "n_approved": 9711,
+    "approval_rate": 0.9711,
+    "n_approved_bad": 775.0,
+    "approved_bad_rate": 0.07980640510760993,
+    "principal_good": 148980500.0,
+    "principal_bad": 10157100.0,
+    "n_rejected_good": 170.0
+   },
+   {
+    "threshold": 0.345,
+    "n_approved": 9722,
+    "approval_rate": 0.9722,
+    "n_approved_bad": 778.0,
+    "approved_bad_rate": 0.0800246862785435,
+    "principal_good": 149058700.0,
+    "principal_bad": 10181000.0,
+    "n_rejected_good": 162.0
+   },
+   {
+    "threshold": 0.35,
+    "n_approved": 9733,
+    "approval_rate": 0.9733,
+    "n_approved_bad": 782.0,
+    "approved_bad_rate": 0.0803452173019624,
+    "principal_good": 149115500.0,
+    "principal_bad": 10215400.0,
+    "n_rejected_good": 155.0
+   },
+   {
+    "threshold": 0.355,
+    "n_approved": 9747,
+    "approval_rate": 0.9747,
+    "n_approved_bad": 788.0,
+    "approved_bad_rate": 0.0808453883246127,
+    "principal_good": 149167900.0,
+    "principal_bad": 10266500.0,
+    "n_rejected_good": 147.0
+   },
+   {
+    "threshold": 0.36,
+    "n_approved": 9763,
+    "approval_rate": 0.9763,
+    "n_approved_bad": 791.0,
+    "approved_bad_rate": 0.08102017822390659,
+    "principal_good": 149297300.0,
+    "principal_bad": 10283200.0,
+    "n_rejected_good": 134.0
+   },
+   {
+    "threshold": 0.365,
+    "n_approved": 9774,
+    "approval_rate": 0.9774,
+    "n_approved_bad": 796.0,
+    "approved_bad_rate": 0.08144055657867813,
+    "principal_good": 149325800.0,
+    "principal_bad": 10322000.0,
+    "n_rejected_good": 128.0
+   },
+   {
+    "threshold": 0.37,
+    "n_approved": 9785,
+    "approval_rate": 0.9785,
+    "n_approved_bad": 802.0,
+    "approved_bad_rate": 0.08196218702095043,
+    "principal_good": 149364700.0,
+    "principal_bad": 10355500.0,
+    "n_rejected_good": 123.0
+   },
+   {
+    "threshold": 0.375,
+    "n_approved": 9794,
+    "approval_rate": 0.9794,
+    "n_approved_bad": 805.0,
+    "approved_bad_rate": 0.08219317949765162,
+    "principal_good": 149398200.0,
+    "principal_bad": 10377400.0,
+    "n_rejected_good": 117.0
+   },
+   {
+    "threshold": 0.38,
+    "n_approved": 9809,
+    "approval_rate": 0.9809,
+    "n_approved_bad": 809.0,
+    "approved_bad_rate": 0.08247527780609644,
+    "principal_good": 149475200.0,
+    "principal_bad": 10429500.0,
+    "n_rejected_good": 106.0
+   },
+   {
+    "threshold": 0.385,
+    "n_approved": 9814,
+    "approval_rate": 0.9814,
+    "n_approved_bad": 811.0,
+    "approved_bad_rate": 0.08263704911351132,
+    "principal_good": 149506300.0,
+    "principal_bad": 10447000.0,
+    "n_rejected_good": 103.0
+   },
+   {
+    "threshold": 0.39,
+    "n_approved": 9829,
+    "approval_rate": 0.9829,
+    "n_approved_bad": 815.0,
+    "approved_bad_rate": 0.08291789602197579,
+    "principal_good": 149597600.0,
+    "principal_bad": 10477300.0,
+    "n_rejected_good": 92.0
+   },
+   {
+    "threshold": 0.395,
+    "n_approved": 9839,
+    "approval_rate": 0.9839,
+    "n_approved_bad": 815.0,
+    "approved_bad_rate": 0.08283362130297794,
+    "principal_good": 149700600.0,
+    "principal_bad": 10477300.0,
+    "n_rejected_good": 82.0
+   },
+   {
+    "threshold": 0.4,
+    "n_approved": 9851,
+    "approval_rate": 0.9851,
+    "n_approved_bad": 818.0,
+    "approved_bad_rate": 0.08303725510100497,
+    "principal_good": 149758300.0,
+    "principal_bad": 10490000.0,
+    "n_rejected_good": 73.0
+   },
+   {
+    "threshold": 0.405,
+    "n_approved": 9862,
+    "approval_rate": 0.9862,
+    "n_approved_bad": 819.0,
+    "approved_bad_rate": 0.08304603528696004,
+    "principal_good": 149820200.0,
+    "principal_bad": 10497100.0,
+    "n_rejected_good": 63.0
+   },
+   {
+    "threshold": 0.41,
+    "n_approved": 9870,
+    "approval_rate": 0.987,
+    "n_approved_bad": 823.0,
+    "approved_bad_rate": 0.0833839918946302,
+    "principal_good": 149846000.0,
+    "principal_bad": 10515500.0,
+    "n_rejected_good": 59.0
+   },
+   {
+    "threshold": 0.415,
+    "n_approved": 9879,
+    "approval_rate": 0.9879,
+    "n_approved_bad": 826.0,
+    "approved_bad_rate": 0.08361170158922968,
+    "principal_good": 149910000.0,
+    "principal_bad": 10531200.0,
+    "n_rejected_good": 53.0
+   },
+   {
+    "threshold": 0.42,
+    "n_approved": 9882,
+    "approval_rate": 0.9882,
+    "n_approved_bad": 826.0,
+    "approved_bad_rate": 0.08358631855899615,
+    "principal_good": 149932100.0,
+    "principal_bad": 10531200.0,
+    "n_rejected_good": 50.0
+   },
+   {
+    "threshold": 0.425,
+    "n_approved": 9888,
+    "approval_rate": 0.9888,
+    "n_approved_bad": 827.0,
+    "approved_bad_rate": 0.08363673139158576,
+    "principal_good": 149958300.0,
+    "principal_bad": 10538700.0,
+    "n_rejected_good": 45.0
+   },
+   {
+    "threshold": 0.43,
+    "n_approved": 9895,
+    "approval_rate": 0.9895,
+    "n_approved_bad": 832.0,
+    "approved_bad_rate": 0.08408287013643254,
+    "principal_good": 149977100.0,
+    "principal_bad": 10592100.0,
+    "n_rejected_good": 43.0
+   },
+   {
+    "threshold": 0.435,
+    "n_approved": 9902,
+    "approval_rate": 0.9902,
+    "n_approved_bad": 836.0,
+    "approved_bad_rate": 0.08442738840638254,
+    "principal_good": 150000300.0,
+    "principal_bad": 10615500.0,
+    "n_rejected_good": 40.0
+   },
+   {
+    "threshold": 0.44,
+    "n_approved": 9905,
+    "approval_rate": 0.9905,
+    "n_approved_bad": 837.0,
+    "approved_bad_rate": 0.0845027763755679,
+    "principal_good": 150009500.0,
+    "principal_bad": 10619500.0,
+    "n_rejected_good": 38.0
+   },
+   {
+    "threshold": 0.445,
+    "n_approved": 9910,
+    "approval_rate": 0.991,
+    "n_approved_bad": 839.0,
+    "approved_bad_rate": 0.08466195761856711,
+    "principal_good": 150046000.0,
+    "principal_bad": 10663200.0,
+    "n_rejected_good": 35.0
+   },
+   {
+    "threshold": 0.45,
+    "n_approved": 9914,
+    "approval_rate": 0.9914,
+    "n_approved_bad": 841.0,
+    "approved_bad_rate": 0.08482953399233407,
+    "principal_good": 150062200.0,
+    "principal_bad": 10673200.0,
+    "n_rejected_good": 33.0
+   },
+   {
+    "threshold": 0.455,
+    "n_approved": 9921,
+    "approval_rate": 0.9921,
+    "n_approved_bad": 845.0,
+    "approved_bad_rate": 0.0851728656385445,
+    "principal_good": 150085000.0,
+    "principal_bad": 10691700.0,
+    "n_rejected_good": 30.0
+   },
+   {
+    "threshold": 0.46,
+    "n_approved": 9926,
+    "approval_rate": 0.9926,
+    "n_approved_bad": 847.0,
+    "approved_bad_rate": 0.08533145275035262,
+    "principal_good": 150099300.0,
+    "principal_bad": 10702400.0,
+    "n_rejected_good": 27.0
+   },
+   {
+    "threshold": 0.465,
+    "n_approved": 9933,
+    "approval_rate": 0.9933,
+    "n_approved_bad": 853.0,
+    "approved_bad_rate": 0.08587536494513238,
+    "principal_good": 150106200.0,
+    "principal_bad": 10748900.0,
+    "n_rejected_good": 26.0
+   },
+   {
+    "threshold": 0.47,
+    "n_approved": 9937,
+    "approval_rate": 0.9937,
+    "n_approved_bad": 856.0,
+    "approved_bad_rate": 0.08614269900372346,
+    "principal_good": 150109900.0,
+    "principal_bad": 10765900.0,
+    "n_rejected_good": 25.0
+   },
+   {
+    "threshold": 0.475,
+    "n_approved": 9942,
+    "approval_rate": 0.9942,
+    "n_approved_bad": 857.0,
+    "approved_bad_rate": 0.08619995976664654,
+    "principal_good": 150132700.0,
+    "principal_bad": 10768400.0,
+    "n_rejected_good": 21.0
+   },
+   {
+    "threshold": 0.48,
+    "n_approved": 9946,
+    "approval_rate": 0.9946,
+    "n_approved_bad": 859.0,
+    "approved_bad_rate": 0.08636637844359542,
+    "principal_good": 150142100.0,
+    "principal_bad": 10774700.0,
+    "n_rejected_good": 19.0
+   },
+   {
+    "threshold": 0.485,
+    "n_approved": 9949,
+    "approval_rate": 0.9949,
+    "n_approved_bad": 860.0,
+    "approved_bad_rate": 0.08644084832646497,
+    "principal_good": 150154200.0,
+    "principal_bad": 10777100.0,
+    "n_rejected_good": 17.0
+   },
+   {
+    "threshold": 0.49,
+    "n_approved": 9952,
+    "approval_rate": 0.9952,
+    "n_approved_bad": 862.0,
+    "approved_bad_rate": 0.08661575562700964,
+    "principal_good": 150161400.0,
+    "principal_bad": 10789500.0,
+    "n_rejected_good": 16.0
+   },
+   {
+    "threshold": 0.495,
+    "n_approved": 9955,
+    "approval_rate": 0.9955,
+    "n_approved_bad": 864.0,
+    "approved_bad_rate": 0.08679055750878956,
+    "principal_good": 150167500.0,
+    "principal_bad": 10803200.0,
+    "n_rejected_good": 15.0
+   },
+   {
+    "threshold": 0.5,
+    "n_approved": 9958,
+    "approval_rate": 0.9958,
+    "n_approved_bad": 867.0,
+    "approved_bad_rate": 0.08706567583852179,
+    "principal_good": 150167500.0,
+    "principal_bad": 10812400.0,
+    "n_rejected_good": 15.0
+   },
+   {
+    "threshold": 0.505,
+    "n_approved": 9959,
+    "approval_rate": 0.9959,
+    "n_approved_bad": 867.0,
+    "approved_bad_rate": 0.08705693342705091,
+    "principal_good": 150173500.0,
+    "principal_bad": 10812400.0,
+    "n_rejected_good": 14.0
+   },
+   {
+    "threshold": 0.51,
+    "n_approved": 9962,
+    "approval_rate": 0.9962,
+    "n_approved_bad": 869.0,
+    "approved_bad_rate": 0.08723147962256575,
+    "principal_good": 150187900.0,
+    "principal_bad": 10818600.0,
+    "n_rejected_good": 13.0
+   },
+   {
+    "threshold": 0.515,
+    "n_approved": 9965,
+    "approval_rate": 0.9965,
+    "n_approved_bad": 871.0,
+    "approved_bad_rate": 0.08740592072252885,
+    "principal_good": 150198400.0,
+    "principal_bad": 10834100.0,
+    "n_rejected_good": 12.0
+   },
+   {
+    "threshold": 0.52,
+    "n_approved": 9966,
+    "approval_rate": 0.9966,
+    "n_approved_bad": 871.0,
+    "approved_bad_rate": 0.08739715031105759,
+    "principal_good": 150201200.0,
+    "principal_bad": 10834100.0,
+    "n_rejected_good": 11.0
+   },
+   {
+    "threshold": 0.525,
+    "n_approved": 9968,
+    "approval_rate": 0.9968,
+    "n_approved_bad": 872.0,
+    "approved_bad_rate": 0.08747993579454254,
+    "principal_good": 150211100.0,
+    "principal_bad": 10837100.0,
+    "n_rejected_good": 10.0
+   },
+   {
+    "threshold": 0.53,
+    "n_approved": 9969,
+    "approval_rate": 0.9969,
+    "n_approved_bad": 872.0,
+    "approved_bad_rate": 0.08747116059785334,
+    "principal_good": 150225300.0,
+    "principal_bad": 10837100.0,
+    "n_rejected_good": 9.0
+   },
+   {
+    "threshold": 0.535,
+    "n_approved": 9971,
+    "approval_rate": 0.9971,
+    "n_approved_bad": 874.0,
+    "approved_bad_rate": 0.08765419717179822,
+    "principal_good": 150225300.0,
+    "principal_bad": 10842700.0,
+    "n_rejected_good": 9.0
+   },
+   {
+    "threshold": 0.54,
+    "n_approved": 9971,
+    "approval_rate": 0.9971,
+    "n_approved_bad": 874.0,
+    "approved_bad_rate": 0.08765419717179822,
+    "principal_good": 150225300.0,
+    "principal_bad": 10842700.0,
+    "n_rejected_good": 9.0
+   },
+   {
+    "threshold": 0.545,
+    "n_approved": 9972,
+    "approval_rate": 0.9972,
+    "n_approved_bad": 874.0,
+    "approved_bad_rate": 0.08764540713999197,
+    "principal_good": 150241400.0,
+    "principal_bad": 10842700.0,
+    "n_rejected_good": 8.0
+   },
+   {
+    "threshold": 0.55,
+    "n_approved": 9973,
+    "approval_rate": 0.9973,
+    "n_approved_bad": 875.0,
+    "approved_bad_rate": 0.0877368896019252,
+    "principal_good": 150241400.0,
+    "principal_bad": 10850200.0,
+    "n_rejected_good": 8.0
+   },
+   {
+    "threshold": 0.555,
+    "n_approved": 9976,
+    "approval_rate": 0.9976,
+    "n_approved_bad": 877.0,
+    "approved_bad_rate": 0.08791098636728148,
+    "principal_good": 150258000.0,
+    "principal_bad": 10864700.0,
+    "n_rejected_good": 7.0
+   },
+   {
+    "threshold": 0.56,
+    "n_approved": 9976,
+    "approval_rate": 0.9976,
+    "n_approved_bad": 877.0,
+    "approved_bad_rate": 0.08791098636728148,
+    "principal_good": 150258000.0,
+    "principal_bad": 10864700.0,
+    "n_rejected_good": 7.0
+   },
+   {
+    "threshold": 0.565,
+    "n_approved": 9977,
+    "approval_rate": 0.9977,
+    "n_approved_bad": 878.0,
+    "approved_bad_rate": 0.08800240553272527,
+    "principal_good": 150258000.0,
+    "principal_bad": 10868700.0,
+    "n_rejected_good": 7.0
+   },
+   {
+    "threshold": 0.57,
+    "n_approved": 9978,
+    "approval_rate": 0.9978,
+    "n_approved_bad": 878.0,
+    "approved_bad_rate": 0.0879935858889557,
+    "principal_good": 150266500.0,
+    "principal_bad": 10868700.0,
+    "n_rejected_good": 6.0
+   },
+   {
+    "threshold": 0.575,
+    "n_approved": 9980,
+    "approval_rate": 0.998,
+    "n_approved_bad": 878.0,
+    "approved_bad_rate": 0.08797595190380761,
+    "principal_good": 150273400.0,
+    "principal_bad": 10868700.0,
+    "n_rejected_good": 4.0
+   },
+   {
+    "threshold": 0.58,
+    "n_approved": 9985,
+    "approval_rate": 0.9985,
+    "n_approved_bad": 882.0,
+    "approved_bad_rate": 0.08833249874812218,
+    "principal_good": 150299300.0,
+    "principal_bad": 10910600.0,
+    "n_rejected_good": 3.0
+   },
+   {
+    "threshold": 0.585,
+    "n_approved": 9987,
+    "approval_rate": 0.9987,
+    "n_approved_bad": 884.0,
+    "approved_bad_rate": 0.08851506959046761,
+    "principal_good": 150299300.0,
+    "principal_bad": 10922200.0,
+    "n_rejected_good": 3.0
+   },
+   {
+    "threshold": 0.59,
+    "n_approved": 9988,
+    "approval_rate": 0.9988,
+    "n_approved_bad": 884.0,
+    "approved_bad_rate": 0.08850620744893872,
+    "principal_good": 150301800.0,
+    "principal_bad": 10922200.0,
+    "n_rejected_good": 2.0
+   },
+   {
+    "threshold": 0.595,
+    "n_approved": 9989,
+    "approval_rate": 0.9989,
+    "n_approved_bad": 885.0,
+    "approved_bad_rate": 0.08859745720292321,
+    "principal_good": 150301800.0,
+    "principal_bad": 10924400.0,
+    "n_rejected_good": 2.0
+   },
+   {
+    "threshold": 0.6,
+    "n_approved": 9989,
+    "approval_rate": 0.9989,
+    "n_approved_bad": 885.0,
+    "approved_bad_rate": 0.08859745720292321,
+    "principal_good": 150301800.0,
+    "principal_bad": 10924400.0,
+    "n_rejected_good": 2.0
+   }
+  ],
+  "testGrid": [
+   {
+    "threshold": 0.005,
+    "n_approved": 0,
+    "approval_rate": 0.0,
+    "n_approved_bad": 0.0,
+    "approved_bad_rate": 0.0,
+    "principal_good": 0.0,
+    "principal_bad": 0.0,
+    "n_rejected_good": 8481.0
+   },
+   {
+    "threshold": 0.01,
+    "n_approved": 0,
+    "approval_rate": 0.0,
+    "n_approved_bad": 0.0,
+    "approved_bad_rate": 0.0,
+    "principal_good": 0.0,
+    "principal_bad": 0.0,
+    "n_rejected_good": 8481.0
+   },
+   {
+    "threshold": 0.015,
+    "n_approved": 168,
+    "approval_rate": 0.01680672268907563,
+    "n_approved_bad": 5.0,
+    "approved_bad_rate": 0.02976190476190476,
+    "principal_good": 4900300.0,
+    "principal_bad": 114400.0,
+    "n_rejected_good": 8318.0
+   },
+   {
+    "threshold": 0.02,
+    "n_approved": 536,
+    "approval_rate": 0.053621448579431776,
+    "n_approved_bad": 12.0,
+    "approved_bad_rate": 0.022388059701492536,
+    "principal_good": 13416400.0,
+    "principal_bad": 275700.0,
+    "n_rejected_good": 7957.0
+   },
+   {
+    "threshold": 0.025,
+    "n_approved": 1094,
+    "approval_rate": 0.1094437775110044,
+    "n_approved_bad": 31.0,
+    "approved_bad_rate": 0.0283363802559415,
+    "principal_good": 23641800.0,
+    "principal_bad": 599600.0,
+    "n_rejected_good": 7418.0
+   },
+   {
+    "threshold": 0.03,
+    "n_approved": 1753,
+    "approval_rate": 0.17537014805922368,
+    "n_approved_bad": 54.0,
+    "approved_bad_rate": 0.03080433542498574,
+    "principal_good": 34437200.0,
+    "principal_bad": 1009100.0,
+    "n_rejected_good": 6782.0
+   },
+   {
+    "threshold": 0.035,
+    "n_approved": 2372,
+    "approval_rate": 0.23729491796718688,
+    "n_approved_bad": 93.0,
+    "approved_bad_rate": 0.03920741989881956,
+    "principal_good": 43901700.0,
+    "principal_bad": 1591400.0,
+    "n_rejected_good": 6202.0
+   },
+   {
+    "threshold": 0.04,
+    "n_approved": 2954,
+    "approval_rate": 0.29551820728291317,
+    "n_approved_bad": 142.0,
+    "approved_bad_rate": 0.04807041299932295,
+    "principal_good": 51710800.0,
+    "principal_bad": 2243400.0,
+    "n_rejected_good": 5669.0
+   },
+   {
+    "threshold": 0.045,
+    "n_approved": 3485,
+    "approval_rate": 0.3486394557823129,
+    "n_approved_bad": 192.0,
+    "approved_bad_rate": 0.05509325681492109,
+    "principal_good": 58586100.0,
+    "principal_bad": 2953500.0,
+    "n_rejected_good": 5188.0
+   },
+   {
+    "threshold": 0.05,
+    "n_approved": 3966,
+    "approval_rate": 0.3967587034813926,
+    "n_approved_bad": 248.0,
+    "approved_bad_rate": 0.06253151790216843,
+    "principal_good": 64388800.0,
+    "principal_bad": 3731900.0,
+    "n_rejected_good": 4763.0
+   },
+   {
+    "threshold": 0.055,
+    "n_approved": 4409,
+    "approval_rate": 0.4410764305722289,
+    "n_approved_bad": 295.0,
+    "approved_bad_rate": 0.06690859605352688,
+    "principal_good": 69740100.0,
+    "principal_bad": 4261000.0,
+    "n_rejected_good": 4367.0
+   },
+   {
+    "threshold": 0.06,
+    "n_approved": 4803,
+    "approval_rate": 0.4804921968787515,
+    "n_approved_bad": 341.0,
+    "approved_bad_rate": 0.07099729335831771,
+    "principal_good": 74807200.0,
+    "principal_bad": 4941900.0,
+    "n_rejected_good": 4019.0
+   },
+   {
+    "threshold": 0.065,
+    "n_approved": 5102,
+    "approval_rate": 0.5104041616646658,
+    "n_approved_bad": 382.0,
+    "approved_bad_rate": 0.07487259898079185,
+    "principal_good": 78252000.0,
+    "principal_bad": 5408800.0,
+    "n_rejected_good": 3761.0
+   },
+   {
+    "threshold": 0.07,
+    "n_approved": 5377,
+    "approval_rate": 0.5379151660664265,
+    "n_approved_bad": 418.0,
+    "approved_bad_rate": 0.07773851590106007,
+    "principal_good": 81519300.0,
+    "principal_bad": 5831900.0,
+    "n_rejected_good": 3522.0
+   },
+   {
+    "threshold": 0.075,
+    "n_approved": 5662,
+    "approval_rate": 0.5664265706282513,
+    "n_approved_bad": 465.0,
+    "approved_bad_rate": 0.08212645708230307,
+    "principal_good": 84914300.0,
+    "principal_bad": 6412900.0,
+    "n_rejected_good": 3284.0
+   },
+   {
+    "threshold": 0.08,
+    "n_approved": 5939,
+    "approval_rate": 0.5941376550620248,
+    "n_approved_bad": 516.0,
+    "approved_bad_rate": 0.08688331368917326,
+    "principal_good": 87807100.0,
+    "principal_bad": 7007400.0,
+    "n_rejected_good": 3058.0
+   },
+   {
+    "threshold": 0.085,
+    "n_approved": 6178,
+    "approval_rate": 0.618047218887555,
+    "n_approved_bad": 557.0,
+    "approved_bad_rate": 0.09015862738750405,
+    "principal_good": 90605400.0,
+    "principal_bad": 7561500.0,
+    "n_rejected_good": 2860.0
+   },
+   {
+    "threshold": 0.09,
+    "n_approved": 6416,
+    "approval_rate": 0.6418567426970788,
+    "n_approved_bad": 603.0,
+    "approved_bad_rate": 0.09398379052369077,
+    "principal_good": 93102700.0,
+    "principal_bad": 8095600.0,
+    "n_rejected_good": 2668.0
+   },
+   {
+    "threshold": 0.095,
+    "n_approved": 6641,
+    "approval_rate": 0.6643657462985194,
+    "n_approved_bad": 633.0,
+    "approved_bad_rate": 0.0953169703357928,
+    "principal_good": 95706200.0,
+    "principal_bad": 8453100.0,
+    "n_rejected_good": 2473.0
+   },
+   {
+    "threshold": 0.1,
+    "n_approved": 6838,
+    "approval_rate": 0.6840736294517807,
+    "n_approved_bad": 664.0,
+    "approved_bad_rate": 0.09710441649605148,
+    "principal_good": 97772300.0,
+    "principal_bad": 8808600.0,
+    "n_rejected_good": 2307.0
+   },
+   {
+    "threshold": 0.105,
+    "n_approved": 7005,
+    "approval_rate": 0.7007803121248499,
+    "n_approved_bad": 696.0,
+    "approved_bad_rate": 0.0993576017130621,
+    "principal_good": 99236600.0,
+    "principal_bad": 9120500.0,
+    "n_rejected_good": 2172.0
+   },
+   {
+    "threshold": 0.11,
+    "n_approved": 7167,
+    "approval_rate": 0.7169867947178872,
+    "n_approved_bad": 728.0,
+    "approved_bad_rate": 0.1015766708525185,
+    "principal_good": 100728400.0,
+    "principal_bad": 9513900.0,
+    "n_rejected_good": 2042.0
+   },
+   {
+    "threshold": 0.115,
+    "n_approved": 7313,
+    "approval_rate": 0.7315926370548219,
+    "n_approved_bad": 754.0,
+    "approved_bad_rate": 0.1031040612607685,
+    "principal_good": 102194400.0,
+    "principal_bad": 9785900.0,
+    "n_rejected_good": 1922.0
+   },
+   {
+    "threshold": 0.12,
+    "n_approved": 7455,
+    "approval_rate": 0.7457983193277311,
+    "n_approved_bad": 784.0,
+    "approved_bad_rate": 0.10516431924882629,
+    "principal_good": 103682700.0,
+    "principal_bad": 10104700.0,
+    "n_rejected_good": 1810.0
+   },
+   {
+    "threshold": 0.125,
+    "n_approved": 7581,
+    "approval_rate": 0.7584033613445378,
+    "n_approved_bad": 809.0,
+    "approved_bad_rate": 0.10671415380556655,
+    "principal_good": 104893100.0,
+    "principal_bad": 10305500.0,
+    "n_rejected_good": 1709.0
+   },
+   {
+    "threshold": 0.13,
+    "n_approved": 7692,
+    "approval_rate": 0.7695078031212484,
+    "n_approved_bad": 830.0,
+    "approved_bad_rate": 0.10790431617264691,
+    "principal_good": 106049300.0,
+    "principal_bad": 10577400.0,
+    "n_rejected_good": 1619.0
+   },
+   {
+    "threshold": 0.135,
+    "n_approved": 7804,
+    "approval_rate": 0.7807122849139656,
+    "n_approved_bad": 855.0,
+    "approved_bad_rate": 0.10955920041004613,
+    "principal_good": 107133300.0,
+    "principal_bad": 10870200.0,
+    "n_rejected_good": 1532.0
+   },
+   {
+    "threshold": 0.14,
+    "n_approved": 7928,
+    "approval_rate": 0.7931172468987595,
+    "n_approved_bad": 878.0,
+    "approved_bad_rate": 0.11074672048435923,
+    "principal_good": 108233300.0,
+    "principal_bad": 11089500.0,
+    "n_rejected_good": 1431.0
+   },
+   {
+    "threshold": 0.145,
+    "n_approved": 8020,
+    "approval_rate": 0.8023209283713485,
+    "n_approved_bad": 898.0,
+    "approved_bad_rate": 0.11197007481296758,
+    "principal_good": 109062500.0,
+    "principal_bad": 11295000.0,
+    "n_rejected_good": 1359.0
+   },
+   {
+    "threshold": 0.15,
+    "n_approved": 8122,
+    "approval_rate": 0.8125250100040016,
+    "n_approved_bad": 917.0,
+    "approved_bad_rate": 0.11290322580645161,
+    "principal_good": 110129500.0,
+    "principal_bad": 11504900.0,
+    "n_rejected_good": 1276.0
+   },
+   {
+    "threshold": 0.155,
+    "n_approved": 8201,
+    "approval_rate": 0.8204281712685074,
+    "n_approved_bad": 932.0,
+    "approved_bad_rate": 0.1136446774783563,
+    "principal_good": 110962600.0,
+    "principal_bad": 11627700.0,
+    "n_rejected_good": 1212.0
+   },
+   {
+    "threshold": 0.16,
+    "n_approved": 8271,
+    "approval_rate": 0.8274309723889556,
+    "n_approved_bad": 950.0,
+    "approved_bad_rate": 0.11485914641518559,
+    "principal_good": 111562800.0,
+    "principal_bad": 11799300.0,
+    "n_rejected_good": 1160.0
+   },
+   {
+    "threshold": 0.165,
+    "n_approved": 8356,
+    "approval_rate": 0.8359343737494997,
+    "n_approved_bad": 966.0,
+    "approved_bad_rate": 0.11560555289612255,
+    "principal_good": 112331200.0,
+    "principal_bad": 11952800.0,
+    "n_rejected_good": 1091.0
+   },
+   {
+    "threshold": 0.17,
+    "n_approved": 8425,
+    "approval_rate": 0.8428371348539416,
+    "n_approved_bad": 986.0,
+    "approved_bad_rate": 0.1170326409495549,
+    "principal_good": 112742300.0,
+    "principal_bad": 12137900.0,
+    "n_rejected_good": 1042.0
+   },
+   {
+    "threshold": 0.175,
+    "n_approved": 8493,
+    "approval_rate": 0.8496398559423769,
+    "n_approved_bad": 999.0,
+    "approved_bad_rate": 0.11762628046626633,
+    "principal_good": 113312400.0,
+    "principal_bad": 12250000.0,
+    "n_rejected_good": 987.0
+   },
+   {
+    "threshold": 0.18,
+    "n_approved": 8568,
+    "approval_rate": 0.8571428571428571,
+    "n_approved_bad": 1008.0,
+    "approved_bad_rate": 0.11764705882352941,
+    "principal_good": 114027000.0,
+    "principal_bad": 12307900.0,
+    "n_rejected_good": 921.0
+   },
+   {
+    "threshold": 0.185,
+    "n_approved": 8631,
+    "approval_rate": 0.8634453781512605,
+    "n_approved_bad": 1026.0,
+    "approved_bad_rate": 0.11887382690302398,
+    "principal_good": 114618400.0,
+    "principal_bad": 12473700.0,
+    "n_rejected_good": 876.0
+   },
+   {
+    "threshold": 0.19,
+    "n_approved": 8689,
+    "approval_rate": 0.8692476990796318,
+    "n_approved_bad": 1040.0,
+    "approved_bad_rate": 0.11969156404649557,
+    "principal_good": 115115600.0,
+    "principal_bad": 12632900.0,
+    "n_rejected_good": 832.0
+   },
+   {
+    "threshold": 0.195,
+    "n_approved": 8759,
+    "approval_rate": 0.87625050020008,
+    "n_approved_bad": 1061.0,
+    "approved_bad_rate": 0.12113254937778285,
+    "principal_good": 115618500.0,
+    "principal_bad": 12893600.0,
+    "n_rejected_good": 783.0
+   },
+   {
+    "threshold": 0.2,
+    "n_approved": 8817,
+    "approval_rate": 0.8820528211284514,
+    "n_approved_bad": 1080.0,
+    "approved_bad_rate": 0.12249064307587615,
+    "principal_good": 116001300.0,
+    "principal_bad": 13035700.0,
+    "n_rejected_good": 744.0
+   },
+   {
+    "threshold": 0.205,
+    "n_approved": 8873,
+    "approval_rate": 0.8876550620248099,
+    "n_approved_bad": 1092.0,
+    "approved_bad_rate": 0.12306998760284008,
+    "principal_good": 116399000.0,
+    "principal_bad": 13131900.0,
+    "n_rejected_good": 700.0
+   },
+   {
+    "threshold": 0.21,
+    "n_approved": 8922,
+    "approval_rate": 0.8925570228091236,
+    "n_approved_bad": 1103.0,
+    "approved_bad_rate": 0.12362698946424569,
+    "principal_good": 116801400.0,
+    "principal_bad": 13244100.0,
+    "n_rejected_good": 662.0
+   },
+   {
+    "threshold": 0.215,
+    "n_approved": 8970,
+    "approval_rate": 0.897358943577431,
+    "n_approved_bad": 1118.0,
+    "approved_bad_rate": 0.1246376811594203,
+    "principal_good": 117082100.0,
+    "principal_bad": 13379100.0,
+    "n_rejected_good": 629.0
+   },
+   {
+    "threshold": 0.22,
+    "n_approved": 9019,
+    "approval_rate": 0.9022609043617447,
+    "n_approved_bad": 1133.0,
+    "approved_bad_rate": 0.12562368333518129,
+    "principal_good": 117413200.0,
+    "principal_bad": 13493000.0,
+    "n_rejected_good": 595.0
+   },
+   {
+    "threshold": 0.225,
+    "n_approved": 9068,
+    "approval_rate": 0.9071628651460584,
+    "n_approved_bad": 1143.0,
+    "approved_bad_rate": 0.1260476400529334,
+    "principal_good": 117812100.0,
+    "principal_bad": 13597500.0,
+    "n_rejected_good": 556.0
+   },
+   {
+    "threshold": 0.23,
+    "n_approved": 9115,
+    "approval_rate": 0.9118647458983593,
+    "n_approved_bad": 1159.0,
+    "approved_bad_rate": 0.12715304443225453,
+    "principal_good": 118048700.0,
+    "principal_bad": 13724200.0,
+    "n_rejected_good": 525.0
+   },
+   {
+    "threshold": 0.235,
+    "n_approved": 9144,
+    "approval_rate": 0.9147659063625451,
+    "n_approved_bad": 1163.0,
+    "approved_bad_rate": 0.12718722659667542,
+    "principal_good": 118261500.0,
+    "principal_bad": 13748600.0,
+    "n_rejected_good": 500.0
+   },
+   {
+    "threshold": 0.24,
+    "n_approved": 9175,
+    "approval_rate": 0.9178671468587435,
+    "n_approved_bad": 1173.0,
+    "approved_bad_rate": 0.1278474114441417,
+    "principal_good": 118520700.0,
+    "principal_bad": 13808200.0,
+    "n_rejected_good": 479.0
+   },
+   {
+    "threshold": 0.245,
+    "n_approved": 9210,
+    "approval_rate": 0.9213685474189676,
+    "n_approved_bad": 1181.0,
+    "approved_bad_rate": 0.1282301845819761,
+    "principal_good": 118750600.0,
+    "principal_bad": 13870600.0,
+    "n_rejected_good": 452.0
+   },
+   {
+    "threshold": 0.25,
+    "n_approved": 9246,
+    "approval_rate": 0.924969987995198,
+    "n_approved_bad": 1195.0,
+    "approved_bad_rate": 0.12924507895306078,
+    "principal_good": 118965700.0,
+    "principal_bad": 14031100.0,
+    "n_rejected_good": 430.0
+   },
+   {
+    "threshold": 0.255,
+    "n_approved": 9270,
+    "approval_rate": 0.9273709483793517,
+    "n_approved_bad": 1204.0,
+    "approved_bad_rate": 0.12988133764832793,
+    "principal_good": 119101100.0,
+    "principal_bad": 14111800.0,
+    "n_rejected_good": 415.0
+   },
+   {
+    "threshold": 0.26,
+    "n_approved": 9290,
+    "approval_rate": 0.9293717486994798,
+    "n_approved_bad": 1211.0,
+    "approved_bad_rate": 0.13035522066738428,
+    "principal_good": 119227000.0,
+    "principal_bad": 14171900.0,
+    "n_rejected_good": 402.0
+   },
+   {
+    "threshold": 0.265,
+    "n_approved": 9324,
+    "approval_rate": 0.9327731092436975,
+    "n_approved_bad": 1222.0,
+    "approved_bad_rate": 0.13105963105963106,
+    "principal_good": 119461100.0,
+    "principal_bad": 14310200.0,
+    "n_rejected_good": 379.0
+   },
+   {
+    "threshold": 0.27,
+    "n_approved": 9348,
+    "approval_rate": 0.9351740696278511,
+    "n_approved_bad": 1233.0,
+    "approved_bad_rate": 0.13189987163029526,
+    "principal_good": 119579600.0,
+    "principal_bad": 14411100.0,
+    "n_rejected_good": 366.0
+   },
+   {
+    "threshold": 0.275,
+    "n_approved": 9372,
+    "approval_rate": 0.9375750300120048,
+    "n_approved_bad": 1241.0,
+    "approved_bad_rate": 0.13241570635936833,
+    "principal_good": 119704900.0,
+    "principal_bad": 14480600.0,
+    "n_rejected_good": 350.0
+   },
+   {
+    "threshold": 0.28,
+    "n_approved": 9404,
+    "approval_rate": 0.9407763105242097,
+    "n_approved_bad": 1250.0,
+    "approved_bad_rate": 0.13292216078264568,
+    "principal_good": 119921100.0,
+    "principal_bad": 14535700.0,
+    "n_rejected_good": 327.0
+   },
+   {
+    "threshold": 0.285,
+    "n_approved": 9425,
+    "approval_rate": 0.9428771508603442,
+    "n_approved_bad": 1257.0,
+    "approved_bad_rate": 0.133368700265252,
+    "principal_good": 120016500.0,
+    "principal_bad": 14607400.0,
+    "n_rejected_good": 313.0
+   },
+   {
+    "threshold": 0.29,
+    "n_approved": 9444,
+    "approval_rate": 0.9447779111644657,
+    "n_approved_bad": 1262.0,
+    "approved_bad_rate": 0.1336298178737823,
+    "principal_good": 120099000.0,
+    "principal_bad": 14646100.0,
+    "n_rejected_good": 299.0
+   },
+   {
+    "threshold": 0.295,
+    "n_approved": 9467,
+    "approval_rate": 0.9470788315326131,
+    "n_approved_bad": 1272.0,
+    "approved_bad_rate": 0.13436146614555824,
+    "principal_good": 120213500.0,
+    "principal_bad": 14729600.0,
+    "n_rejected_good": 286.0
+   },
+   {
+    "threshold": 0.3,
+    "n_approved": 9490,
+    "approval_rate": 0.9493797519007603,
+    "n_approved_bad": 1282.0,
+    "approved_bad_rate": 0.1350895679662803,
+    "principal_good": 120327400.0,
+    "principal_bad": 14806800.0,
+    "n_rejected_good": 273.0
+   },
+   {
+    "threshold": 0.305,
+    "n_approved": 9517,
+    "approval_rate": 0.9520808323329332,
+    "n_approved_bad": 1292.0,
+    "approved_bad_rate": 0.13575706630240622,
+    "principal_good": 120483500.0,
+    "principal_bad": 14878200.0,
+    "n_rejected_good": 256.0
+   },
+   {
+    "threshold": 0.31,
+    "n_approved": 9539,
+    "approval_rate": 0.954281712685074,
+    "n_approved_bad": 1300.0,
+    "approved_bad_rate": 0.13628262920641576,
+    "principal_good": 120679600.0,
+    "principal_bad": 14922500.0,
+    "n_rejected_good": 242.0
+   },
+   {
+    "threshold": 0.315,
+    "n_approved": 9558,
+    "approval_rate": 0.9561824729891957,
+    "n_approved_bad": 1304.0,
+    "approved_bad_rate": 0.13643021552626072,
+    "principal_good": 120844600.0,
+    "principal_bad": 14944600.0,
+    "n_rejected_good": 227.0
+   },
+   {
+    "threshold": 0.32,
+    "n_approved": 9572,
+    "approval_rate": 0.9575830332132853,
+    "n_approved_bad": 1309.0,
+    "approved_bad_rate": 0.13675302966987046,
+    "principal_good": 120894200.0,
+    "principal_bad": 14982200.0,
+    "n_rejected_good": 218.0
+   },
+   {
+    "threshold": 0.325,
+    "n_approved": 9588,
+    "approval_rate": 0.9591836734693877,
+    "n_approved_bad": 1314.0,
+    "approved_bad_rate": 0.13704630788485608,
+    "principal_good": 121010500.0,
+    "principal_bad": 15019200.0,
+    "n_rejected_good": 207.0
+   },
+   {
+    "threshold": 0.33,
+    "n_approved": 9611,
+    "approval_rate": 0.961484593837535,
+    "n_approved_bad": 1324.0,
+    "approved_bad_rate": 0.13775881802101758,
+    "principal_good": 121101800.0,
+    "principal_bad": 15073200.0,
+    "n_rejected_good": 194.0
+   },
+   {
+    "threshold": 0.335,
+    "n_approved": 9631,
+    "approval_rate": 0.9634853941576631,
+    "n_approved_bad": 1332.0,
+    "approved_bad_rate": 0.13830339528605545,
+    "principal_good": 121198900.0,
+    "principal_bad": 15127100.0,
+    "n_rejected_good": 182.0
+   },
+   {
+    "threshold": 0.34,
+    "n_approved": 9659,
+    "approval_rate": 0.9662865146058424,
+    "n_approved_bad": 1346.0,
+    "approved_bad_rate": 0.1393518997825862,
+    "principal_good": 121293500.0,
+    "principal_bad": 15338800.0,
+    "n_rejected_good": 168.0
+   },
+   {
+    "threshold": 0.345,
+    "n_approved": 9683,
+    "approval_rate": 0.968687474989996,
+    "n_approved_bad": 1357.0,
+    "approved_bad_rate": 0.14014251781472684,
+    "principal_good": 121382700.0,
+    "principal_bad": 15430600.0,
+    "n_rejected_good": 155.0
+   },
+   {
+    "threshold": 0.35,
+    "n_approved": 9696,
+    "approval_rate": 0.9699879951980792,
+    "n_approved_bad": 1363.0,
+    "approved_bad_rate": 0.14057343234323433,
+    "principal_good": 121419600.0,
+    "principal_bad": 15492600.0,
+    "n_rejected_good": 148.0
+   },
+   {
+    "threshold": 0.355,
+    "n_approved": 9718,
+    "approval_rate": 0.97218887555022,
+    "n_approved_bad": 1370.0,
+    "approved_bad_rate": 0.1409755093640667,
+    "principal_good": 121509400.0,
+    "principal_bad": 15568300.0,
+    "n_rejected_good": 133.0
+   },
+   {
+    "threshold": 0.36,
+    "n_approved": 9737,
+    "approval_rate": 0.9740896358543417,
+    "n_approved_bad": 1378.0,
+    "approved_bad_rate": 0.14152202937249667,
+    "principal_good": 121613500.0,
+    "principal_bad": 15619700.0,
+    "n_rejected_good": 122.0
+   },
+   {
+    "threshold": 0.365,
+    "n_approved": 9746,
+    "approval_rate": 0.9749899959983993,
+    "n_approved_bad": 1383.0,
+    "approved_bad_rate": 0.14190437102400985,
+    "principal_good": 121646100.0,
+    "principal_bad": 15648000.0,
+    "n_rejected_good": 118.0
+   },
+   {
+    "threshold": 0.37,
+    "n_approved": 9753,
+    "approval_rate": 0.9756902761104442,
+    "n_approved_bad": 1388.0,
+    "approved_bad_rate": 0.14231518507126012,
+    "principal_good": 121673600.0,
+    "principal_bad": 15682500.0,
+    "n_rejected_good": 116.0
+   },
+   {
+    "threshold": 0.375,
+    "n_approved": 9770,
+    "approval_rate": 0.977390956382553,
+    "n_approved_bad": 1397.0,
+    "approved_bad_rate": 0.1429887410440123,
+    "principal_good": 121711700.0,
+    "principal_bad": 15741400.0,
+    "n_rejected_good": 108.0
+   },
+   {
+    "threshold": 0.38,
+    "n_approved": 9780,
+    "approval_rate": 0.978391356542617,
+    "n_approved_bad": 1402.0,
+    "approved_bad_rate": 0.14335378323108383,
+    "principal_good": 121756500.0,
+    "principal_bad": 15768200.0,
+    "n_rejected_good": 103.0
+   },
+   {
+    "threshold": 0.385,
+    "n_approved": 9797,
+    "approval_rate": 0.9800920368147259,
+    "n_approved_bad": 1408.0,
+    "approved_bad_rate": 0.14371746452995815,
+    "principal_good": 121831000.0,
+    "principal_bad": 15809400.0,
+    "n_rejected_good": 92.0
+   },
+   {
+    "threshold": 0.39,
+    "n_approved": 9806,
+    "approval_rate": 0.9809923969587835,
+    "n_approved_bad": 1412.0,
+    "approved_bad_rate": 0.14399347338364266,
+    "principal_good": 121861600.0,
+    "principal_bad": 15850400.0,
+    "n_rejected_good": 87.0
+   },
+   {
+    "threshold": 0.395,
+    "n_approved": 9814,
+    "approval_rate": 0.9817927170868347,
+    "n_approved_bad": 1414.0,
+    "approved_bad_rate": 0.14407988587731813,
+    "principal_good": 121907100.0,
+    "principal_bad": 15857900.0,
+    "n_rejected_good": 81.0
+   },
+   {
+    "threshold": 0.4,
+    "n_approved": 9827,
+    "approval_rate": 0.9830932372949179,
+    "n_approved_bad": 1422.0,
+    "approved_bad_rate": 0.14470336827108984,
+    "principal_good": 121951200.0,
+    "principal_bad": 15912800.0,
+    "n_rejected_good": 76.0
+   },
+   {
+    "threshold": 0.405,
+    "n_approved": 9839,
+    "approval_rate": 0.9842937174869948,
+    "n_approved_bad": 1428.0,
+    "approved_bad_rate": 0.1451367008842362,
+    "principal_good": 121995300.0,
+    "principal_bad": 15965900.0,
+    "n_rejected_good": 70.0
+   },
+   {
+    "threshold": 0.41,
+    "n_approved": 9850,
+    "approval_rate": 0.9853941576630653,
+    "n_approved_bad": 1433.0,
+    "approved_bad_rate": 0.14548223350253808,
+    "principal_good": 122031200.0,
+    "principal_bad": 16000300.0,
+    "n_rejected_good": 64.0
+   },
+   {
+    "threshold": 0.415,
+    "n_approved": 9855,
+    "approval_rate": 0.9858943577430972,
+    "n_approved_bad": 1434.0,
+    "approved_bad_rate": 0.14550989345509893,
+    "principal_good": 122049200.0,
+    "principal_bad": 16008200.0,
+    "n_rejected_good": 60.0
+   },
+   {
+    "threshold": 0.42,
+    "n_approved": 9864,
+    "approval_rate": 0.9867947178871549,
+    "n_approved_bad": 1438.0,
+    "approved_bad_rate": 0.14578264395782645,
+    "principal_good": 122082800.0,
+    "principal_bad": 16033500.0,
+    "n_rejected_good": 55.0
+   },
+   {
+    "threshold": 0.425,
+    "n_approved": 9876,
+    "approval_rate": 0.9879951980792316,
+    "n_approved_bad": 1445.0,
+    "approved_bad_rate": 0.14631429728635076,
+    "principal_good": 122115800.0,
+    "principal_bad": 16058200.0,
+    "n_rejected_good": 50.0
+   },
+   {
+    "threshold": 0.43,
+    "n_approved": 9883,
+    "approval_rate": 0.9886954781912765,
+    "n_approved_bad": 1449.0,
+    "approved_bad_rate": 0.14661540018213093,
+    "principal_good": 122135300.0,
+    "principal_bad": 16088000.0,
+    "n_rejected_good": 47.0
+   },
+   {
+    "threshold": 0.435,
+    "n_approved": 9891,
+    "approval_rate": 0.9894957983193278,
+    "n_approved_bad": 1452.0,
+    "approved_bad_rate": 0.14680012132241432,
+    "principal_good": 122163000.0,
+    "principal_bad": 16102100.0,
+    "n_rejected_good": 42.0
+   },
+   {
+    "threshold": 0.44,
+    "n_approved": 9899,
+    "approval_rate": 0.990296118447379,
+    "n_approved_bad": 1459.0,
+    "approved_bad_rate": 0.14738862511364784,
+    "principal_good": 122166300.0,
+    "principal_bad": 16138800.0,
+    "n_rejected_good": 41.0
+   },
+   {
+    "threshold": 0.445,
+    "n_approved": 9905,
+    "approval_rate": 0.9908963585434174,
+    "n_approved_bad": 1462.0,
+    "approved_bad_rate": 0.14760222110045432,
+    "principal_good": 122186100.0,
+    "principal_bad": 16152800.0,
+    "n_rejected_good": 38.0
+   },
+   {
+    "threshold": 0.45,
+    "n_approved": 9913,
+    "approval_rate": 0.9916966786714686,
+    "n_approved_bad": 1466.0,
+    "approved_bad_rate": 0.14788661353777868,
+    "principal_good": 122208200.0,
+    "principal_bad": 16175700.0,
+    "n_rejected_good": 34.0
+   },
+   {
+    "threshold": 0.455,
+    "n_approved": 9917,
+    "approval_rate": 0.9920968387354941,
+    "n_approved_bad": 1468.0,
+    "approved_bad_rate": 0.14802863769285066,
+    "principal_good": 122225100.0,
+    "principal_bad": 16182800.0,
+    "n_rejected_good": 32.0
+   },
+   {
+    "threshold": 0.46,
+    "n_approved": 9924,
+    "approval_rate": 0.992797118847539,
+    "n_approved_bad": 1474.0,
+    "approved_bad_rate": 0.14852881902458687,
+    "principal_good": 122231100.0,
+    "principal_bad": 16217900.0,
+    "n_rejected_good": 31.0
+   },
+   {
+    "threshold": 0.465,
+    "n_approved": 9933,
+    "approval_rate": 0.9936974789915967,
+    "n_approved_bad": 1479.0,
+    "approved_bad_rate": 0.1488976140138931,
+    "principal_good": 122258900.0,
+    "principal_bad": 16248500.0,
+    "n_rejected_good": 27.0
+   },
+   {
+    "threshold": 0.47,
+    "n_approved": 9937,
+    "approval_rate": 0.9940976390556222,
+    "n_approved_bad": 1481.0,
+    "approved_bad_rate": 0.14903894535574116,
+    "principal_good": 122265200.0,
+    "principal_bad": 16256100.0,
+    "n_rejected_good": 25.0
+   },
+   {
+    "threshold": 0.475,
+    "n_approved": 9940,
+    "approval_rate": 0.9943977591036415,
+    "n_approved_bad": 1483.0,
+    "approved_bad_rate": 0.14919517102615695,
+    "principal_good": 122273500.0,
+    "principal_bad": 16267700.0,
+    "n_rejected_good": 24.0
+   },
+   {
+    "threshold": 0.48,
+    "n_approved": 9942,
+    "approval_rate": 0.9945978391356542,
+    "n_approved_bad": 1484.0,
+    "approved_bad_rate": 0.14926574129953732,
+    "principal_good": 122276300.0,
+    "principal_bad": 16270600.0,
+    "n_rejected_good": 23.0
+   },
+   {
+    "threshold": 0.485,
+    "n_approved": 9947,
+    "approval_rate": 0.9950980392156863,
+    "n_approved_bad": 1487.0,
+    "approved_bad_rate": 0.14949230923896653,
+    "principal_good": 122284600.0,
+    "principal_bad": 16302000.0,
+    "n_rejected_good": 21.0
+   },
+   {
+    "threshold": 0.49,
+    "n_approved": 9952,
+    "approval_rate": 0.9955982392957183,
+    "n_approved_bad": 1489.0,
+    "approved_bad_rate": 0.14961816720257234,
+    "principal_good": 122329000.0,
+    "principal_bad": 16310500.0,
+    "n_rejected_good": 18.0
+   },
+   {
+    "threshold": 0.495,
+    "n_approved": 9956,
+    "approval_rate": 0.9959983993597439,
+    "n_approved_bad": 1491.0,
+    "approved_bad_rate": 0.1497589393330655,
+    "principal_good": 122338600.0,
+    "principal_bad": 16332800.0,
+    "n_rejected_good": 16.0
+   },
+   {
+    "threshold": 0.5,
+    "n_approved": 9957,
+    "approval_rate": 0.9960984393757503,
+    "n_approved_bad": 1492.0,
+    "approved_bad_rate": 0.14984433062167318,
+    "principal_good": 122338600.0,
+    "principal_bad": 16362200.0,
+    "n_rejected_good": 16.0
+   },
+   {
+    "threshold": 0.505,
+    "n_approved": 9962,
+    "approval_rate": 0.9965986394557823,
+    "n_approved_bad": 1494.0,
+    "approved_bad_rate": 0.14996988556514756,
+    "principal_good": 122362600.0,
+    "principal_bad": 16370800.0,
+    "n_rejected_good": 13.0
+   },
+   {
+    "threshold": 0.51,
+    "n_approved": 9964,
+    "approval_rate": 0.9967987194877951,
+    "n_approved_bad": 1495.0,
+    "approved_bad_rate": 0.15004014452027298,
+    "principal_good": 122365300.0,
+    "principal_bad": 16377200.0,
+    "n_rejected_good": 12.0
+   },
+   {
+    "threshold": 0.515,
+    "n_approved": 9969,
+    "approval_rate": 0.9972989195678271,
+    "n_approved_bad": 1499.0,
+    "approved_bad_rate": 0.15036613501855753,
+    "principal_good": 122374000.0,
+    "principal_bad": 16387000.0,
+    "n_rejected_good": 11.0
+   },
+   {
+    "threshold": 0.52,
+    "n_approved": 9973,
+    "approval_rate": 0.9976990796318528,
+    "n_approved_bad": 1501.0,
+    "approved_bad_rate": 0.15050636719141683,
+    "principal_good": 122384800.0,
+    "principal_bad": 16398100.0,
+    "n_rejected_good": 9.0
+   },
+   {
+    "threshold": 0.525,
+    "n_approved": 9976,
+    "approval_rate": 0.9979991996798719,
+    "n_approved_bad": 1503.0,
+    "approved_bad_rate": 0.1506615878107458,
+    "principal_good": 122389100.0,
+    "principal_bad": 16417000.0,
+    "n_rejected_good": 8.0
+   },
+   {
+    "threshold": 0.53,
+    "n_approved": 9977,
+    "approval_rate": 0.9980992396958783,
+    "n_approved_bad": 1504.0,
+    "approved_bad_rate": 0.15074671745013532,
+    "principal_good": 122389100.0,
+    "principal_bad": 16418500.0,
+    "n_rejected_good": 8.0
+   },
+   {
+    "threshold": 0.535,
+    "n_approved": 9979,
+    "approval_rate": 0.9982993197278912,
+    "n_approved_bad": 1504.0,
+    "approved_bad_rate": 0.15071650465978556,
+    "principal_good": 122396300.0,
+    "principal_bad": 16418500.0,
+    "n_rejected_good": 6.0
+   },
+   {
+    "threshold": 0.54,
+    "n_approved": 9983,
+    "approval_rate": 0.9986994797919168,
+    "n_approved_bad": 1506.0,
+    "approved_bad_rate": 0.15085645597515776,
+    "principal_good": 122410500.0,
+    "principal_bad": 16461700.0,
+    "n_rejected_good": 4.0
+   },
+   {
+    "threshold": 0.545,
+    "n_approved": 9986,
+    "approval_rate": 0.998999599839936,
+    "n_approved_bad": 1508.0,
+    "approved_bad_rate": 0.15101141598237533,
+    "principal_good": 122413700.0,
+    "principal_bad": 16468700.0,
+    "n_rejected_good": 3.0
+   },
+   {
+    "threshold": 0.55,
+    "n_approved": 9988,
+    "approval_rate": 0.9991996798719488,
+    "n_approved_bad": 1509.0,
+    "approved_bad_rate": 0.15108129755706848,
+    "principal_good": 122418600.0,
+    "principal_bad": 16478100.0,
+    "n_rejected_good": 2.0
+   },
+   {
+    "threshold": 0.555,
+    "n_approved": 9990,
+    "approval_rate": 0.9993997599039616,
+    "n_approved_bad": 1509.0,
+    "approved_bad_rate": 0.15105105105105104,
+    "principal_good": 122438200.0,
+    "principal_bad": 16478100.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.56,
+    "n_approved": 9990,
+    "approval_rate": 0.9993997599039616,
+    "n_approved_bad": 1509.0,
+    "approved_bad_rate": 0.15105105105105104,
+    "principal_good": 122438200.0,
+    "principal_bad": 16478100.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.565,
+    "n_approved": 9990,
+    "approval_rate": 0.9993997599039616,
+    "n_approved_bad": 1509.0,
+    "approved_bad_rate": 0.15105105105105104,
+    "principal_good": 122438200.0,
+    "principal_bad": 16478100.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.57,
+    "n_approved": 9990,
+    "approval_rate": 0.9993997599039616,
+    "n_approved_bad": 1509.0,
+    "approved_bad_rate": 0.15105105105105104,
+    "principal_good": 122438200.0,
+    "principal_bad": 16478100.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.575,
+    "n_approved": 9990,
+    "approval_rate": 0.9993997599039616,
+    "n_approved_bad": 1509.0,
+    "approved_bad_rate": 0.15105105105105104,
+    "principal_good": 122438200.0,
+    "principal_bad": 16478100.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.58,
+    "n_approved": 9991,
+    "approval_rate": 0.999499799919968,
+    "n_approved_bad": 1510.0,
+    "approved_bad_rate": 0.15113602242017815,
+    "principal_good": 122438200.0,
+    "principal_bad": 16481900.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.585,
+    "n_approved": 9992,
+    "approval_rate": 0.9995998399359743,
+    "n_approved_bad": 1511.0,
+    "approved_bad_rate": 0.15122097678142515,
+    "principal_good": 122438200.0,
+    "principal_bad": 16485800.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.59,
+    "n_approved": 9992,
+    "approval_rate": 0.9995998399359743,
+    "n_approved_bad": 1511.0,
+    "approved_bad_rate": 0.15122097678142515,
+    "principal_good": 122438200.0,
+    "principal_bad": 16485800.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.595,
+    "n_approved": 9992,
+    "approval_rate": 0.9995998399359743,
+    "n_approved_bad": 1511.0,
+    "approved_bad_rate": 0.15122097678142515,
+    "principal_good": 122438200.0,
+    "principal_bad": 16485800.0,
+    "n_rejected_good": 0.0
+   },
+   {
+    "threshold": 0.6,
+    "n_approved": 9992,
+    "approval_rate": 0.9995998399359743,
+    "n_approved_bad": 1511.0,
+    "approved_bad_rate": 0.15122097678142515,
+    "principal_good": 122438200.0,
+    "principal_bad": 16485800.0,
+    "n_rejected_good": 0.0
+   }
+  ],
+  "presets": {
+   "conservative": 0.07316686248508804,
+   "balanced": 0.12972649360244726,
+   "growth": 0.22621013484656685
+  },
+  "presetRates": {
+   "conservative": 0.6,
+   "balanced": 0.8,
+   "growth": 0.92
+  },
+  "defaults": {
+   "lgd": 0.65,
+   "margin": 0.09,
+   "fr_cost": 45.0
+  },
+  "referenceLabel": "months 13-18 (validation)",
+  "testLabel": "months 19-24 (test)",
+  "referenceN": 10000,
+  "testN": 9996,
+  "stale": {
+   "profitGap": 637341.0,
+   "profitGapPct": 0.18814427816049065,
+   "profitGapLabel": "637.3k"
+  }
+ },
+ "figures": {
+  "alerts": "39",
+  "decay": "+0.039",
+  "calibrationSlope": "0.803",
+  "worstPsi": "0.34",
+  "widestGap": "0.060",
+  "staleCost": "637.3k",
+  "staleCostPct": "18.8%",
+  "testAuc": "0.716",
+  "controlAlerts": "2 alerts"
+ }
+}
